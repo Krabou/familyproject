@@ -38,11 +38,10 @@ app.get("/", (req, res) => res.send("hello :) my api is working"));
 
 app.use("/ads", require("./routes/ads"));
 app.use("/messages", require("./routes/messages"));
-app.use("./nodemailler", require("./routes/nodemailler"));
+app.use("/contact", require("./routes/nodemailler"));
 app.use("/reports", require("./routes/reports"));
 app.use("/reviews", require("./routes/reviews"));
 app.use("/users", require("./routes/users"));
-
 
 
 

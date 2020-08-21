@@ -22,12 +22,12 @@
             </div>
             <div>
                 <h3 role="heading">Be Social</h3>
-                <div className="rs">
+                <div class="rs">
                     <a href="https://www.facebook.com/therealmde/" rel="noopener noreferrer" target="_blank">
-                    <font-awesome-icon :icon="['fab', 'facebook']"/>
+                    <font-awesome-icon :icon="['fab', 'facebook-square']" size="2x"/>
                     </a>
-                    <a href="https://www.facebook.com/therealmde/" rel="noopener noreferrer" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-                    <a href="https://www.facebook.com/therealmde/" rel="noopener noreferrer" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="https://www.facebook.com/therealmde/" rel="noopener noreferrer" target="_blank"> <font-awesome-icon :icon="['fab', 'linkedin']" size="2x"/></a>
+                    <a href="https://www.facebook.com/therealmde/" rel="noopener noreferrer" target="_blank"> <font-awesome-icon :icon="['fab', 'twitter-square']" size="2x"/></a>
 
                 </div></div>
         </footer>
@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 footer {
     background: black;
     color: white;
@@ -73,11 +73,20 @@ footer div h3 {
 }
 
 .rs {
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+    margin: auto;
+
 }
 
 .fab {
     color: white;
     margin: 15px;
 }
+.fa-2x{
+    color: whitesmoke;
+}
 </style>
+
+

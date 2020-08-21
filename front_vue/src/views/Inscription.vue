@@ -2,7 +2,7 @@
   <main>
     <section>
       <button>J'AI UN COMPTE</button>
-      <router-link to="/inscription">
+      <router-link to="/connexion">
         <button>CR&Eacute;ER UN COMPTE</button>
       </router-link>
     </section>
@@ -12,8 +12,8 @@
         <input type="text" id="email" name="mail" />
         <label for="password">Mot de passe</label>
         <input type="text" id="password" name="password" />
-        <button>Connexion</button>
-        <router-link to="/reinitialisation">Mot de passe oubli&eacute;?</router-link>
+        <button>S'incrire</button>
+    
       </form>
     </section>
   </main>
@@ -23,7 +23,7 @@
 export default {};
 </script>
 
-<style>
+<style lang="scss">
 form {
   display: flex;
   flex-direction: column;

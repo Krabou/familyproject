@@ -3,7 +3,7 @@ const UserModel = require("./../models/User");
 
 router.get("/", async (req, res, next) => {
   try {
-    const users = await UserModel.find().limit(100)
+    const users = await UserModel.find()
     .populate("lang_spoken_id")
     .populate("friends");
     res.json(users);
@@ -26,7 +26,7 @@ router.get("/:id", async (req, res, next) => {
 // POST : /users (créer un user)
 router.post("/", async (req, res, next) => {
   try {
-    const newUser = await UserModel.create(req.body); // req.body contient TOUJOURS les informations postées
+    const newUser = await UserModel.create(req.body);   
     res.json(newUser);
   } catch (err) {
     next(err);
@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
 // DELETE : /users/id (supprimer un user de la bdd grâce à son _id)
 router.delete("/:id", async (req, res, next) => {
   try {
-    const deletedUser = await UserModel.findByIdAndDelete(req.params.id); // req.params.id correspond à l'id passé en URL
+    const deletedUser = await UserModel.findByIdAndDelete(req.params.id); 
     res.json(deletedUser);
   } catch (err) {
     next(err);
@@ -47,11 +47,11 @@ router.delete("/:id", async (req, res, next) => {
 router.patch("/:id", async (req, res, next) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
-      req.params.id, // req.params.id correspond à l'id passé en URL
-      req.body, // les données de mise à jour
+      req.params.id, // 
+      req.body, 
       {
         new: true
-      } // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
+      }
     );
     res.json(updatedUser);
   } catch (err) {

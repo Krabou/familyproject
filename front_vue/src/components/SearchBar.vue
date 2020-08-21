@@ -1,5 +1,5 @@
 <template>
-  <div>apparait</div>
+<div></div>
 </template>
 
 <script>

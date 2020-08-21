@@ -3,12 +3,13 @@ const router = new express.Router();
 const nodemailer = require("nodemailer");
 
 /*PAGE CONTACT*/
-router.post("/contact", (req, res, next) => {
+router.post("/", (req, res, next) => {
+    console.log(req.body.name)
     if (!req.body.name || !req.body.mail || !req.body.message) {
         // never trust user input !!!
         // si non : retourner message warning au client
-        req.flash("warning", "Attention, merci de remplir tous les champs requis !");
-        res.redirect("/contact");
+        //req.flash("warning", "Attention, merci de remplir tous les champs requis !");
+        res.redirect("/");
     }
 
     // async..await is not allowed in global scope, must use a wrapper
@@ -36,10 +37,10 @@ router.post("/contact", (req, res, next) => {
             to: process.env.MAIL, // list of receivers
             subject: `Demande de contact de ${req.body.name}`, // Subject line
             html: `<p>Vous avez un nouveau message</p>
-      <p> Nom: ${req.body.name}</p>
-      <p> Mail: ${req.body.mail}</p>
-      <p> Subject: ${req.body.subject}</p>
-      <p> Message: ${req.body.message}</p>`,
+                   <p> Nom: ${req.body.name}</p>
+                   <p> Mail: ${req.body.mail}</p>
+                   <p> Subject: ${req.body.subject}</p>
+                   <p> Message: ${req.body.message}</p>`,
             // html body
 
 
@@ -54,12 +55,14 @@ router.post("/contact", (req, res, next) => {
 
     };
     main().then(() => {
-        req.flash("success", "Votre message a bien été envoyé !");
-        res.redirect("/contact");
+        // req.flash("success", "Votre message a bien été envoyé !");
+        console.log("message envoyé")
+        res.redirect("/");
     });
     main().catch(() => {
-        req.flash("error", "Une erreur est survenue, veuillez réessayer!");
-        res.redirect("/contact");
+        // req.flash("error", "Une erreur est survenue, veuillez réessayer!");
+        console.log("message non envoyé")
+        res.redirect("/");
     });
 
 });
