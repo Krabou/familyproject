@@ -59,7 +59,7 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
       this.users = apiRes.data;
-      this.getUsers()
+    
     }
   },
   created() {

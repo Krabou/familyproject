@@ -44,7 +44,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // PATCH : /users/id (mettre à jour une annonce)
-router.patch("/:id", async (req, res, next) => {
+router.patch("/edit_user/:id", async (req, res, next) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       req.params.id, // 

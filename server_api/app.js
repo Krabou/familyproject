@@ -42,7 +42,7 @@ app.use("/contact", require("./routes/nodemailler"));
 app.use("/reports", require("./routes/reports"));
 app.use("/reviews", require("./routes/reviews"));
 app.use("/users", require("./routes/users"));
-
+app.use("/auth", require("./routes/auth"));
 
 
 module.exports = app;

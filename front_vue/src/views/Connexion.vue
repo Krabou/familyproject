@@ -1,10 +1,10 @@
 <template>
   <main>
     <section>
-      <router-link to="/inscription">
+   
       <button>J'AI UN COMPTE</button> 
-      </router-link>
-        <button>CR&Eacute;ER UN COMPTE</button>
+     <router-link to="/inscription">
+        <button>CR&Eacute;ER UN COMPTE</button>  </router-link>  
     </section>
     <section>
       <form action>
