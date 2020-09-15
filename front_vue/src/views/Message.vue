@@ -1,13 +1,9 @@
 <template>
-  <div></div>
+  <main id="message"></main>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style lang="scss"></style>

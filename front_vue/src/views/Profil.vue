@@ -1,13 +1,11 @@
 <template>
-  <div></div>
+  <main id="profil">
+    <h1>Messagerie</h1>
+  </main>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style lang="scss"></style>

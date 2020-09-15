@@ -5,7 +5,7 @@ const AdModel = require("./../models/Ad");
 router.get("/", async (req, res, next) => {
   try {
     const ads = await AdModel.find().sort({
-        release_date: -1
+        _id: -1
       })
       .populate("provider_id");
     res.json(ads);

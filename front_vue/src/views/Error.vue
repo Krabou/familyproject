@@ -1,13 +1,10 @@
 <template>
-  <div></div>
+<main>Fausse route mon pote</main>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
+<style lang="scss">
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <main id="contact">
+    <h1 role="heading">Nous contacter par email</h1>
     <form @submit.prevent="sendEmail">
-      <h1 role="heading">Nous contacter par email</h1>
       <input role="textbox" type="text" placeholder="Nom" v-model="name" />
       <input role="textbox" type="text" placeholder="Prénom" v-model="firstname" />
       <input role="textbox" type="email" placeholder="Mail*" v-model="mail" />
@@ -13,7 +13,7 @@
         placeholder="Entrez ici votre message*"
         v-model="message"
       ></textarea>
-      <button role="button">Envoyer</button>
+      <button class="btn" role="button">Envoyer</button>
     </form>
   </main>
 </template>
@@ -54,5 +54,46 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+main#contact {
+  margin: 50px 10vh;
+}
+
+main#contact form {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main#contact input {
+  color: black;
+  font-size: 20px;
+  height: 50px;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+
+main#contact textarea {
+  color: black;
+  font-size: 20px;
+  height: 200px;
+  line-height: 25px;
+  margin-bottom: 15px;
+  overflow-y: scroll;
+  padding: 15px;
+  text-size-adjust: none;
+  width: 100%;
+}
+
+main#contact button {
+    background: black;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    height: 50px;
+    margin-right: 0;
+    width: 200px;
+}
 </style>

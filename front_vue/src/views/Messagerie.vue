@@ -1,13 +1,10 @@
 <template>
-  <div></div>
+  <main id="messagerie"></main>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
 
-</style>
+<style lang="scss"></style>

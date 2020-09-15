@@ -9,11 +9,20 @@
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+import auth from "@/auth";
 
 export default {
   components: {
     Header,
     Footer
+  },
+   beforeCreate() {
+    const currentUser = this.$store.getters["user/current"];
+    const token = auth.getLocalAuthToken();
+
+    if (token && !currentUser) {
+      this.$store.dispatch("user/getUserByToken");
+    }
   }
 };
 </script>
@@ -22,6 +31,10 @@ export default {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+main{
+  margin-top: 90px;
+  min-height: 100vh;
 }
 // #app {
 //   font-family: Avenir, Helvetica, Arial, sans-serif;

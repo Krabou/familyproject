@@ -1,11 +1,11 @@
 <template>
-  <main>
-  <h1>Editer un utilisateur</h1>
-      <form  @submit.prevent="editUser(userId)">
-        <label for="email">Adresse e-mail {{user.email}}</label>
-        <input type="text" id="email" v-model="email" >
-         <button>Editer !</button>
-      </form>
+  <main id="editUser">
+    <h1>Editer le rôle de {{ user.last_name }} {{ user.first_name }}</h1>
+    <form @submit.prevent="editUser(userId)">
+      <label for="role">Rôle {{ user.role }}</label>
+      <input type="text" id="role" v-model="role" />
+      <button>Editer !</button>
+    </form>
   </main>
 </template>
 
@@ -15,26 +15,28 @@ import axios from "axios";
 export default {
   data() {
     return {
-      userId:"",
-      email:"",
-      user:""
+      userId: "",
+      role: "",
+      user: ""
     };
   },
-  methods: { 
+  methods: {
+    // On affiche l'utilisateur
     async getUser(id) {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
       this.user = apiRes.data;
     },
-      async editUser(id) {
-      const {email}  = this.$data;
+    // On édite l'utilisateur
+    async editUser(id) {
+      const { role } = this.$data;
       // this.$data représente tout l'objet retourné par la fonction data()
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
           {
-         email
+            role
           }
         );
         console.log(apiRes);
@@ -42,7 +44,6 @@ export default {
         console.error(Err);
       }
     }
-  
   },
   mounted() {
     console.log(">>>>", this.$router); // accessible partout dans ton app

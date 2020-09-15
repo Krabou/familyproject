@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <main>
+    <h1>Mentions légales</h1>
+  </main>
 </template>
 
 <script>
