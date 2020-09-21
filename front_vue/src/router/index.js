@@ -29,6 +29,15 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/Contact.vue")
   },
   {
+    path: "/carte",
+    name: "Carte",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/Carte.vue")
+  },
+  {
     path: "/ads",
     name: "Annonces",
     // route level code-splitting
@@ -36,6 +45,15 @@ const routes = [{
     // which is lazy-loaded when the route is visited.
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/Ads.vue")
+  },
+  {
+    path: "/ad/:id",
+    name: "Annonce",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/Ad.vue")
   },
   {
     path: "/manage_user",
@@ -49,18 +67,24 @@ const routes = [{
   {
     path: "/signin",
     name: "Signin",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    // beforeEnter: (to, from, next) => {
+    //   // on vérifie l'état de connexion
+    //   if (auth.getLocalAuthToken()) next("/dashboard");
+    //   // un utilisateur déjà connecté sera redirigé vers le dashboard...
+    //   else next();
+    // },
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/Signin")
   },
   {
     path: "/signup",
     name: "Signup",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    // beforeEnter: (to, from, next) => {
+    //   // on vérifie l'état de connexion:
+    //   if (auth.getLocalAuthToken()) next("/dashboard");
+    //   // un utilisateur déjà connecté sera redirigé vers le dashboard...
+    //   else next();
+    // },
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/Signup")
   },
@@ -108,6 +132,15 @@ const routes = [{
     },
     component: () =>
       import( /* webpackChunkName: "about" */ "../views/dashboardUser/Form_create_ad.vue")
+  },
+  {
+    path: "/profil/:id",
+    name: "Profil",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/Profil.vue")
   },
   {
     path: "/mentions_legales/",

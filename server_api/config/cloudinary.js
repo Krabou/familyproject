@@ -12,10 +12,5 @@ const storage = new CloudinaryStorage({
   folder: 'familyProjectPicture',
 });
 
-const parser = multer({
-  storage: storage
-});
-module.exports = parser;
-// app.post('/upload', parser.single('image'), function (req, res) {
-//   res.json(req.file);
-// });
+const fileUploader = multer({ storage });
+module.exports = fileUploader;

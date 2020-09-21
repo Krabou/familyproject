@@ -11,11 +11,12 @@ const adSchema = new Schema({
         enum: ["offre", "demande"]
     },
     release_date: Date,
-    starts_at: Date,
-    ends_at: Date,
+    date:Date,
+    starts_at: String,
+    ends_at: String,
     is_active: Boolean,
+    title:String,
     description:String,
-    content:String,
 });
 
 const AdModel = mongoose.model("Ad", adSchema);

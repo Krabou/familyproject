@@ -53,6 +53,10 @@ header > a {
   text-decoration: none;
 }
 
+.logoHeader > figure {
+  height: 80px;
+}
+
 .logoHeader > img {
   width: 100%;
 }
@@ -62,13 +66,13 @@ body {
 }
 
 .logoHeader {
-  height: 10vh;
+  /* height: 10vh; */
   margin-right: 30px;
-  width: 10vh;
+  width: 60px;
 }
 
-.header-active > a > .logoHeader {
+/* .header-active > a > .logoHeader {
   height: 8vh;
   width: 8vh;
-}
+} */
 </style>

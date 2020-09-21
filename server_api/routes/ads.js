@@ -5,9 +5,9 @@ const AdModel = require("./../models/Ad");
 router.get("/", async (req, res, next) => {
   try {
     const ads = await AdModel.find().sort({
-        _id: -1
-      })
-      .populate("provider_id");
+      _id: -1
+    }).limit(100)
+    .populate("provider_id");
     res.json(ads);
   } catch (err) {
     next(err);
@@ -27,8 +27,26 @@ router.get("/:id", async (req, res, next) => {
 
 // POST : /ads (créer une annonce)
 router.post("/", async (req, res, next) => {
+  const {
+    release_date,
+    provider_id,
+    date,
+    starts_at,
+    ends_at,
+    title,
+    description
+  } = req.body;
   try {
-    const newAds = await AdModel.create(req.body); // req.body contient TOUJOURS les informations postées
+    const newAds = await AdModel.create({
+      provider_id,
+      release_date: Date.now(),
+      date,
+      starts_at,
+      ends_at,
+      title,
+      description
+
+    }); // req.body contient TOUJOURS les informations postées
     res.json(newAds);
   } catch (err) {
     next(err);

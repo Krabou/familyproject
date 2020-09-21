@@ -1,19 +1,19 @@
 <template>
-  <main id="contact">
-    <h1 role="heading">Nous contacter par email</h1>
-    <form @submit.prevent="sendEmail">
-      <input role="textbox" type="text" placeholder="Nom" v-model="name" />
-      <input role="textbox" type="text" placeholder="Prénom" v-model="firstname" />
-      <input role="textbox" type="email" placeholder="Mail*" v-model="mail" />
-      <input role="textbox" type="text" placeholder="Sujet*" v-model="subject" />
-      <textarea
-        role="textbox"
-        rows="4"
-        cols="50"
-        placeholder="Entrez ici votre message*"
-        v-model="message"
-      ></textarea>
-      <button class="btn" role="button">Envoyer</button>
+  <main class="main-form" id="contact">
+    <form class="form" @submit.prevent="sendEmail">
+      <h1 role="heading">Contact</h1>
+      <p>Remplissez le formulaire ci dessous et nous reviendrons vers vous dans les meilleurs délais.</p>
+      <label class="label" for="name">Nom</label>
+      <input class="input" role="textbox" type="text" id="name" v-model="name" />
+      <label class="label" for="firstname">Prénom</label>
+      <input class="input" role="textbox" type="text" id="firstname" v-model="firstname" />
+      <label class="label" for="mail">Email</label>
+      <input class="input" role="textbox" type="email" id="mail" v-model="mail" />
+      <label class="label" for="subject">Sujet</label>
+      <input class="input" role="textbox" type="text" id="subject" v-model="subject" />
+      <label class="label" for="message">Message</label>
+      <textarea class="textarea" role="textbox" id="message" rows="4" cols="50" v-model="message"></textarea>
+      <button class="btn" role="button">ENVOYER</button>
     </form>
   </main>
 </template>
@@ -55,18 +55,36 @@ export default {
 </script>
 
 <style lang="scss">
-main#contact {
-  margin: 50px 10vh;
+// main#contact
+ .main-form{
+  margin: 100px 0 0;
 }
-
-main#contact form {
-  align-items: flex-end;
+// main#contact form 
+.form{
+  align-items: center;
+  background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 50px auto;
 }
+// main#contact 
+.main-form p {
+  margin-bottom: 30px;
+}
+// main#contact
 
-main#contact input {
+ .label {
+  color: black;
+  font-size: 20px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+// main#contact 
+.input {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  border: none;
+  border-bottom: black 1px solid;
   color: black;
   font-size: 20px;
   height: 50px;
@@ -74,26 +92,60 @@ main#contact input {
   padding-left: 15px;
   width: 100%;
 }
-
-main#contact textarea {
+// main#contact
+ .textarea {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  border: none;
+  border-bottom: black 1px solid;
   color: black;
   font-size: 20px;
-  height: 200px;
+  height: auto;
   line-height: 25px;
-  margin-bottom: 15px;
-  overflow-y: scroll;
+  // margin-bottom: 30px;
   padding: 15px;
   text-size-adjust: none;
   width: 100%;
 }
-
-main#contact button {
-    background: black;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    height: 50px;
-    margin-right: 0;
-    width: 200px;
+// main#contact button
+.btn {
+  background: rosybrown;
+  border: 3px solid white;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  letter-spacing: 1px;
+  // margin-right: 0;
+  margin: 30px 0 15px;
+  outline: 1px solid black;
+  width: 200px;
+}
+// main#contact button:hover 
+.btn:hover {
+  background: black;
+}
+@media screen and (min-width: 769px) {
+  // main#contact 
+  .form {
+    box-shadow: 0px 14px 28px black;
+    width: 60vw;
+    padding: 50px;
+  }
+  // main#contact
+  .main-form {
+    margin: 100px 0 0;
+    padding: 50px;
+  }
+}
+@media screen and (max-width: 768px) {
+  // main#contact 
+  .form { 
+    padding: 15px;
+    width: 100;
+  }
+  // main#contact
+  .main-form {
+    margin: 100px 0 0;
+  }
 }
 </style>

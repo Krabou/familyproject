@@ -2,7 +2,7 @@
   <nav id="nav-mobile" :class="isActive && 'is-active'">
     <router-link class="anchor is-clickable" to="/">Home</router-link>
         <router-link class="anchor is-clickable" to="/about">About</router-link>
-        <router-link class="anchor is-clickable" to="/contact">Contact</router-link>
+        <router-link class="anchor is-clickable" to="/carte">Carte</router-link>
         <router-link class="anchor is-clickable" to="/ads">Annonces</router-link>
         <router-link class="anchor is-clickable" to="/manage_user">Manage User</router-link>
         <router-link class="anchor is-clickable" :to="'/dashboard/'">Dashboard</router-link>
@@ -41,7 +41,7 @@ export default {
   align-items: center;
   flex-direction: column;
   height: calc(100vh - 90px);
-  background: #2c3e50;
+  background: rosybrown;
   transform: translateX(220px);
   transition: transform 0.5s ease-in-out;
   z-index: 10;
@@ -50,9 +50,10 @@ export default {
     font-weight: bold;
     color: whitesmoke;
     margin: 0 10px;
+    text-decoration: none;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: black;
     }
   }
 }

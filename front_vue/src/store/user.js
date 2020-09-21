@@ -1,6 +1,6 @@
 import axios from "axios";
 import auth from "@/auth";
-import { apiHandler } from "./../../api/handler";
+import { apiHandler } from "./../api/handler";
 const handler = apiHandler();
 
 export default {
@@ -19,8 +19,10 @@ export default {
   },
   // https://vuex.vuejs.org/fr/api/#mutations
   mutations: {
+    // prend le state en 1er argument et la valeur d'update en 2nd
     setCurrent(state, infos) {
       state.currentUser = { ...infos };
+      //on cree un nouvel objet, contenant les infos de l'user qui vient de se signin
     },
     setUsers(state, users) {
       state.users = users;
@@ -38,6 +40,7 @@ export default {
           .then(res => {
             auth.setLocalAuthToken(res.data.token);
             context.commit("setCurrent", res.data.user);
+            //context.commit permet de modifier le state du store de facon synchrone
             resolve(res);
           })
           .catch(err => {
@@ -92,7 +95,7 @@ export default {
     },
     async update(context, userInfos) {
       return new Promise((resolve, reject) => {
-        handler
+        axios
           .patch(`/users/${userInfos._id}`, userInfos)
           .then(res => {
             context.commit("setCurrent", res.data);

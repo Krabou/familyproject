@@ -55,7 +55,7 @@ router.get("/get-user-by-token", (req, res) => {
     const user = auth.decodeToken(req.header("x-authenticate"));
     const userId = user.infos._id;
     console.log("should be user", user);
-    res.redirect("/api/users/" + userId);
+    res.redirect("/users/" + userId);
   } catch (err) {
     res.status(500).json(err.message);
   }
@@ -118,8 +118,11 @@ router.post("/signin", async (req, res, next) => {
 /**
  * @see : https://www.youtube.com/watch?v=O6cmuiTBZVs
  */
+
+ //INSCRIPTION
 router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
   const user = req.body;
+  console.log("usercreeeeeeeeer", user)
 
   if (req.file) user.avatar = req.file.path; // on associe l'image stockée sur cloudinary à l'user à insérer en base de données
 

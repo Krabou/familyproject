@@ -1,5 +1,7 @@
 <template>
-  <main id="messagerie"></main>
+  <main id="messagerie">
+     <h1>Messagerie</h1>
+  </main>
 </template>
 
 <script>

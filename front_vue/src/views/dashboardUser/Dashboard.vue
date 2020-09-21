@@ -1,6 +1,5 @@
 <template>
-  <main>
-    <p>welcome</p>
+  <main id="dashboard">
     <h1 v-if="currentUser">Welcome {{ currentUser.first_name }} !</h1>
   </main>
 </template>
@@ -9,12 +8,12 @@
 // import axios from "axios";
 
 export default {
-  data() {
-    return {
-    //   userId: "",
-    //   user: ""
-    };
-  },
+  // data() {
+  //   return {
+  //   //   userId: "",
+  //   //   user: ""
+  //   };
+  // },
   // methods: {
   //   async getUser(id) {
   //     const apiRes = await axios.get(

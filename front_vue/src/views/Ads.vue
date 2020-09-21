@@ -3,20 +3,20 @@
     <h1>Annonces</h1>
     <router-link :to="'/form_create_ad/'">Déposer une annonce</router-link>
     <ul>
-      <li v-for="(ad, i) in ads" :key="i">
-        <section>
+      <li class="ad" v-for="(ad, i) in ads" :key="i">
           <figure>
-            <img src alt="user picture" />
+            <img :src="ad.provider_id.avatar" alt="user picture" />
           </figure>
-          <h2>{{ad.description}}</h2>
-          <p>cree par {{ad.provider_id}}</p>
-          <p>le {{ad.starts_at}} à {{ad.ends_at}}</p>
+          <h2>{{ad.title}}</h2>
+           <p> <font-awesome-icon id="location" icon="map-marker-alt" size="2x" />{{ad.provider_id.adress.city}}</p>
+          <p>cree par {{ad.provider_id.username}} le {{ad.release_date | moment("DD/MM/YYYY") }}</p>
+         
+          <p>le  {{ad.date | moment("DD/MM/YYYY")}} de {{ad.starts_at}} à {{ad.ends_at}}</p>
           <ul>
             <li>faire boucle pour user child</li>
           </ul>
-          <p>{{ad.content}}</p>
-          <router-link :to="''">Répondre</router-link>
-        </section>
+          <p>{{ad.description}}</p>
+          <router-link :to="'/ad/' + ad._id">Donner un coup de main</router-link>
       </li>
     </ul>
   </main>
@@ -28,6 +28,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      // provider_id:null,
       ads: []
     };
   },
@@ -35,6 +36,7 @@ export default {
     async getAds() {
       const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/ads/");
       this.ads = apiRes.data;
+      console.log(apiRes)
     }
   },
   created() {
@@ -47,4 +49,6 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+
+</style>

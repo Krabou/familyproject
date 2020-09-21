@@ -50,6 +50,7 @@ footer {
   flex-wrap: wrap;
   justify-content: space-around;
   padding-bottom: 35px;
+  text-align: center;
 }
 
 footer div {

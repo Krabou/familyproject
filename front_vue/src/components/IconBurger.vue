@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon id="burger" icon="bars" @click="toggleNavMobile" />
+  <font-awesome-icon id="burger" icon="bars" @click="toggleNavMobile" size="2x"/>
 </template>
 
 <script>
