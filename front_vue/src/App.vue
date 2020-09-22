@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <Header />
-      <router-view />
+    <router-view />
     <Footer />
-  
   </div>
 </template>
 <script>
@@ -16,7 +15,7 @@ export default {
     Header,
     Footer
   },
-   beforeCreate() {
+  beforeCreate() {
     const currentUser = this.$store.getters["user/current"];
     const token = auth.getLocalAuthToken();
 
@@ -27,12 +26,12 @@ export default {
 };
 </script>
 <style lang="scss">
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-main{
+main {
   margin-top: 90px;
   min-height: 100vh;
 }

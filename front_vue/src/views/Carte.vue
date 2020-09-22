@@ -57,11 +57,11 @@ export default {
     }
   },
   computed: {
-//Barre de recherche
+    //Barre de recherche
     filteredUsers: function() {
       return this.users.filter(user => {
         return (
-          //Replace remplace les caracteres speciaux 
+          //Replace remplace les caracteres speciaux
           user.adress.city
             .toLowerCase()
             .replace("à", "a")
@@ -78,7 +78,7 @@ export default {
             .replace("û", "u")
             .replace("ü", "u")
             .replace("-", "")
-            .match(
+            .includes(
               this.search
                 .toLowerCase()
                 .replace("à", "a")
@@ -112,7 +112,7 @@ export default {
             .replace("û", "u")
             .replace("ü", "u")
             .replace("-", "")
-            .match(
+            .includes(
               this.search
                 .toLowerCase()
                 .replace("à", "a")
@@ -135,7 +135,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style lang="scss" scoped>

@@ -119,7 +119,22 @@ const routes = [{
       import(/* webpackChunkName: "signup" */ "../views/dashboardUser/Dashboard.vue")
   },
   {
-    path: "/form_create_ad/",
+    path: "/manage_ad",
+    name: "Manage_ad",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/dashboardUser/Manage_ad.vue")
+  },
+  {
+    path: "/form_create_ad",
     name: "Form_create_ad",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -134,6 +149,21 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/dashboardUser/Form_create_ad.vue")
   },
   {
+    path: "/form_edit_ad/:id",
+    name: "Form_edit_ad",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/dashboardUser/Form_edit_ad.vue")
+  },
+  {
     path: "/profil/:id",
     name: "Profil",
     // route level code-splitting
@@ -143,7 +173,7 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/Profil.vue")
   },
   {
-    path: "/mentions_legales/",
+    path: "/mentions_legales",
     name: "Mentions légales",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

@@ -23,11 +23,11 @@
         <label class="label" for="birthdate">Date de naissance</label>
         <input class="input" type="date" id="birthdate" v-model="user.birthdate" />
         <label class="label" for="number">Numéro de rue</label>
-        <input class="input" type="number" id="number" v-model="user.adress.number" />
+        <input class="input" type="number" id="number" v-model="user.adress.number" min="1" />
         <label class="label" for="street">Rue</label>
         <input class="input" type="text" id="street" v-model="user.adress.street" />
         <label class="label" for="zipcode">Code postal</label>
-        <input class="input" type="number" id="zipcode" v-model="user.adress.zipCode" />
+        <input class="input" type="number" id="zipcode" v-model="user.adress.zipCode" min="0" />
         <label class="label" for="city">Ville</label>
         <input class="input" type="text" id="city" v-model="user.adress.city" />
         <label class="label" for="country">Pays</label>
@@ -35,7 +35,7 @@
         <label class="label" for="password">Mot de passe</label>
         <input class="input" type="password" id="password" v-model="user.password" />
         <!-- <label class="label" for="avatar"><font-awesome-icon icon="camera" size="2x" /></label>
-    <input class="hidden" type="file" :v-model="user.avatar" id="avatar"> -->
+        <input class="hidden" type="file" :v-model="user.avatar" id="avatar">-->
         <button class="btn">S'INSCRIRE</button>
         <p>
           Avez-vous déjà un compte ?
@@ -84,19 +84,19 @@ export default {
     return {
       user: {
         // définition de valeurs de base pour les tests de dev ("mettre à chaîne vide une fois dev ok")
-        username: null,
-        last_name: null,
-        first_name: null,
-        email: null,
-        password: null,
-        birthdate: null,
+        username: "Fati",
+        last_name: "Bou",
+        first_name: "Fati",
+        email: "fati@bou.com",
+        password: "testa",
+        birthdate: "07/11/1986",
         adress: {
-          number: null,
-          street: null,
-          zipCode: null,
-          city: null,
-          country: null
-        },
+          number: "171",
+          street: "rue henri barbusse",
+          zipCode: "93300",
+          city: "Aubervilliers",
+          country: "France"
+        }
         // avatar:null
       }
     };
@@ -116,20 +116,24 @@ export default {
       // fd.append("city", this.user.adress.city);
       // fd.append("country", this.user.adress.country);
       // if (this.user.avatar) fd.append("avatar", this.user.avatar);
-      
-      this.$store.dispatch("user/signup", {...this.user}); // on utilise
+
+      this.$store.dispatch(
+        "user/signup",
+        // fd
+
+        { ...this.user }
+      ); // on utilise
+      this.$router.push("/signin");
     }
   }
 };
 </script>
 
 <style lang="scss">
-// main#contact
- .main-form{
+.main-form {
   margin: 100px 0 0;
 }
-// main#contact form 
-.form{
+.form {
   align-items: center;
   background: white;
   display: flex;
@@ -137,17 +141,15 @@ export default {
   justify-content: center;
   margin: 50px auto;
 }
-// main#contact 
 .main-form p {
   margin-bottom: 30px;
 }
- .label {
+.label {
   color: black;
   font-size: 20px;
   margin-bottom: 15px;
   width: 100%;
 }
-// main#contact 
 .input {
   background: rgba($color: #e9d1d1, $alpha: 0.3);
   border: none;
@@ -159,8 +161,7 @@ export default {
   padding-left: 15px;
   width: 100%;
 }
-// main#contact
- .textarea {
+.textarea {
   background: rgba($color: #e9d1d1, $alpha: 0.3);
   border: none;
   border-bottom: black 1px solid;
@@ -168,12 +169,10 @@ export default {
   font-size: 20px;
   height: auto;
   line-height: 25px;
-  // margin-bottom: 30px;
   padding: 15px;
   text-size-adjust: none;
   width: 100%;
 }
-// main#contact button
 .btn {
   background: rosybrown;
   border: 3px solid white;
@@ -182,40 +181,34 @@ export default {
   font-weight: bold;
   height: 50px;
   letter-spacing: 1px;
-  // margin-right: 0;
   margin: 30px 0 15px;
   outline: 1px solid black;
   width: 200px;
 }
-// main#contact button:hover 
 .btn:hover {
   background: black;
 }
 @media screen and (min-width: 769px) {
-  // main#contact 
   .form {
     box-shadow: 0px 14px 28px black;
     width: 60vw;
     padding: 50px;
   }
-  // main#contact
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
   }
 }
 @media screen and (max-width: 768px) {
-  // main#contact 
-  .form { 
+  .form {
     padding: 15px;
     width: 100;
   }
-  // main#contact
   .main-form {
     margin: 100px 0 0;
   }
 }
-.hidden{
+.hidden {
   display: none;
 }
 </style>

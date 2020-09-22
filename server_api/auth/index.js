@@ -41,9 +41,15 @@ const decodeToken = function decodeToken(token) {
 const verifyToken = function verifyToken(token) {
   try {
     const check = jwt.verify(token, secret);
-    return { msg: check, status: true };
+    return {
+      msg: check,
+      status: true
+    };
   } catch (err) {
-    return { msg: err.message, status: false };
+    return {
+      msg: err.message,
+      status: false
+    };
   }
 };
 
@@ -54,8 +60,7 @@ const verifyToken = function verifyToken(token) {
  * @returns {Boolean} true if user credentials are coreect, false otherwise
  */
 const createToken = function createToken(user, ip) {
-  return jwt.sign(
-    {
+  return jwt.sign({
       infos: user,
       ip,
     },

@@ -11,12 +11,16 @@ const adSchema = new Schema({
         enum: ["offre", "demande"]
     },
     release_date: Date,
-    date:Date,
+    date: Date,
     starts_at: String,
     ends_at: String,
     is_active: Boolean,
-    title:String,
-    description:String,
+    title: String,
+    description: String,
+    messages: [{
+        type: Schema.Types.ObjectId,
+        ref: "Message"
+    }]
 });
 
 const AdModel = mongoose.model("Ad", adSchema);

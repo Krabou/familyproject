@@ -37,7 +37,7 @@
                 concern&eacute;s. Ils ont plus de possibilit&eacute;s, ont des rendez-vous avec d'autres enfants et
                 ont le sentiment de faire partie d'une communaut&eacute; de quartier dynamique et solidaire.
             </p>
-        </article> -->
+        </article>-->
       </section>
     </main>
   </div>
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 <style lang="scss">
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

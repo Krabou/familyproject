@@ -52,7 +52,7 @@ router.delete("/:id", async (req, res, next) => {
 router.patch("/edit_user/:id", auth.authenticate, async (req, res, next) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
-      req.params.id, 
+      req.params.id,
       req.body, {
         new: true
       }

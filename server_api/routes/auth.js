@@ -75,7 +75,9 @@ router.post("/signin", async (req, res, next) => {
   // si oui : vérifier que mail et mdp correspondent en bdd
   // 1 - récupérer l'utilisateur avec le mail fourni
   userModel
-    .findOne({ email: userInfos.email })
+    .findOne({
+      email: userInfos.email
+    })
     .then((user) => {
       if (!user) {
         // vaut null si pas d'user trouvé pour ce mail
@@ -101,7 +103,11 @@ router.post("/signin", async (req, res, next) => {
       }
 
       // si oui : stocker les infos de l'user en session pour lui permettre de naviguer jusqu'au signout
-      const { _doc: clone } = { ...user }; // je clone l'user
+      const {
+        _doc: clone
+      } = {
+        ...user
+      }; // je clone l'user
       delete clone.password; // par sécurité, je supprime le mdp du clone (pas besoin de le stocker ailleurs qu'en bdd)
       req.session.currentUser = clone; // j'inscris le clone dans la session (pour maintenir un état de connexion)
 
@@ -110,7 +116,12 @@ router.post("/signin", async (req, res, next) => {
       return res
         .header("x-authenticate", token) // je renvoie le token au client dans l'entête de la réponse pour l'authentification
         .status(200)
-        .send({ user: clone, token, msg: "logged in !", level: "success" });
+        .send({
+          user: clone,
+          token,
+          msg: "logged in !",
+          level: "success"
+        });
     })
     .catch(next);
 });
@@ -119,7 +130,7 @@ router.post("/signin", async (req, res, next) => {
  * @see : https://www.youtube.com/watch?v=O6cmuiTBZVs
  */
 
- //INSCRIPTION
+//INSCRIPTION
 router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
   const user = req.body;
   console.log("usercreeeeeeeeer", user)
@@ -133,7 +144,9 @@ router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
     });
   } else {
     try {
-      const previousUser = await userModel.findOne({ email: user.email });
+      const previousUser = await userModel.findOne({
+        email: user.email
+      });
       // console.log(previousUser);
       if (previousUser) {
         return res.status(422).json({
@@ -150,7 +163,10 @@ router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
 
       // finalement on insère le nouvel utilisateur en base de données
       await userModel.create(user);
-      return res.status(200).json({ msg: "signed up !", level: "success" });
+      return res.status(200).json({
+        msg: "signed up !",
+        level: "success"
+      });
     } catch (err) {
       next(err);
     }

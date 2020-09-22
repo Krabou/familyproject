@@ -5,9 +5,9 @@ const AdModel = require("./../models/Ad");
 router.get("/", async (req, res, next) => {
   try {
     const ads = await AdModel.find().sort({
-      _id: -1
-    }).limit(100)
-    .populate("provider_id");
+        _id: -1
+      }).limit(100)
+      .populate("provider_id");
     res.json(ads);
   } catch (err) {
     next(err);
@@ -64,7 +64,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // PATCH : /ads/id (mettre à jour une annonce)
-router.patch("/:id", async (req, res, next) => {
+router.patch("/form_edit_ad/:id", async (req, res, next) => {
   try {
     const updatedAd = await AdModel.findByIdAndUpdate(
       req.params.id, // req.params.id correspond à l'id passé en URL

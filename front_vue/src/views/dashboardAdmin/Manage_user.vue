@@ -110,7 +110,7 @@ export default {
 </script>
 <style lang="scss">
 #manageUser {
-  margin: 50px 20px;
+  margin: 100px 20px;
 }
 .avatar img {
   width: 60px;
