@@ -6,6 +6,16 @@
     </figure>
     <h1>{{ user.username }}</h1>
     <p>{{ user.adress.city }} {{ user.adress.country }}</p>
+    <div class="icon" @submit.prevent="">
+      <font-awesome-icon id="add" icon="user-plus" size="2x" />
+      <p>Ajouter</p>
+    </div>
+    <span>
+      <router-link :to="'/message/' + user._id">
+        <font-awesome-icon id="add" icon="envelope" size="1x" />
+        Message
+      </router-link>
+    </span>
   </main>
 </template>
 
@@ -14,7 +24,9 @@ import axios from "axios";
 export default {
   data() {
     return {
-      user: ""
+      user: {
+        adress: {}
+      }
     };
   },
   methods: {

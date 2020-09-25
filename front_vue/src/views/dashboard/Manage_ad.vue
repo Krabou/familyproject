@@ -2,7 +2,7 @@
   <main id="manage-ad">
     <h1>Mes annonces</h1>
     <router-link :to="'/form_create_ad'">Créer une annonce</router-link>
-      <table class="table Computer">
+    <table class="table Computer">
       <thead class="head">
         <tr class="row">
           <th class="cell">Crée le</th>
@@ -16,16 +16,14 @@
       </thead>
       <tbody v-for="(ad, i) in ads" :key="i">
         <tr class="row">
-          <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY")}}</td>
-          <td class="cell">{{ ad.date | moment("DD/MM/YYYY")}}</td>
+          <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
+          <td class="cell">{{ ad.date | moment("DD/MM/YYYY") }}</td>
           <td class="cell">{{ ad.starts_at }}</td>
           <td class="cell">{{ ad.ends_at }}</td>
           <td class="cell">{{ ad.title }}</td>
           <td class="cell">
-            <router-link 
-            :to="'/form_edit_ad/' + ad._id"
-            >
-              <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
+            <router-link :to="'/form_edit_ad/' + ad._id">
+              <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
             </router-link>
           </td>
           <td class="cell" @click.prevent="deleteAd(ad._id)">
@@ -34,7 +32,7 @@
         </tr>
       </tbody>
     </table>
-     <!-- TABLE TABLET & MOBILE -->
+    <!-- TABLE TABLET & MOBILE -->
     <div class="tableList">
       <table v-for="(ad, i) in ads" :key="i" class="table Mobile">
         <tr>
@@ -43,19 +41,19 @@
           </td>
         </tr>
         <th class="cell">Crée le</th>
-        <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY")}}</td>
+        <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
         <th class="cell">Date</th>
-        <td class="cell">{{ ad.date | moment("DD/MM/YYYY")}}</td>
+        <td class="cell">{{ ad.date | moment("DD/MM/YYYY") }}</td>
         <th class="cell">Début</th>
         <td class="cell">{{ ad.starts_at }}</td>
         <th class="cell">Fin</th>
         <td class="cell">{{ ad.ends_at }}</td>
-         <th class="cell">Titre</th>
+        <th class="cell">Titre</th>
         <td class="cell">{{ ad.title }}</td>
         <td class="cell">
           <router-link :to="'/form_edit_ad/' + ad._id">
             Editer
-            <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
+            <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
           </router-link>
         </td>
       </table>
@@ -69,7 +67,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ads: [],
+      ads: []
     };
   },
   methods: {
@@ -98,28 +96,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#manage-ad{
+#manage-ad {
   margin: 100px 20px;
 }
+
 .avatar img {
   width: 60px;
 }
+
 .table {
   border-collapse: collapse;
-  width: 90%;
   margin: auto;
+  width: 90%;
 }
+
 .row,
 .cell {
   border: 1px solid black;
-  text-align: center;
   height: 50px;
+  text-align: center;
 }
+
 .head .cell,
 .table.Mobile th {
   font-size: 20px;
   font-weight: bold;
 }
+
 .cell {
   font-size: 18px;
   font-weight: 400;
@@ -133,12 +136,14 @@ export default {
   .table.Computer {
     display: none;
   }
+
   .tableList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .table.Mobile {
     display: flex;
     flex-direction: column;

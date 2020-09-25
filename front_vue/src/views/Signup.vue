@@ -1,9 +1,5 @@
 <template>
   <main class="main-form" id="inscription">
-    <!-- <section class="sectionTitle">
-     
-    
-    </section>-->
     <section>
       <form class="form" @submit.prevent="signup">
         <h1>

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>Bienvenue {{user.last_name}} {{user.first_name}}</h1>
+    <h1>Bienvenue {{ user.last_name }} {{ user.first_name }}</h1>
   </main>
 </template>
 
@@ -34,5 +34,5 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <main id="message"></main>
+  <main id="message">
+    <h1>Je te propose mon aide</h1>
+  </main>
 </template>
 
 <script>

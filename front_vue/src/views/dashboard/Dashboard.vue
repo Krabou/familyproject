@@ -1,8 +1,11 @@
 <template>
   <main id="dashboard">
     <h1 v-if="currentUser">Welcome {{ currentUser.first_name }} !</h1>
-     <router-link :to="'/manage_ad'">Mes annonces</router-link>
-     <router-link :to="'/manage_user'">Manager les utilisateurs</router-link>
+    <router-link :to="'/manage_ad'">Mes annonces</router-link>
+    <router-link :to="'/manage_user'">Manager les utilisateurs</router-link>
+    <router-link :to="'/kids'">Mes enfants</router-link>
+    <router-link :to="'/profil/' + currentUser._id">voir profil</router-link>
+    <router-link :to="'/form_edit_profil/' + currentUser._id">Modifier le profil</router-link>
   </main>
 </template>
 
@@ -33,7 +36,7 @@ export default {
   //     console.error(err);
   //   }
   // },
-   computed: {
+  computed: {
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
@@ -42,5 +45,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss" scoped></style>

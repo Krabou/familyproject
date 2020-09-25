@@ -1,43 +1,65 @@
 <template>
-  <main id="carte">
-    <p>Recherchez des utilisateurs dans votre ville ou par nom d'utilisateur</p>
-    <div class="search">
-      <input type="text" class="searchTerm" v-model="search" placeholder="Rechercher" />
-      <button type="submit" class="searchButton">
-        <font-awesome-icon icon="search" size="1x" />
-      </button>
-    </div>
-    <ul>
-      <li class="user" v-for="(user, i) in filteredUsers" :key="i">
-        <div>
-          <figure class="avatar-profil-list">
-            <img :src="user.avatar" alt="photo de profil" />
-          </figure>
-          <div>
-            <h2>{{ user.username }}</h2>
-            <span>
-              <font-awesome-icon id="location" icon="map-marker-alt" size="2x" />
-              {{ user.adress.city }}
-            </span>
-          </div>
-        </div>
-        <router-link :to="'/profil/' + user._id">voir profil</router-link>
-        <button>
-          <font-awesome-icon id="add" icon="user-plus" size="2x" />Ajouter
+  <main id="main-carte">
+    <Card class="carte" />
+    <section class="result">
+      <p>
+        Recherchez des utilisateurs dans votre ville ou par nom d'utilisateur
+      </p>
+      <form class="search">
+        <input
+          type="text"
+          class="searchTerm"
+          v-model="search"
+          placeholder="Rechercher"
+        />
+        <button type="submit" class="searchButton">
+          <font-awesome-icon icon="search" size="1x" />
         </button>
-      </li>
-    </ul>
+      </form>
+      <ul class="user-list">
+        <li class="user" v-for="(user, i) in filteredUsers" :key="i">
+          <div class="left-side">
+            <figure class="avatar">
+              <img :src="user.avatar" alt="photo de profil" />
+            </figure>
+            <div>
+              <h2>{{ user.username }}</h2>
+              <p class="location">
+                <span class="icon">
+                  <font-awesome-icon
+                    class="icon-location"
+                    icon="map-marker-alt"
+                    size="1x"
+                  />
+                </span>
+                {{ user.adress.city }}
+              </p>
+            </div>
+          </div>
+          <router-link :to="'/profil/' + user._id">voir profil</router-link>
+          <div class="user-plus" @submit.prevent="addUser()">
+            <font-awesome-icon class="add" icon="user-plus" size="2x" />
+            <p>Ajouter</p>
+          </div>
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
 <script>
 import axios from "axios";
+import Card from "@/components/Card.vue";
 
 export default {
+  components: {
+    Card
+  },
   data() {
     return {
       users: [],
-      search: ""
+      search: "",
+      friends: ""
     };
   },
   methods: {
@@ -49,6 +71,8 @@ export default {
       this.users = apiRes.data;
     }
   },
+  //je recupere l'id de la personne que je veux demander en ami
+  //et je l'ajoute dans friend
   created() {
     try {
       this.getUsers();
@@ -132,69 +156,113 @@ export default {
             )
         );
       });
+    },
+    //On récupere les info de l'utilisateur connecté
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-#carte {
-  background: rgb(236, 229, 229);
-  padding: 50px;
+#main-carte {
+  width: 100%;
+  min-height: 100vh;
+  margin: 90px 0 50px;
+}
+.carte {
+  float: left;
+  width: 50%;
+  height: calc(100vh - 90px);
+}
+.search {
+  height: 45px;
+  width: 80%;
+  background: blueviolet;
+  margin: 50px auto;
+}
+.searchTerm {
+  width: 90%;
+  height: 100%;
+}
+.searchTerm::placeholder {
+  padding-left: 15px;
+  font-size: 16px;
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  background: chartreuse;
+  padding: 5vw;
+  right: 0;
+}
+.user-list {
+  width: 100%;
+  min-width: 320px;
 }
 .user {
-  width: 80%;
+  width: 100%;
   height: 150px;
-  background: whitesmoke;
-  color: black;
+  background: darkcyan;
+  color: whitesmoke;
   padding: 15px;
-  margin: 15px auto 0;
+  margin: 15px 0;
   list-style: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-.user:hover {
-  background: coral;
-  color: whitesmoke;
   box-shadow: 0px 14px 28px black;
 }
-.avatar-profil-list {
+.avatar {
+  border: solid 5px whitesmoke;
   width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: violet;
-}
-.avatar-profil-list img {
-  width: 100%;
-}
-.search {
-  width: 300px;
-  height: 40px;
-  border-radius: 42px;
-  background: whitesmoke;
-  color: black;
-  display: flex;
-  justify-content: space-between;
   overflow: hidden;
-  margin-bottom: 50px;
 }
-.search input {
-  width: 100%;
-  border: none;
-  padding: 0 5px 0 15px;
+.avatar img {
+  min-width: 100%;
+  max-width: 100%;
 }
-.search button {
-  padding-right: 15px;
-  background: white;
-  color: black;
-  border: none;
+.location {
+  text-transform: uppercase;
 }
-input:focus {
-  outline: none;
-  //  background: brown;
+.icon {
+  color: gold;
 }
-.search button {
-  outline: none;
+.left-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.left-side > div {
+  margin: 15px;
+}
+footer {
+  display: none;
+}
+@media screen and (min-width: 769px) {
+  .result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 50%;
+    background: chartreuse;
+  }
+}
+@media screen and (max-width: 768px) {
+  .carte {
+    display: none;
+  }
+  .result {
+    width: 100%;
+    background: chartreuse;
+  }
 }
 </style>

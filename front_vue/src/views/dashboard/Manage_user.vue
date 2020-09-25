@@ -52,22 +52,44 @@
             <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
           </td>
         </tr>
-        <th class="cell">Pseudo</th>
-        <td class="cell">{{ user.username }}</td>
-        <th class="cell">Role</th>
-        <td class="cell">{{ user.role }}</td>
-        <th class="cell">Nom</th>
-        <td class="cell">{{ user.last_name }}</td>
-        <th class="cell">Prénom</th>
-        <td class="cell">{{ user.first_name }}</td>
-        <th class="cell">Email</th>
-        <td class="cell">{{ user.email }}</td>
-        <td class="cell">
-          <router-link :to="'/edit_user/' + user._id">
-            Editer
-            <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
-          </router-link>
-        </td>
+        <tr class="cell">
+          <th>Pseudo</th>
+        </tr>
+        <tr class="cell">
+          <td>{{ user.username }}</td>
+        </tr>
+        <tr class="cell">
+          <th>Role</th>
+        </tr>
+        <tr class="cell">
+          <td>{{ user.role }}</td>
+        </tr>
+        <tr class="cell">
+          <th>Nom</th>
+        </tr>
+        <tr class="cell">
+          <td>{{ user.last_name }}</td>
+        </tr>
+        <tr class="cell">
+          <th>Prénom</th>
+        </tr>
+        <tr class="cell">
+          <td>{{ user.first_name }}</td>
+        </tr>
+        <tr class="cell">
+          <th>Email</th>
+        </tr>
+        <tr class="cell">
+          <td>{{ user.email }}</td>
+        </tr>
+        <tr class="cell">
+          <td>
+            <router-link :to="'/edit_user/' + user._id">
+              Editer
+              <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
+            </router-link>
+          </td>
+        </tr>
       </table>
     </div>
   </main>
@@ -108,53 +130,62 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #manageUser {
   margin: 100px 20px;
 }
+
 .avatar img {
   width: 60px;
 }
+
 .table {
   border-collapse: collapse;
-  width: 90%;
   margin: auto;
+  width: 90%;
 }
+
 .row,
 .cell {
   border: 1px solid black;
-  text-align: center;
   height: 50px;
+  text-align: center;
 }
+
 .head .cell,
 .table.Mobile th {
   font-size: 20px;
   font-weight: bold;
 }
+
 .cell {
   font-size: 18px;
   font-weight: 400;
 }
+
 @media screen and (min-width: 1025px) {
   .table.Mobile {
     display: none;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .table.Computer {
     display: none;
   }
+
   .tableList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .table.Mobile {
     display: flex;
     flex-direction: column;
-    width: 320px;
     margin: 35px;
+    width: 320px;
   }
 }
 </style>

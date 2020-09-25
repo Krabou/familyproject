@@ -14,9 +14,7 @@
 import NavMain from "@/components/NavMain";
 import NavMobile from "@/components/NavMobile";
 export default {
-  created() {
-    console.log(process.env);
-  },
+  name: "Header",
   components: {
     NavMain,
     NavMobile
@@ -24,9 +22,12 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style lang="scss" scoped>
+body {
+  overflow-x: hidden;
+}
+
 header {
-  position: fixed;
   align-items: center;
   background: white;
   display: flex;
@@ -34,6 +35,7 @@ header {
   height: 90px;
   justify-content: space-between;
   padding: 0 4vw;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
@@ -61,18 +63,8 @@ header > a {
   width: 100%;
 }
 
-body {
-  overflow-x: hidden;
-}
-
 .logoHeader {
-  /* height: 10vh; */
   margin-right: 30px;
   width: 60px;
 }
-
-/* .header-active > a > .logoHeader {
-  height: 8vh;
-  width: 8vh;
-} */
 </style>

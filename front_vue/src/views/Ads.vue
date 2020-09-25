@@ -9,21 +9,17 @@
         <figure>
           <img :src="ad.provider_id.avatar" alt="user picture" />
         </figure>
+        
         <h2>{{ad.title}}</h2>
         <h3>{{ad.provider_id.username}}, annonce postée le {{ad.release_date | moment("DD/MM/YYYY") }}</h3>
+        <p>{{ad.provider_id.children_age.length}} enfant<span v-if="ad.provider_id.children_age.length > 1">s</span></p>
         <p class="location">
           <span class="icon">
             <font-awesome-icon id="location" icon="map-marker-alt" size="1x" />
           </span>
           {{ad.provider_id.adress.city}}
         </p>
-
         <p>Besoin d'un babysitting le {{ad.date | moment("DD/MM/YYYY")}} de {{ad.starts_at}} à {{ad.ends_at}}</p>
-        <ul>
-          pour
-          <li>faire boucle pour user child</li>
-        </ul>
-        <!-- <p>{{ad.description}}</p> -->
         <router-link :to="'/ad/' + ad._id">EN SAVOIR PLUS</router-link>
       </li>
     </ul>
@@ -36,7 +32,6 @@ import axios from "axios";
 export default {
   data() {
     return {
-      // provider_id:null,
       ads: []
     };
   },
@@ -88,6 +83,7 @@ a:hover {
 .ad {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   height: auto;
   width: 320px;
   background: darkcyan;

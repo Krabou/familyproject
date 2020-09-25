@@ -74,7 +74,11 @@ router.post("/reinitialisation_mdp", (req, res, next) => {
         // never trust user input !!!
         // si non : retourner message warning au client
         //req.flash("warning", "Attention, merci de remplir tous les champs requis !");
-        res.redirect("/");
+        // res.redirect("/");
+        res.status(401).json({
+            msg: "Identifiants incorrects",
+            level: "error",
+          });
     }
 
     // async..await is not allowed in global scope, must use a wrapper

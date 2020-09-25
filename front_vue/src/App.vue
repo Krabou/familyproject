@@ -26,11 +26,8 @@ export default {
 };
 </script>
 <style lang="scss">
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url("./styles/reset.css");
+
 main {
   margin-top: 90px;
   min-height: 100vh;
