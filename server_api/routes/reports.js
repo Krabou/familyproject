@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res, next) => {
     }
 });
 
-// PATCH : /report/id (mettre à jour une annonce)
+// PATCH : /report/id (mettre à jour un report)
 router.patch("/:id", async (req, res, next) => {
     try {
         const updatedReport = await ReportModel.findByIdAndUpdate(

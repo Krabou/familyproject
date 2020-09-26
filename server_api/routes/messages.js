@@ -1,7 +1,7 @@
 const router = new require("express").Router();
 const MessageModel = require("../models/Message");
 
-// GET : /messages/ (récuperer les reviews de la bdd)
+// GET : /messages/ (récuperer les messages de la bdd)
 router.get("/", async (req, res, next) => {
     try {
         const messages = await MessageModel.find().sort({
@@ -26,7 +26,7 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-// GET : /messages/id (récuperer une review par son id)
+// GET : /messages/id (récuperer un message par son id)
 router.get("/:id", async (req, res, next) => {
     try {
         const message = await MessageModel.findById(req.params.id)
@@ -49,7 +49,7 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-// POST : /messages (créer une review)
+// POST : /messages (créer un message)
 router.post("/", async (req, res, next) => {
     try {
         const newMessage = await MessageModel.create(req.body); // req.body contient TOUJOURS les informations postées
@@ -70,7 +70,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 //PENSER A VERIFIER NE MARCHE PAS SUR POSTMAN
-// PATCH : /messages/id (mettre à jour une annonce)
+// PATCH : /messages/id (mettre à jour un message)
 router.patch("/:id", async (req, res, next) => {
     try {
         const updatedMessage = await MessageModel.findByIdAndUpdate(

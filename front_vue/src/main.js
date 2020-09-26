@@ -1,10 +1,11 @@
 import App from './App.vue';
 import router from "./router";
 import Vue from 'vue';
+
 import store from "./store";
 import "./axios.config";
-Vue.use(require('vue-moment'));
 
+//FONT AWESOME  
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -22,8 +23,32 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faFacebookSquare);
+library.add(faLinkedin);
+library.add(faTrashAlt);
+library.add(faTwitterSquare);
+library.add(faUserEdit);
+library.add(faBars);
+library.add(faSearch);
+library.add(faCamera);
+library.add(faTimes);
+library.add(faUserPlus);
+library.add(faMapMarkerAlt);
+library.add(faEdit);
+library.add(faSignOutAlt);
+library.add(faEnvelope);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+
+
+ //VUE MOMENT
+Vue.use(require('vue-moment'));
+
+//GOOGLE MAPS
 import * as VueGoogleMaps from 'vue2-google-maps';
- 
+
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDw3DRRRgF19B144GHXzBCVFu3qpkyHGNs',
@@ -49,22 +74,6 @@ Vue.use(VueGoogleMaps, {
   // installComponents: true,
 });
 
-library.add(faFacebookSquare);
-library.add(faLinkedin);
-library.add(faTrashAlt);
-library.add(faTwitterSquare);
-library.add(faUserEdit);
-library.add(faBars);
-library.add(faSearch);
-library.add(faCamera);
-library.add(faTimes);
-library.add(faUserPlus);
-library.add(faMapMarkerAlt);
-library.add(faEdit);
-library.add(faSignOutAlt);
-library.add(faEnvelope);
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 

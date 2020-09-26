@@ -4,10 +4,16 @@
     <router-link class="anchor is-clickable" to="/about">About</router-link>
     <router-link class="anchor is-clickable" to="/carte">Carte</router-link>
     <router-link class="anchor is-clickable" to="/ads">Annonces</router-link>
-    <router-link class="anchor is-clickable" v-if="isSignedIn" :to="'/dashboard/'"
+    <router-link
+      class="anchor is-clickable"
+      v-if="isSignedIn"
+      :to="'/dashboard/'"
       >Dashboard</router-link
     >
-     <router-link class="anchor is-clickable" v-if="isSignedIn" :to="'/messagerie/'"
+    <router-link
+      class="anchor is-clickable"
+      v-if="isSignedIn"
+      :to="'/messagerie/'"
       >Messagerie</router-link
     >
     <router-link class="anchor is-clickable" v-if="!isSignedIn" to="/signin"
@@ -29,15 +35,15 @@ export default {
   },
   data() {
     return {
-         auth,
+      auth,
       isActive: false
     };
   },
-     computed: {
+  computed: {
     isSignedIn() {
       return Boolean(this.$store.getters["user/current"]);
-    },
-   },
+    }
+  },
   created() {
     // $on prend un event-custom en param 1 (string)
     // et exécute un callback (param2) quand l'event survient...
@@ -78,7 +84,7 @@ export default {
     }
   }
 
-  a:hover{
+  a:hover {
     color: black;
   }
 }

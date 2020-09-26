@@ -4,10 +4,16 @@
     <router-link class="anchor is-clickable" to="/about">About</router-link>
     <router-link class="anchor is-clickable" to="/carte">Carte</router-link>
     <router-link class="anchor is-clickable" to="/ads">Annonces</router-link>
-    <router-link class="anchor is-clickable" v-if="isSignedIn" :to="'/dashboard/'"
+    <router-link
+      class="anchor is-clickable"
+      v-if="isSignedIn"
+      :to="'/dashboard/'"
       >Dashboard</router-link
     >
-      <router-link class="anchor is-clickable" v-if="isSignedIn" :to="'/messagerie/'"
+    <router-link
+      class="anchor is-clickable"
+      v-if="isSignedIn"
+      :to="'/messagerie/'"
       >Messagerie</router-link
     >
     <router-link v-if="!isSignedIn" class="anchor is-clickable" to="/signin"
@@ -29,17 +35,17 @@ export default {
     ButtonSignOut,
     IconBurger
   },
-   data() {
+  data() {
     return {
       auth,
       isActive: false
     };
   },
-   computed: {
+  computed: {
     isSignedIn() {
       return Boolean(this.$store.getters["user/current"]);
-    },
-   }
+    }
+  }
 };
 </script>
 
@@ -63,8 +69,8 @@ export default {
       color: rosybrown;
     }
   }
-  
-  a:hover{
+
+  a:hover {
     color: rosybrown;
   }
 }

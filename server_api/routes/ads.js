@@ -14,6 +14,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// GET : /ads/ (récuperer les annonces de la bdd d'un utilisateur)
+router.get("/user_ads/:id", async (req, res, next) => {
+  try {
+    const ads = await AdModel.find({"provider_id": req.params.id}).sort({
+        _id: -1
+      }).limit(100)
+      .populate("provider_id");
+    res.json(ads);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // GET : /ads/id (récuperer une annonce par son id)
 router.get("/:id", async (req, res, next) => {
   try {

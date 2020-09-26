@@ -1,7 +1,8 @@
 <template>
   <main id="dashboard">
     <h1 v-if="currentUser">Welcome {{ currentUser.first_name }} !</h1>
-    <router-link :to="'/manage_ad'">Mes annonces</router-link>
+    <router-link :to="'/manage_ad/user_ads/' + currentUser._id">Mes annonces</router-link>
+     <router-link :to="'/manage_ads/'">Manager toutes les annonces</router-link>
     <router-link :to="'/manage_user'">Manager les utilisateurs</router-link>
     <router-link :to="'/kids'">Mes enfants</router-link>
     <router-link :to="'/profil/' + currentUser._id">voir profil</router-link>

@@ -1,6 +1,6 @@
 <template>
   <main id="manage-ad">
-    <h1>Mes annonces</h1>
+    <h1>Toutes les annonces</h1>
     <router-link :to="'/form_create_ad'">Créer une annonce</router-link>
     <table class="table Computer">
       <thead class="head">
@@ -67,16 +67,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ads: [
-       { provider_id:""}
-      ],
-      userId:""
+      ads: []
     };
   },
   methods: {
     //Afficher toutes les annonces
-    async getAds(id) {
-      const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/ads/user_ads/"+ id);
+    async getAds() {
+      const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/ads");
       this.ads = apiRes.data;
     },
     //Supprimer une annonce
@@ -85,13 +82,12 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/ads/" + id
       );
       this.ads = apiRes.data;
-      this.getAds(id);
+      this.getAds();
     }
   },
   created() {
-   this.provider_id = this.$route.params.id;
     try {
-      this.getAds(this.provider_id);
+      this.getAds();
     } catch (err) {
       console.error(err);
     }

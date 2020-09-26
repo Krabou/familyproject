@@ -37,7 +37,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// DELETE : /ads/id (supprimer une annonce de la bdd grâce à son _id)
+// DELETE : /reviews/id (supprimer une reviews de la bdd grâce à son _id)
 router.delete("/:id", async (req, res, next) => {
   try {
     const deletedReview = await ReviewModel.findByIdAndDelete(req.params.id); // req.params.id correspond à l'id passé en URL
@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-// PATCH : /reviews/id (mettre à jour une annonce)
+// PATCH : /reviews/id (mettre à jour une review)
 router.patch("/:id", async (req, res, next) => {
   try {
     const updatedReview = await ReviewModel.findByIdAndUpdate(

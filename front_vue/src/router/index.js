@@ -207,7 +207,22 @@ const routes = [
       )
   },
   {
-    path: "/manage_ad",
+    path: "/manage_ads",
+    name: "Manage_ad",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "manage_ad" */
+        "../views/dashboard/Manage_ads.vue"
+      )
+  },
+  {
+    path: "/manage_ad/user_ads/:id",
     name: "Manage_ad",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
