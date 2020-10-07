@@ -85,7 +85,7 @@
         <tr class="cell">
           <td>
             <router-link :to="'/edit_user/' + user._id">
-              Editer
+              EDITER
               <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
             </router-link>
           </td>
@@ -108,16 +108,15 @@ export default {
     //Afficher tout les utilisateurs
     async getUsers() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/"
+        process.env.VUE_APP_BACKEND_URL + "/users"
       );
       this.users = apiRes.data;
     },
     //Supprimer un utilisateur
     async deleteUser(id) {
-      const apiRes = await axios.delete(
+      await axios.delete(
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
-      this.users = apiRes.data;
       this.getUsers();
     }
   },

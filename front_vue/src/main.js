@@ -4,7 +4,7 @@ import Vue from 'vue';
 
 import store from "./store";
 import "./axios.config";
-
+//_____________________________________________________________
 //FONT AWESOME  
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -23,6 +23,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faUserTimes } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faFacebookSquare);
 library.add(faLinkedin);
@@ -38,14 +39,15 @@ library.add(faMapMarkerAlt);
 library.add(faEdit);
 library.add(faSignOutAlt);
 library.add(faEnvelope);
+library.add(faUserTimes);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-
+//_____________________________________________________
 
  //VUE MOMENT
 Vue.use(require('vue-moment'));
-
+//_______________________________________________
 //GOOGLE MAPS
 import * as VueGoogleMaps from 'vue2-google-maps';
 
@@ -73,7 +75,26 @@ Vue.use(VueGoogleMaps, {
   //// then disable the following:
   // installComponents: true,
 });
+//________________________________________________
+//SocketIO
 
+// import VueSocketIO from 'vue-socket.io'
+ 
+// Vue.use(new VueSocketIO({
+//     debug: true,
+//     connection: 'http://metinseylan.com:1992',
+//     vuex: {
+//         store,
+//         actionPrefix: 'SOCKET_',
+//         mutationPrefix: 'SOCKET_'
+//     },
+//     options: { path: "/my-app/" } //Optional options
+// }))
+//______________________________________________
+//Messages flash
+import FlashMessage from '@smartweb/vue-flash-message';
+Vue.use(FlashMessage);
+//______________________________________________
 
 Vue.config.productionTip = false
 

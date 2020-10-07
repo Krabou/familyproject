@@ -12,7 +12,7 @@ const getLocalAuthToken = () => localStorage.getItem(tokenName);
  * @return {undefined}
  */
 const setLocalAuthToken = (token) => localStorage.setItem(tokenName, token);
-// ecrit le token dans le localstorage
+
 /**
  *
  * @return {undefined}

@@ -16,8 +16,23 @@ const userSchema = new Schema({
     type: String,
   },
   birthdate: Date,
-  children_age: [Number],
+  children: [{
+    child_birthdate: Date,
+    child_firstname: String,
+    child_gender: {
+      type: String,
+      enum: ["male", "female"],
+    },
+  }],
   friends: [{
+    type: [Schema.Types.ObjectId],
+    ref: "User"
+  }],
+  demande_ami_envoyee: [{
+    type: [Schema.Types.ObjectId],
+    ref: "User"
+  }],
+  demande_ami_recues: [{
     type: [Schema.Types.ObjectId],
     ref: "User"
   }],
@@ -36,9 +51,9 @@ const userSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ["Male", "Female"],
+    enum: ["male", "female"],
   },
-  number_mission:Number,
+  number_mission: Number,
   lang_spoken_id: {
     type: [Schema.Types.ObjectId],
     ref: "Lang"

@@ -1,9 +1,9 @@
 <template>
   <nav id="nav-main">
-    <router-link class="anchor is-clickable" to="/">Home</router-link>
-    <router-link class="anchor is-clickable" to="/about">About</router-link>
-    <router-link class="anchor is-clickable" to="/carte">Carte</router-link>
-    <router-link class="anchor is-clickable" to="/ads">Annonces</router-link>
+    <router-link class="anchor is-clickable" to="/">Accueil</router-link>
+    <router-link class="anchor is-clickable" to="/about">A propos</router-link>
+    <router-link class="anchor is-clickable" v-if="isSignedIn" to="/carte">Carte</router-link>
+    <router-link class="anchor is-clickable" v-if="isSignedIn" to="/ads">Annonces</router-link>
     <router-link
       class="anchor is-clickable"
       v-if="isSignedIn"
@@ -19,7 +19,7 @@
     <router-link v-if="!isSignedIn" class="anchor is-clickable" to="/signin"
       >Connexion</router-link
     >
-    <div class="button-signout" v-if="isSignedIn"><ButtonSignOut /></div>
+<ButtonSignOut v-if="isSignedIn" class="button-signout" />
     <IconBurger class="icon-burger" />
   </nav>
 </template>
@@ -37,8 +37,7 @@ export default {
   },
   data() {
     return {
-      auth,
-      isActive: false
+      auth
     };
   },
   computed: {
@@ -66,17 +65,19 @@ export default {
     margin: 0 10px;
     text-decoration: none;
     &.router-link-exact-active {
-      color: rosybrown;
+      color:rgb(217,74,100)
     }
   }
 
   a:hover {
-    color: rosybrown;
+    color: rgb(217,74,100);
+    transition: 2s;
   }
 }
 
 .button-signout:hover {
-  color: rosybrown;
+  color: rgb(217,74,100);
+  transition: 2s;
 }
 
 @media screen and (min-width: 1025px) {

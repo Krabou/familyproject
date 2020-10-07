@@ -1,7 +1,6 @@
 <template>
   <main id="manage-ad">
     <h1>Toutes les annonces</h1>
-    <router-link :to="'/form_create_ad'">Créer une annonce</router-link>
     <table class="table Computer">
       <thead class="head">
         <tr class="row">
@@ -52,7 +51,7 @@
         <td class="cell">{{ ad.title }}</td>
         <td class="cell">
           <router-link :to="'/form_edit_ad/' + ad._id">
-            Editer
+            EDITER
             <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
           </router-link>
         </td>
@@ -78,10 +77,7 @@ export default {
     },
     //Supprimer une annonce
     async deleteAd(id) {
-      const apiRes = await axios.delete(
-        process.env.VUE_APP_BACKEND_URL + "/ads/" + id
-      );
-      this.ads = apiRes.data;
+      await axios.delete(process.env.VUE_APP_BACKEND_URL + "/ads/" + id);
       this.getAds();
     }
   },

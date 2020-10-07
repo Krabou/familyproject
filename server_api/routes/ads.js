@@ -1,6 +1,8 @@
 const router = new require("express").Router();
 const AdModel = require("./../models/Ad");
 
+
+
 // GET : /ads/ (récuperer les annonces de la bdd)
 router.get("/", async (req, res, next) => {
   try {
@@ -17,7 +19,9 @@ router.get("/", async (req, res, next) => {
 // GET : /ads/ (récuperer les annonces de la bdd d'un utilisateur)
 router.get("/user_ads/:id", async (req, res, next) => {
   try {
-    const ads = await AdModel.find({"provider_id": req.params.id}).sort({
+    const ads = await AdModel.find({
+        "provider_id": req.params.id
+      }).sort({
         _id: -1
       }).limit(100)
       .populate("provider_id");
@@ -40,26 +44,8 @@ router.get("/:id", async (req, res, next) => {
 
 // POST : /ads (créer une annonce)
 router.post("/", async (req, res, next) => {
-  const {
-    release_date,
-    provider_id,
-    date,
-    starts_at,
-    ends_at,
-    title,
-    description
-  } = req.body;
   try {
-    const newAds = await AdModel.create({
-      provider_id,
-      release_date: Date.now(),
-      date,
-      starts_at,
-      ends_at,
-      title,
-      description
-
-    }); // req.body contient TOUJOURS les informations postées
+    const newAds = await AdModel.create(req.body); // req.body contient TOUJOURS les informations postées
     res.json(newAds);
   } catch (err) {
     next(err);

@@ -1,13 +1,14 @@
 import axios from "axios";
 import auth from "@/auth";
 import { apiHandler } from "./../api/handler";
+
 const handler = apiHandler();
 
 export default {
   namespaced: true,
   state: {
     users: [],
-    currentUser: null
+    currentUser: null,
   },
   getters: {
     all(state) {
@@ -15,35 +16,40 @@ export default {
     },
     current(state) {
       return state.currentUser;
-    }
+    },
   },
   // https://vuex.vuejs.org/fr/api/#mutations
+  // RAPPEL : les mutations (synchrones) sont commit
   mutations: {
-    // prend le state en 1er argument et la valeur d'update en 2nd
+    // les prennent toujours le state en 1er argument, et la valeur d'update en 2nd argument
     setCurrent(state, infos) {
-      state.currentUser = { ...infos };
-      //on cree un nouvel objet, contenant les infos de l'user qui vient de se signin
+      console.log("infos ?", infos);
+      state.currentUser = infos; // on créé un nouvel objet tout neuf, contenant les infos de l'user qui vient de se signin
     },
     setUsers(state, users) {
       state.users = users;
     },
     unsetCurrent(state) {
+      console.log("signout from store");
       state.currentUser = null;
-    }
+    },
   },
   //https://vuex.vuejs.org/fr/api/#actions
+  // RAPPEL : les actions (asynchrones) sont dispatch
   actions: {
     signin(context, userInfos) {
       return new Promise((resolve, reject) => {
         handler
           .post("/auth/signin", userInfos)
-          .then(res => {
+          .then((res) => {
             auth.setLocalAuthToken(res.data.token);
+            // context.commit permet de modifier le state du store
+            // de façon synchrone
+            console.log(res.data.user);
             context.commit("setCurrent", res.data.user);
-            //context.commit permet de modifier le state du store de facon synchrone
             resolve(res);
           })
-          .catch(err => {
+          .catch((err) => {
             auth.deleteLocalAuthToken();
             context.commit("setCurrent", null);
             reject(err);
@@ -51,6 +57,8 @@ export default {
       });
     },
     async signup(context, userInfos) {
+      console.log("fooo");
+      // ci)dessus: context représente tout le store, il est obligatoire...
       try {
         await handler.post("/auth/signup", userInfos);
       } catch (err) {
@@ -72,41 +80,48 @@ export default {
     },
     getUserByToken(context) {
       axios
-        .get("/auth/get-user-by-token", {
-          withCredentials: true
-          // ci dessus: TRES IMPORTANT : sans l'option withCredentials, le token (JWT)
-          // n'est pas envoyé avec la requête et le serveur ne saura pas que l'user est déjà connecté
-        })
-        .then(res => context.commit("setCurrent", res.data))
-        .catch(err => console.error(err.message));
+        .get(process.env.VUE_APP_BACKEND_URL + "/auth/get-user-by-token")
+        .then((res) => context.commit("setCurrent", res.data))
+        .catch((err) => console.error(err.message));
     },
     getAll(context) {
       return new Promise((resolve, reject) => {
         axios
-          .get("/users/")
-          .then(res => {
+          .get("users/")
+          .then((res) => {
             context.commit("setUsers", res.data); // on modifie le store user avec la liste de tous les users retournés par backend
             resolve(res); // promesse tenue !
           })
-          .catch(err => {
+          .catch((err) => {
             reject(err); // promesse non tenue !
           });
       });
     },
-    async update(context, userInfos) {
+    update(context, userInfos) {
       return new Promise((resolve, reject) => {
         axios
           .patch(`/users/${userInfos._id}`, userInfos)
-          .then(res => {
+          .then((res) => {
             context.commit("setCurrent", res.data);
             resolve(res);
           })
-          .catch(err => {
+          .catch((err) => {
             auth.deleteLocalAuthToken();
             context.commit("setCurrent", null);
             reject(err);
           });
       });
-    }
-  }
+    },
+    async updateAvatar(context, avatarFile) {
+      try {
+        const updatedUser = await axios.patch(
+          `/users/${context.getters.current._id}/avatar`,
+          avatarFile
+        );
+        context.commit("setCurrent", updatedUser.data);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+  },
 };

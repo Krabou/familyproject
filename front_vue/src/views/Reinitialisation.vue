@@ -5,7 +5,7 @@
       <p>Nous vous enverrons un lien pour réinitialiser votre mot de passe</p>
       <label class="label" for="email">Adresse email</label>
       <input class="input" type="email" id="email" v-model="mail" />
-      <button class="btn">Envoyer</button>
+      <button class="btn">ENVOYER</button>
     </form>
   </main>
 </template>
@@ -82,7 +82,7 @@ export default {
   width: 100%;
 }
 .btn {
-  background: rosybrown;
+  background:  rgb(217,74,100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -95,6 +95,7 @@ export default {
 }
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 @media screen and (min-width: 769px) {
   .form {
@@ -105,6 +106,14 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
+//          background: rgb(217,74,100);
+// background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
   }
 }
 @media screen and (max-width: 768px) {

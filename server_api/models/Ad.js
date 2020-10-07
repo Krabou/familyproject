@@ -10,7 +10,10 @@ const adSchema = new Schema({
         type: String,
         enum: ["offre", "demande"]
     },
-    release_date: Date,
+    release_date: {
+        type: Date,
+        default: Date.now()
+    },
     date: Date,
     starts_at: String,
     ends_at: String,

@@ -2,17 +2,37 @@
   <main class="main-form" id="connexion">
     <form class="form" v-on:submit.prevent="signin">
       <h1>
-        J'AI UN COMPTE |
-        <span>
-          <router-link to="/signup">CR&Eacute;ER UN COMPTE</router-link>
-        </span>
+        <span class="title"> J'AI UN COMPTE </span>
+        <!-- <span>
+        | <router-link to="/signup">CR&Eacute;ER UN COMPTE</router-link>
+        </span> -->
       </h1>
       <label class="label" for="email">Adresse e-mail</label>
-      <input class="input" type="email" id="email" autocomplete="email" v-model="email" />
+      <input
+        class="input"
+        type="email"
+        id="email"
+        autocomplete="email"
+        v-model="email"
+      />
       <label class="label" for="password">Mot de passe</label>
-      <input class="input" type="password" id="password" autocomplete="current-password" v-model="password" />
+      <input
+        class="input"
+        type="password"
+        id="password"
+        autocomplete="current-password"
+        v-model="password"
+      />
       <button class="btn">CONNEXION</button>
-      <router-link to="/reinitialisation">Mot de passe oubli&eacute;?</router-link>
+      <p>
+        Vous n'avez pas de compte ?
+        <router-link to="/signup">Créer un compte</router-link>
+      </p>
+      <p>
+        <router-link to="/reinitialisation"
+          >Mot de passe oubli&eacute;?</router-link
+        >
+      </p>
     </form>
   </main>
 </template>
@@ -27,23 +47,41 @@ export default {
   },
   methods: {
     signin() {
-      this.$store
-        .dispatch("user/signin", {
-          email: this.email,
-          password: this.password
-        })
-        .then(() => {
-          this.$router.push("/dashboard");
-        })
-        .catch(err => {
-          console.error(err.message);
+      if (!this.email || !this.password) {
+        this.flashMessage.error({
+          title: "Warning",
+          message: "Attention, email et mot de passe sont requis !",
+          time: 5000
         });
+      } else {
+        this.$store
+          .dispatch("user/signin", {
+            email: this.email,
+            password: this.password
+          })
+          .then(() => {
+            this.$router.push("/dashboard");
+          })
+          .catch(err => {
+            console.error(err.message);
+            // alert("mauvais identifiant")
+            this.flashMessage.error({
+              title: "Warning",
+              message: "Identifiants incorrects !",
+              time: 5000
+            });
+          });
+      }
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped >
+a {
+  color: black;
+  cursor: pointer;
+}
 .main-form {
   margin: 100px 0 0;
 }
@@ -56,6 +94,10 @@ export default {
   margin: 50px auto;
 }
 .main-form p {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.main-form p:last-of-type {
   margin-bottom: 30px;
 }
 .label {
@@ -88,7 +130,7 @@ export default {
   width: 100%;
 }
 .btn {
-  background: rosybrown;
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -101,6 +143,7 @@ export default {
 }
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 @media screen and (min-width: 769px) {
   .form {
@@ -111,6 +154,14 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    //       background: rgb(217,74,100);
+    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
+  background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {

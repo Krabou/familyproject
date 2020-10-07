@@ -2,32 +2,24 @@
   <main class="main-form" id="add-kids">
     <form class="form" @submit.prevent="addKid(userId)">
       <h1>
-       Ajouter un enfant
+        Ajouter un enfant
       </h1>
-     
-      <div class="input-radio-list">
-        <div>
-          <input
-            class="input-radio"
-            type="radio"
-            id="user"
-            v-model="role"
-            value="user"
-          />
-          <label class="label-radio" for="user">User</label>
-        </div>
-        <div>
-          <input
-            class="input-radio"
-            type="radio"
-            id="admin"
-            v-model="role"
-            value="admin"
-          />
-          <label class="label-radio" for="admin">Admin</label>
-        </div>
-      </div>
-      <button class="btn">Editer !</button>
+      <label for="childGender" class="label">Sexe</label>
+      <select v-model="child_gender" id="gender" class="select">
+        <option disabled value="">Sélectionner</option>
+        <option value="female">fille</option>
+        <option value="male">garçon</option>
+      </select>
+      <label for="childFirstname" class="label">Prénom</label>
+      <input
+        type="text"
+        v-model="child_firstname"
+        id="childFirstname"
+        class="input"
+      />
+      <label for="childBirthday" class="label">Date de naissance</label>
+      <input type="date" v-model="child_birthdate" class="input" />
+      <button class="btn">AJOUTER</button>
     </form>
   </main>
 </template>
@@ -38,7 +30,10 @@ import axios from "axios";
 export default {
   data() {
     return {
-    userId:""
+      userId: "",
+      child_gender: "",
+      child_firstname: "",
+      child_birthdate: ""
     };
   },
   methods: {
@@ -51,12 +46,14 @@ export default {
     // },
     // On édite l'utilisateur
     async addKid(id) {
-      const { role } = this.$data;
+      const { child_gender, child_firstname, child_birthdate } = this.$data;
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
           {
-            role
+            $push: {
+              children: { child_gender, child_firstname, child_birthdate }
+            }
           }
         );
         console.log(apiRes);
@@ -65,7 +62,7 @@ export default {
       }
     }
   },
-    computed: {
+  computed: {
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
@@ -107,21 +104,29 @@ export default {
   margin-bottom: 15px;
   width: 100%;
 }
-
-.input-radio {
-  margin: 15px;
-}
-
-.input-radio-list {
-  left: 0;
-}
-
-.input-radio-list {
+.input {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  border: none;
+  border-bottom: black 1px solid;
+  color: black;
+  font-size: 20px;
+  height: 50px;
+  margin-bottom: 15px;
+  padding-left: 15px;
   width: 100%;
+}
+.select {
+  align-self: flex-start;
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  color: black;
+  font-size: 20px;
+  height: 30px;
+  margin-bottom: 15px;
+  padding: 0 15px;
 }
 
 .btn {
-  background: rosybrown;
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -150,6 +155,12 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgb(217, 74, 100);
+    background: radial-gradient(
+      circle,
+      rgba(217, 74, 100, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {

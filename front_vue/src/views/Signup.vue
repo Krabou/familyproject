@@ -3,33 +3,86 @@
     <section>
       <form class="form" @submit.prevent="signup">
         <h1>
-          <span>
-            <router-link to="/signin">J'AI UN COMPTE</router-link>
-          </span> |
+          <!-- <span>
+            <router-link to="/signin">J'AI UN COMPTE</router-link> |
+          </span> -->
           CR&Eacute;ER UN COMPTE
         </h1>
-        <label class="label" for="username">Nom d'utilisateur</label>
-        <input class="input" type="text" id="username" v-model="user.username" />
-        <label class="label" for="last_name">Nom</label>
-        <input class="input" type="text" id="last_name" v-model="user.last_name" />
-        <label class="label" for="first_name">Prénom</label>
-        <input class="input" type="text" id="first_name" v-model="user.first_name" />
-        <label class="label" for="email">Adresse e-mail</label>
+        <label class="label" for="gender">Civilité</label>
+        <select v-model="user.gender" id="gender" class="select">
+          <option disabled value="">Sélectionner</option>
+          <option value="female">Mme.</option>
+          <option value="male">M.</option>
+        </select>
+        <label class="label" for="username">Nom d'utilisateur *</label>
+        <input
+          class="input"
+          type="text"
+          id="username"
+          v-model="user.username"
+        />
+        <label class="label" for="last_name">Nom *</label>
+        <input
+          class="input"
+          type="text"
+          id="last_name"
+          v-model="user.last_name"
+        />
+        <label class="label" for="first_name">Prénom *</label>
+        <input
+          class="input"
+          type="text"
+          id="first_name"
+          v-model="user.first_name"
+        />
+        <label class="label" for="email">Adresse e-mail *</label>
         <input class="input" type="email" id="email" v-model="user.email" />
         <label class="label" for="birthdate">Date de naissance</label>
-        <input class="input" type="date" id="birthdate" v-model="user.birthdate" />
-        <label class="label" for="number">Numéro de rue</label>
-        <input class="input" type="number" id="number" v-model="user.adress.number" min="1" />
-        <label class="label" for="street">Rue</label>
-        <input class="input" type="text" id="street" v-model="user.adress.street" />
-        <label class="label" for="zipcode">Code postal</label>
-        <input class="input" type="number" id="zipcode" v-model="user.adress.zipCode" min="0" />
-        <label class="label" for="city">Ville</label>
+        <input
+          class="input"
+          type="date"
+          id="birthdate"
+          v-model="user.birthdate"
+        />
+        <label class="label" for="number">Numéro de rue *</label>
+        <input
+          class="input"
+          type="number"
+          id="number"
+          v-model="user.adress.number"
+          min="1"
+        />
+        <label class="label" for="street">Rue *</label>
+        <input
+          class="input"
+          type="text"
+          id="street"
+          v-model="user.adress.street"
+        />
+        <label class="label" for="zipcode">Code postal *</label>
+        <input
+          class="input"
+          type="number"
+          id="zipcode"
+          v-model="user.adress.zipCode"
+          min="0"
+        />
+        <label class="label" for="city">Ville *</label>
         <input class="input" type="text" id="city" v-model="user.adress.city" />
-        <label class="label" for="country">Pays</label>
-        <input class="input" type="text" id="country" v-model="user.adress.country" />
-        <label class="label" for="password">Mot de passe</label>
-        <input class="input" type="password" id="password" v-model="user.password" />
+        <label class="label" for="country">Pays *</label>
+        <input
+          class="input"
+          type="text"
+          id="country"
+          v-model="user.adress.country"
+        />
+        <label class="label" for="password">Mot de passe *</label>
+        <input
+          class="input"
+          type="password"
+          id="password"
+          v-model="user.password"
+        />
         <!-- <label class="label" for="avatar"><font-awesome-icon icon="camera" size="2x" /></label>
         <input class="hidden" type="file" :v-model="user.avatar" id="avatar">-->
         <button class="btn">S'INSCRIRE</button>
@@ -80,10 +133,11 @@ export default {
     return {
       user: {
         // définition de valeurs de base pour les tests de dev ("mettre à chaîne vide une fois dev ok")
+        gender: "",
         username: "Fati",
         last_name: "Bou",
         first_name: "Fati",
-        email: "fati@bou.com",
+        email: "ti@bou.com",
         password: "testa",
         birthdate: "07/11/1986",
         adress: {
@@ -112,20 +166,31 @@ export default {
       // fd.append("city", this.user.adress.city);
       // fd.append("country", this.user.adress.country);
       // if (this.user.avatar) fd.append("avatar", this.user.avatar);
+      if (!this.user.email || !this.user.password) {
+        this.flashMessage.error({
+          title: "Warning",
+          message: "Merci de remplir tout les champs requis * !",
+          time: 5000
+        });
+      } else {
+        this.$store.dispatch(
+          "user/signup",
+          // fd
 
-      this.$store.dispatch(
-        "user/signup",
-        // fd
-
-        { ...this.user }
-      ); // on utilise
-      this.$router.push("/signin");
+          { ...this.user }
+        ); // on utilise
+        this.$router.push("/signin");
+      }
     }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+a {
+  color: black;
+  cursor: pointer;
+}
 .main-form {
   margin: 100px 0 0;
 }
@@ -139,6 +204,7 @@ export default {
 }
 .main-form p {
   margin-bottom: 30px;
+  text-align: center;
 }
 .label {
   color: black;
@@ -157,6 +223,15 @@ export default {
   padding-left: 15px;
   width: 100%;
 }
+.select {
+  align-self: flex-start;
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  color: black;
+  font-size: 20px;
+  height: 30px;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
 .textarea {
   background: rgba($color: #e9d1d1, $alpha: 0.3);
   border: none;
@@ -170,7 +245,7 @@ export default {
   width: 100%;
 }
 .btn {
-  background: rosybrown;
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -183,6 +258,7 @@ export default {
 }
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 @media screen and (min-width: 769px) {
   .form {
@@ -193,6 +269,14 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    //       background: rgb(217,74,100);
+    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {

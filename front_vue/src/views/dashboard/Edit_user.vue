@@ -33,7 +33,7 @@
           <label class="label-radio" for="admin">Admin</label>
         </div>
       </div>
-      <button class="btn">Editer !</button>
+      <button class="btn">EDITER</button>
     </form>
   </main>
 </template>
@@ -116,14 +116,11 @@ export default {
 
 .input-radio-list {
   left: 0;
-}
-
-.input-radio-list {
-  width: 100%;
+   width: 100%;
 }
 
 .btn {
-  background: rosybrown;
+  background: rgb(217,74,100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -137,6 +134,7 @@ export default {
 
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 
 .hidden {
@@ -152,6 +150,12 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {

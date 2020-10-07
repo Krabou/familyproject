@@ -1,12 +1,13 @@
 <template>
   <main id="dashboard">
     <h1 v-if="currentUser">Welcome {{ currentUser.first_name }} !</h1>
-    <router-link :to="'/manage_ad/user_ads/' + currentUser._id">Mes annonces</router-link>
-     <router-link :to="'/manage_ads/'">Manager toutes les annonces</router-link>
-    <router-link :to="'/manage_user'">Manager les utilisateurs</router-link>
-    <router-link :to="'/kids'">Mes enfants</router-link>
-    <router-link :to="'/profil/' + currentUser._id">voir profil</router-link>
-    <router-link :to="'/form_edit_profil/' + currentUser._id">Modifier le profil</router-link>
+    <router-link v-if="currentUser" :to="'/manage_ad/user_ads/' + currentUser._id">Mes annonces</router-link>
+     <router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manage_ads/'">Manager toutes les annonces</router-link>
+    <router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manage_user'">Manager les utilisateurs</router-link>
+    <router-link v-if="currentUser" :to="'/kids'">Mes enfants</router-link>
+    <router-link v-if="currentUser" :to="'/profil/' + currentUser._id">voir profil</router-link>
+    <router-link v-if="currentUser" :to="'/friends/' + currentUser._id">Amis</router-link>
+    <router-link v-if="currentUser" :to="'/form_edit_profil/' + currentUser._id">Modifier le profil</router-link>
   </main>
 </template>
 
@@ -46,4 +47,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+
+
+</style>

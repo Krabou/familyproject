@@ -2,17 +2,51 @@
   <main class="main-form" id="contact">
     <form class="form" @submit.prevent="sendEmail">
       <h1 role="heading">Contact</h1>
-      <p>Remplissez le formulaire ci dessous et nous reviendrons vers vous dans les meilleurs délais.</p>
+      <p>
+        Remplissez le formulaire ci dessous et nous reviendrons vers vous dans
+        les meilleurs délais.
+      </p>
       <label class="label" for="name">Nom</label>
-      <input class="input" role="textbox" type="text" id="name" v-model="name" />
+      <input
+        class="input"
+        role="textbox"
+        type="text"
+        id="name"
+        v-model="name"
+      />
       <label class="label" for="firstname">Prénom</label>
-      <input class="input" role="textbox" type="text" id="firstname" v-model="firstname" />
+      <input
+        class="input"
+        role="textbox"
+        type="text"
+        id="firstname"
+        v-model="firstname"
+      />
       <label class="label" for="mail">Email</label>
-      <input class="input" role="textbox" type="email" id="mail" v-model="mail" />
+      <input
+        class="input"
+        role="textbox"
+        type="email"
+        id="mail"
+        v-model="mail"
+      />
       <label class="label" for="subject">Sujet</label>
-      <input class="input" role="textbox" type="text" id="subject" v-model="subject" />
+      <input
+        class="input"
+        role="textbox"
+        type="text"
+        id="subject"
+        v-model="subject"
+      />
       <label class="label" for="message">Message</label>
-      <textarea class="textarea" role="textbox" id="message" rows="4" cols="50" v-model="message"></textarea>
+      <textarea
+        class="textarea"
+        role="textbox"
+        id="message"
+        rows="4"
+        cols="50"
+        v-model="message"
+      ></textarea>
       <button class="btn" role="button">ENVOYER</button>
     </form>
   </main>
@@ -99,7 +133,7 @@ export default {
   width: 100%;
 }
 .btn {
-  background: rosybrown;
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -112,6 +146,7 @@ export default {
 }
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 @media screen and (min-width: 769px) {
   .form {
@@ -122,6 +157,14 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
+    //              background: rgb(217,74,100);
+    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
   }
 }
 @media screen and (max-width: 768px) {

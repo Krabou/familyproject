@@ -1,102 +1,101 @@
 <template>
   <main class="main-form" id="editUser">
-    <form @submit.prevent="editUser(userId)">
-      <h1>
-        Editer le profil de {{ user.last_name }} {{ user.first_name }}
-      </h1>
-      <div>
-        <figure class="avatar"><img :src="user.avatar" alt="avatar"></figure>
-       <label class="label" for="avatar"><font-awesome-icon icon="camera" size="2x" /></label>
-        <input class="hidden" type="file" :v-model="user.avatar" id="avatar">
-      <button class="btn">Editer !</button></div>
-    </form>
+      <h1 v-if="currentUser">Editer le profil de {{ currentUser.last_name }} {{ currentUser.first_name }}</h1>
+     <Avatar v-if="currentUser" :avatar="currentUser.avatar" />
+     <Password />
   </main>
 </template>
 
 <script>
-import axios from "axios";
+import Avatar from "@/components/Avatar";
+import Password from "@/components/Password";
+// import UserInfos from "@/components/UserInfos";
 
 export default {
   data() {
     return {
-      userId: "",
-      role: "",
-      user: "",
-      avatar:""
     };
   },
-  methods: {
-    // On affiche l'utilisateur
-    async getUser(id) {
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/" + id
-      );
-      this.user = apiRes.data;
-    },
-    // On édite l'utilisateur
-    async editUser(id) {
-      const { role } = this.$data;
-      try {
-        const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
-          {
-            role
-          }
-        );
-        console.log(apiRes);
-      } catch (Err) {
-        console.error(Err);
-      }
-    },
-        signup() {
-      const fd = new FormData(); // form data nécessaire pour envoyer des fichiers images (files)
-      // fd.append("username", this.user.username);
-      // fd.append("first_name", this.user.first_name);
-      // fd.append("last_name", this.user.last_name);
-      // fd.append("email", this.user.email);
-      // fd.append("password", this.user.password);
-      // fd.append("birthdate", this.user.birthdate);
-      // fd.append("number", this.user.adress.number);
-      // fd.append("street", this.user.adress.street);
-      // fd.append("zipcode", this.user.adress.zipCode);
-      // fd.append("city", this.user.adress.city);
-      // fd.append("country", this.user.adress.country);
-      if (this.user.avatar) fd.append("avatar", this.user.avatar);
-
-      this.$store.dispatch(
-        "user/signup",
-        fd
-
-        // { ...this.user }
-      ); // on utilise
-      this.$router.push("/signin");
-    }
+  components: {
+    Avatar,
+    Password
+    // UserInfos
   },
-  mounted() {
-    console.log(">>>>", this.$router); // accessible partout dans ton app
-    this.userId = this.$route.params.id;
-    try {
-      this.getUser(this.userId);
-    } catch (err) {
-      console.error(err);
+  computed:   {
+    // intéret de stocker les données dans computed plutôt que dans data
+    //  quand elles changent, elle cause un re-render du composant ... ce qui permet de mettre à  jour la vue sans forceUpdate()
+    // https://vuejs.org/v2/guide/computed.html
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   }
 };
+
+
+// import axios from "axios";
+
+// export default {
+//   data() {
+//     return {
+//       userId: "",
+//       user: "",
+//       selectedAvatar: ""
+//     };
+//   },
+//   methods: {
+  
+//     // On affiche l'utilisateur
+//     async getUser(id) {
+//       const apiRes = await axios.get(
+//         process.env.VUE_APP_BACKEND_URL + "/users/" + id
+//       );
+//       this.user = apiRes.data;
+//     },
+//     // on cible l'input
+//   handleAvatar(e) {
+//       this.selectedAvatar = e.target.files[0];
+//     },
+//     // On édite l'utilisateur
+//     async editAvatar(id) {
+//       const fd = new FormData();
+//       if (this.selectedAvatar) fd.append("avatar", this.selectedAvatar);
+//       try {
+//         const apiRes = await axios.patch(
+//           process.env.VUE_APP_BACKEND_URL +
+//             "/users/form_edit_profil/" +
+//             id +
+//             "/avatar",
+//           fd
+//         );
+//         console.log(apiRes);
+//       } catch (Err) {
+//         console.error(Err);
+//       }
+//     }
+//   },
+//   mounted() {
+//     console.log(">>>>", this.$router); // accessible partout dans ton app
+//     this.userId = this.$route.params.id;
+//     try {
+//       this.getUser(this.userId);
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+// };
 </script>
 
 
 <style lang="scss" scoped>
 //CSS AVATAR
-.avatar{
+.avatar {
   height: 60px;
   width: 60px;
 }
-.avatar>img{
+.avatar > img {
   width: 100%;
 }
-
-
-
 
 //CSS FORM
 .main-form {
@@ -143,7 +142,7 @@ export default {
   width: 100%;
 }
 .btn {
-  background: rosybrown;
+  background: rgb(217,74,100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -166,6 +165,12 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {
@@ -177,7 +182,7 @@ export default {
     margin: 100px 0 0;
   }
 }
-.hidden {
-  display: none;
-}
+// .hidden {
+//   display: none;
+// }
 </style>

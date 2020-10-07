@@ -1,18 +1,35 @@
 <template>
   <main id="main-ads">
+    <section>
     <h1>Annonces</h1>
+          <form class="search">
+        <input
+          type="text"
+          class="searchTerm"
+          v-model="search"
+          placeholder="Rechercher"
+        />
+        <button type="submit" class="searchButton">
+          <font-awesome-icon icon="search" size="1x" />
+        </button>
+      </form>
     <div class="create-ad-link">
       <router-link :to="'/form_create_ad/'">DEPOSER UNE ANNONCE</router-link>
+
     </div>
+     
+     <p class="no-result" v-if="filteredAds.length == 0">
+        Il n'y a pas d'annonce, soyez le premier à en créer une !
+      </p>
     <ul class="ads">
-      <li class="ad" v-for="(ad, i) in ads" :key="i">
+      <li class="ad" v-for="(ad, i) in filteredAds" :key="i">
         <figure>
           <img :src="ad.provider_id.avatar" alt="user picture" />
         </figure>
         
         <h2>{{ad.title}}</h2>
         <h3>{{ad.provider_id.username}}, annonce postée le {{ad.release_date | moment("DD/MM/YYYY") }}</h3>
-        <p>{{ad.provider_id.children_age.length}} enfant<span v-if="ad.provider_id.children_age.length > 1">s</span></p>
+        <p>{{ad.provider_id.children.length}} enfant<span v-if="ad.provider_id.children.length > 1">s</span></p>
         <p class="location">
           <span class="icon">
             <font-awesome-icon id="location" icon="map-marker-alt" size="1x" />
@@ -20,9 +37,9 @@
           {{ad.provider_id.adress.city}}
         </p>
         <p>Besoin d'un babysitting le {{ad.date | moment("DD/MM/YYYY")}} de {{ad.starts_at}} à {{ad.ends_at}}</p>
-        <router-link :to="'/ad/' + ad._id">EN SAVOIR PLUS</router-link>
+        <router-link :to="'/ads/' + ad._id">EN SAVOIR PLUS</router-link>
       </li>
-    </ul>
+    </ul></section>
   </main>
 </template>
 
@@ -32,7 +49,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ads: []
+      ads: [],
+      search: "",
     };
   },
   methods: {
@@ -41,6 +59,125 @@ export default {
       this.ads = apiRes.data;
       console.log(apiRes);
     }
+  },
+   computed: {
+    // intéret de stocker les données dans computed plutôt que dans data
+    //  quand elles changent, elle cause un re-render du composant ... ce qui permet de mettre à  jour la vue sans forceUpdate()
+    // https://vuejs.org/v2/guide/computed.html
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    },
+    filteredAds() {
+  return this.ads.filter(ad => {
+    if(ad.provider_id._id != this.currentUser._id){
+        return (
+          //Replace remplace les caracteres speciaux
+
+          ad.provider_id.adress.city
+            .toLowerCase()
+            .replace("à", "a")
+            .replace("â", "a")
+            .replace("ä", "a")
+            .replace("é", "e")
+            .replace("è", "e")
+            .replace("ê", "e")
+            .replace("ë", "e")
+            .replace("î", "i")
+            .replace("ï", "i")
+            .replace("ö", "o")
+            .replace("ô", "o")
+            .replace("û", "u")
+            .replace("ü", "u")
+            .replace("-", "")
+            .includes(
+              this.search
+                .toLowerCase()
+                .replace("à", "a")
+                .replace("â", "a")
+                .replace("ä", "a")
+                .replace("é", "e")
+                .replace("è", "e")
+                .replace("ê", "e")
+                .replace("ë", "e")
+                .replace("î", "i")
+                .replace("ï", "i")
+                .replace("ö", "o")
+                .replace("ô", "o")
+                .replace("û", "u")
+                .replace("ü", "u")
+                .replace("-", "")
+            ) ||
+          ad.provider_id.adress.street
+            .toLowerCase()
+            .replace("à", "a")
+            .replace("â", "a")
+            .replace("ä", "a")
+            .replace("é", "e")
+            .replace("è", "e")
+            .replace("ê", "e")
+            .replace("ë", "e")
+            .replace("î", "i")
+            .replace("ï", "i")
+            .replace("ö", "o")
+            .replace("ô", "o")
+            .replace("û", "u")
+            .replace("ü", "u")
+            .replace("-", "")
+            .includes(
+              this.search
+                .toLowerCase()
+                .replace("à", "a")
+                .replace("â", "a")
+                .replace("ä", "a")
+                .replace("é", "e")
+                .replace("è", "e")
+                .replace("ê", "e")
+                .replace("ë", "e")
+                .replace("î", "i")
+                .replace("ï", "i")
+                .replace("ö", "o")
+                .replace("ô", "o")
+                .replace("û", "u")
+                .replace("ü", "u")
+                .replace("-", "")
+            ) ||
+          ad.title
+            .toLowerCase()
+            .replace("à", "a")
+            .replace("â", "a")
+            .replace("ä", "a")
+            .replace("é", "e")
+            .replace("è", "e")
+            .replace("ê", "e")
+            .replace("ë", "e")
+            .replace("î", "i")
+            .replace("ï", "i")
+            .replace("ö", "o")
+            .replace("ô", "o")
+            .replace("û", "u")
+            .replace("ü", "u")
+            .replace("-", "")
+            .includes(
+              this.search
+                .toLowerCase()
+                .replace("à", "a")
+                .replace("â", "a")
+                .replace("ä", "a")
+                .replace("é", "e")
+                .replace("è", "e")
+                .replace("ê", "e")
+                .replace("ë", "e")
+                .replace("î", "i")
+                .replace("ï", "i")
+                .replace("ö", "o")
+                .replace("ô", "o")
+                .replace("û", "u")
+                .replace("ü", "u")
+                .replace("-", "")
+            )
+        );}
+      });}
   },
   created() {
     try {
@@ -57,7 +194,7 @@ export default {
   text-align: center;
 }
 a {
-  background: rosybrown;
+  background: rgb(217,74,100);
   border: 3px solid white;
   color: whitesmoke;
   font-size: 16px;
@@ -72,6 +209,7 @@ a {
 a:hover {
   background: black;
   color: whitesmoke;
+  transition: 2s;
 }
 .ads {
   display: flex;
@@ -80,13 +218,23 @@ a:hover {
   align-items: center;
   justify-content: space-around;
 }
+.no-result{
+ margin: auto;
+ text-align: center;
+  height: 150px;
+  width: 320px;
+ background: rgb(217,74,100);
+  color: whitesmoke;
+  padding: 50px 15px;
+  box-shadow: 0px 14px 28px black;
+}
 .ad {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: auto;
   width: 320px;
-  background: darkcyan;
+  background: rgb(0,173,191);
   color: whitesmoke;
   justify-content: space-around;
   align-items: center;
@@ -104,6 +252,8 @@ a:hover {
 .ad > figure > img {
   min-width: 100%;
   max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }
 .ad > h2 {
   margin: 15px 0;

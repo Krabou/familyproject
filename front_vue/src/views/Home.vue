@@ -5,14 +5,14 @@
     </figure>
     <main id="index">
       <section class="title">
-        <h1 role="heading">Bienvenue sur Kids@play</h1>
+        <h1 role="heading">Bienvenue sur Kinderkeepers</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi corporis neque, aut quasi illum, obcaecati,
           nemo excepturi impedit odio ipsa adipisci maxime praesentium minima! Unde non doloremque suscipit ad fugiat.
         </p>
       </section>
       <section class="presentation">
-        <!-- <article role="article">
+        <article role="article">
             <figure><img src="./../assets/index/icons8-confiance.png" alt="confiance"></figure>
             <h2 role="heading"  class="indi">S&eacute;curit&eacute; et confiance</h2>
             <p class="indo">
@@ -37,7 +37,7 @@
                 concern&eacute;s. Ils ont plus de possibilit&eacute;s, ont des rendez-vous avec d'autres enfants et
                 ont le sentiment de faire partie d'une communaut&eacute; de quartier dynamique et solidaire.
             </p>
-        </article>-->
+        </article>
       </section>
     </main>
   </div>

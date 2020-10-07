@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import user from "./user";
+import friend from "./friend";
+import message from "./message";
 
 // READ THE DOC !!!
 // https://vuex.vuejs.org/fr/api/
@@ -8,8 +10,12 @@ import user from "./user";
 
 Vue.use(Vuex);
 
+
+
 export default new Vuex.Store({
   modules: {
-    user
+    user,
+    friend,
+    message
   }
 });

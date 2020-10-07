@@ -18,7 +18,7 @@
         id="content"
         v-model="ad.description"
       ></textarea>
-      <button class="btn">Poster !</button>
+      <button class="btn">POSTER !</button>
     </form>
   </main>
 </template>

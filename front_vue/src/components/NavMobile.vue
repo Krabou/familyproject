@@ -1,9 +1,9 @@
 <template>
   <nav id="nav-mobile" :class="isActive && 'is-active'">
-    <router-link class="anchor is-clickable" to="/">Home</router-link>
-    <router-link class="anchor is-clickable" to="/about">About</router-link>
-    <router-link class="anchor is-clickable" to="/carte">Carte</router-link>
-    <router-link class="anchor is-clickable" to="/ads">Annonces</router-link>
+    <router-link class="anchor is-clickable" to="/">Accueil</router-link>
+    <router-link class="anchor is-clickable" to="/about">A propos</router-link>
+    <router-link class="anchor is-clickable" v-if="isSignedIn" to="/carte">Carte</router-link>
+    <router-link class="anchor is-clickable" v-if="isSignedIn" to="/ads">Annonces</router-link>
     <router-link
       class="anchor is-clickable"
       v-if="isSignedIn"
@@ -19,9 +19,7 @@
     <router-link class="anchor is-clickable" v-if="!isSignedIn" to="/signin"
       >Connexion</router-link
     >
-    <div class="button-signout" v-if="isSignedIn">
-      <ButtonSignOut />
-    </div>
+    <ButtonSignOut class="button-signout" v-if="isSignedIn" />
   </nav>
 </template>
 
@@ -60,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 #nav-mobile {
   align-items: center;
-  background: rosybrown;
+  background: rgb(217,74,100);
   display: flex;
   flex-direction: column;
   height: calc(100vh - 90px);
@@ -86,6 +84,7 @@ export default {
 
   a:hover {
     color: black;
+    transition: 2s;
   }
 }
 
@@ -99,5 +98,11 @@ export default {
 
 .button-signout:hover {
   color: black;
+  transition: 2s;
+}
+@media screen and (min-width: 1024px) {
+#nav-mobile{
+  display: none;
+}
 }
 </style>

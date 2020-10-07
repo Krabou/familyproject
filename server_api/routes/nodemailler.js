@@ -78,7 +78,7 @@ router.post("/reinitialisation_mdp", (req, res, next) => {
         res.status(401).json({
             msg: "Identifiants incorrects",
             level: "error",
-          });
+        });
     }
 
     // async..await is not allowed in global scope, must use a wrapper

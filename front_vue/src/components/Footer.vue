@@ -94,7 +94,8 @@ footer div h3 {
 }
 
 .fat a:hover {
-  color: darksalmon;
+  color:rgb(217,74,100);
+  transition: 2s;
 }
 
 .rs {
@@ -109,7 +110,7 @@ footer div h3 {
 }
 
 .fa-2x:hover {
-  color: darksalmon;
-  size: 2x;
+  color: rgb(217,74,100);
+transition: 2s;
 }
 </style>

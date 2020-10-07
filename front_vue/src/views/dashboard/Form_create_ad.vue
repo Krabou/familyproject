@@ -18,7 +18,7 @@
         id="content"
         v-model="description"
       ></textarea>
-      <button class="btn">Poster !</button>
+      <button class="btn">POSTER</button>
     </form>
   </main>
 </template>
@@ -57,6 +57,7 @@ export default {
           process.env.VUE_APP_BACKEND_URL + "/ads",
           { provider_id, title, date, starts_at, ends_at, description }
         );
+        alert("Votre annonce à bien été crée");
         console.log(apiRes);
       } catch (Err) {
         console.log(Err);
@@ -124,7 +125,7 @@ export default {
 }
 
 .btn {
-  background: rosybrown;
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -138,6 +139,7 @@ export default {
 
 .btn:hover {
   background: black;
+  transition: 2s;
 }
 
 @media screen and (min-width: 769px) {
@@ -150,6 +152,12 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
   }
 }
 @media screen and (max-width: 768px) {

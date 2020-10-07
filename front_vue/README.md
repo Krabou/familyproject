@@ -1,4 +1,4 @@
-# kidaplay
+# Kinderkeepers
 
 ## Project setup
 ```

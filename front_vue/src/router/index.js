@@ -63,7 +63,7 @@ const routes = [
       )
   },
   {
-    path: "/ad/:id",
+    path: "/ads/:id",
     name: "Annonce",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
@@ -207,8 +207,23 @@ const routes = [
       )
   },
   {
+    path: "/friends/:id",
+    name: "Friends",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "friends" */
+        "../views/dashboard/Friends.vue"
+      )
+  },
+  {
     path: "/manage_ads",
-    name: "Manage_ad",
+    name: "Manage_ads",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");

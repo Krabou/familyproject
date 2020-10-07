@@ -1,5 +1,8 @@
 const router = new require("express").Router();
-const MessageModel = require("../models/Message");
+// const {
+//     get
+// } = require("mongoose");
+const MessageModel = require("./../models/Message");
 
 // GET : /messages/ (récuperer les messages de la bdd)
 router.get("/", async (req, res, next) => {
@@ -44,6 +47,29 @@ router.get("/:id", async (req, res, next) => {
                 }]
             });
         res.json(message);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// GET les messages d'un user par son id
+router.get("/sender/:id", async (req, res, next) => {
+    try {
+        const res = await MessageModel.find({
+            receiver_id: req.params.id
+        });
+        res.status(200).json(res);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get("/receiver/:id", async (req, res, next) => {
+    try {
+        const res = await MessageModel.find({
+            sender_id: req.params.id
+        });
+        res.status(200).json(res);
     } catch (err) {
         next(err);
     }

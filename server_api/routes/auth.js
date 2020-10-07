@@ -1,35 +1,3 @@
-// const router = new require("express").Router();
-// const UserModel = require("./../models/User");
-
-
-// // POST : /users (créer un user)
-// router.post("/inscription", async (req, res, next) => {
-//   try {
-//     const newUser = await UserModel.create(req.body);
-//     res.json(newUser)
-
-//   } catch (err) {
-//     next(err);
-//   }
-
-// });
-
-// // POST : /users (connexion)
-// router.post("/connexion", async (req, res, next) => {
-//   try {
-//     const newUser = await UserModel.create(req.body);
-//     res.json(newUser)
-
-//   } catch (err) {
-//     next(err);
-//   }
-
-// });
-
-
-
-
-
 // module.exports = router;
 const router = new require("express").Router();
 // bcrypt est une librairie de cryptographie utilisée ici pour encrypter les mots de passe

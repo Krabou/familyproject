@@ -1,63 +1,67 @@
 <template>
   <main id="manage-ad">
     <h1>Mes annonces</h1>
-    <router-link :to="'/form_create_ad'">Créer une annonce</router-link>
-    <table class="table Computer">
-      <thead class="head">
-        <tr class="row">
+    <section class="create-ad-link">
+      <router-link :to="'/form_create_ad'">DEPOSER UNE ANNONCE</router-link>
+    </section>
+    <section>
+      <table class="table Computer">
+        <thead class="head">
+          <tr class="row">
+            <th class="cell">Crée le</th>
+            <th class="cell">Date</th>
+            <th class="cell">Début</th>
+            <th class="cell">Fin</th>
+            <th class="cell">Titre</th>
+            <th class="cell">Editer</th>
+            <th class="cell">Supprimer</th>
+          </tr>
+        </thead>
+        <tbody v-for="(ad, i) in ads" :key="i">
+          <tr class="row">
+            <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
+            <td class="cell">{{ ad.date | moment("DD/MM/YYYY") }}</td>
+            <td class="cell">{{ ad.starts_at }}</td>
+            <td class="cell">{{ ad.ends_at }}</td>
+            <td class="cell">{{ ad.title }}</td>
+            <td class="cell">
+              <router-link :to="'/form_edit_ad/' + ad._id">
+                <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
+              </router-link>
+            </td>
+            <td class="cell" @click.prevent="deleteAd(ad._id)">
+              <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- TABLE TABLET & MOBILE -->
+      <div class="tableList">
+        <table v-for="(ad, i) in ads" :key="i" class="table Mobile">
+          <tr>
+            <td class="cell" @click.prevent="deleteAd(ad._id)">
+              <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
+            </td>
+          </tr>
           <th class="cell">Crée le</th>
-          <th class="cell">Date</th>
-          <th class="cell">Début</th>
-          <th class="cell">Fin</th>
-          <th class="cell">Titre</th>
-          <th class="cell">Editer</th>
-          <th class="cell">Supprimer</th>
-        </tr>
-      </thead>
-      <tbody v-for="(ad, i) in ads" :key="i">
-        <tr class="row">
           <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
+          <th class="cell">Date</th>
           <td class="cell">{{ ad.date | moment("DD/MM/YYYY") }}</td>
+          <th class="cell">Début</th>
           <td class="cell">{{ ad.starts_at }}</td>
+          <th class="cell">Fin</th>
           <td class="cell">{{ ad.ends_at }}</td>
+          <th class="cell">Titre</th>
           <td class="cell">{{ ad.title }}</td>
           <td class="cell">
             <router-link :to="'/form_edit_ad/' + ad._id">
+              Editer
               <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
             </router-link>
           </td>
-          <td class="cell" @click.prevent="deleteAd(ad._id)">
-            <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- TABLE TABLET & MOBILE -->
-    <div class="tableList">
-      <table v-for="(ad, i) in ads" :key="i" class="table Mobile">
-        <tr>
-          <td class="cell" @click.prevent="deleteAd(ad._id)">
-            <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
-          </td>
-        </tr>
-        <th class="cell">Crée le</th>
-        <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
-        <th class="cell">Date</th>
-        <td class="cell">{{ ad.date | moment("DD/MM/YYYY") }}</td>
-        <th class="cell">Début</th>
-        <td class="cell">{{ ad.starts_at }}</td>
-        <th class="cell">Fin</th>
-        <td class="cell">{{ ad.ends_at }}</td>
-        <th class="cell">Titre</th>
-        <td class="cell">{{ ad.title }}</td>
-        <td class="cell">
-          <router-link :to="'/form_edit_ad/' + ad._id">
-            Editer
-            <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
-          </router-link>
-        </td>
-      </table>
-    </div>
+        </table>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -67,31 +71,29 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ads: [
-       { provider_id:""}
-      ],
-      userId:""
+      ads: [{ provider_id: "" }],
+      userId: ""
     };
   },
   methods: {
     //Afficher toutes les annonces
-    async getAds(id) {
-      const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/ads/user_ads/"+ id);
+    async getAds() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL +
+          "/ads/user_ads/" +
+          this.$route.params.id
+      );
       this.ads = apiRes.data;
     },
     //Supprimer une annonce
     async deleteAd(id) {
-      const apiRes = await axios.delete(
-        process.env.VUE_APP_BACKEND_URL + "/ads/" + id
-      );
-      this.ads = apiRes.data;
-      this.getAds(id);
+      await axios.delete(process.env.VUE_APP_BACKEND_URL + "/ads/" + id);
+      this.getAds();
     }
   },
   created() {
-   this.provider_id = this.$route.params.id;
     try {
-      this.getAds(this.provider_id);
+      this.getAds();
     } catch (err) {
       console.error(err);
     }
@@ -100,23 +102,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section:first-of-type {
+  margin-bottom: 50px;
+}
+.create-ad-link {
+  text-align: center;
+}
+.create-ad-link > a {
+  background: rgb(217, 74, 100);
+  border: 3px solid white;
+  color: whitesmoke;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 15px;
+  outline: 1px solid black;
+  width: auto;
+  text-align: center;
+  text-decoration: none;
+}
+.create-ad-link > a:hover {
+  background: black;
+  color: whitesmoke;
+  transition: 2s;
+}
 #manage-ad {
   margin: 100px 20px;
 }
-
+.table.Computer {
+  box-shadow: 0px 14px 28px black;
+  padding: 50px;
+}
 .avatar img {
   width: 60px;
 }
-
+td {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+}
 .table {
   border-collapse: collapse;
   margin: auto;
   width: 90%;
 }
-
+.fa-1x {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
 .row,
 .cell {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   height: 50px;
   text-align: center;
 }
