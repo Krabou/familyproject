@@ -1,7 +1,36 @@
 <template>
   <div>
     <h2>Demandes Amis Recues</h2>
-    <ul v-if="currentUser">
+      <h2>Demandes d'Amis Envoyées</h2>
+    <ul class="friends-list" v-if="currentUser">
+        <li v-for="(request, i) in currentUser.demande_ami_recues" :key="i">
+        <figure><img :src="request.avatar" alt="avatar"></figure>
+        <article>
+          <h3>{{ request.username }}</h3>
+          <form> <button
+          class="btn"
+          @click.prevent="
+            addUserInFriend(currentUser._id, request._id),
+              addCurrentUserInFriend(request._id, currentUser._id),
+              deleteUserRequest(currentUser._id, request._id),
+              deleteRequestReceived(request._id, currentUser._id)
+          "
+        >
+          Accepter
+        </button>
+        <button
+          class="btn"
+          @click.prevent="
+            deleteUserRequest(currentUser._id, request._id),
+              deleteRequestReceived(request._id, currentUser._id)
+          "
+        >
+          Refuser
+        </button></form>  
+        </article>
+      </li>
+    </ul>
+    <!-- <ul v-if="currentUser">
       <li v-for="(request, i) in currentUser.demande_ami_recues" :key="i">
         <figure><img :src="request.avatar" alt="avatar" /></figure>
         <span>{{ request.username }}</span>
@@ -26,7 +55,7 @@
           Refuser
         </button>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -96,5 +125,41 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+/* friend List */
+.friends-list{
+  display: flex;
+  flex-direction: column;
+}
+.friends-list li{
+  background: blue;
+  display: flex;
+  flex-direction: row;
+}
+.friends-list li figure{
+  width: 60px;
+  height: 60%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: whitesmoke 5px solid;
+  margin: 15px;
+}
+.friends-list li figure img{
+  max-width: 100%;
+}
+.friends-list li article{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+.friends-list li article form{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.btn:first-of-type{
+  margin-right: 15px;
+}
 </style>

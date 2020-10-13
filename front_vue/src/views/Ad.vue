@@ -4,10 +4,10 @@
       <section class="header">
         <section class="header-ad">
           <figure class="avatar-ad">
-            <img :src="ad.provider_id.avatar" alt="avatar" />
+            <img :src="ad.provider.avatar" alt="avatar" />
           </figure>
           <article>
-            <h2>{{ ad.provider_id.username }}</h2>
+            <h2>{{ ad.provider.username }}</h2>
             <p>
               <span class="icon">
                 <font-awesome-icon
@@ -16,33 +16,33 @@
                   size="1x"
                 />
               </span>
-              {{ ad.provider_id.adress.city }}
+              {{ ad.provider.adress.city }}
             </p>
           </article>
         </section>
-        <!-- <section class="message">
+        <section class="message">
           <span>
             <router-link class="link-message" :to="'/message/' + ad._id">
               <font-awesome-icon id="add" icon="envelope" size="1x"  />
               MESSAGE
             </router-link>
           </span>
-          <FormCreateMessage :receiver_id="ad.provider_id._id" />
-        </section> -->
+          <!-- <FormCreateMessage :receiver="ad.provider._id" /> -->
+        </section>
       </section>
       <section class="information">
         <h1>{{ ad.title }}</h1>
         <p>Annonce crée le {{ ad.release_date | moment("DD/MM/YYYY") }}</p>
         <article>
           <h2>
-            Enfant<span v-if="ad.provider_id.children.length > 1">s</span>
+            Enfant<span v-if="ad.provider.children.length > 1">s</span>
           </h2>
           <p>
-            Nombre: <span>{{ ad.provider_id.children.length }}</span>
+            Nombre: <span>{{ ad.provider.children.length }}</span>
           </p>
           <p>
             Age:
-            <span v-for="(child, i) in ad.provider_id.children" :key="i">
+            <span v-for="(child, i) in ad.provider.children" :key="i">
               <span>{{ child.child_birthday }}</span></span
             >
           </p>
@@ -55,7 +55,7 @@
           </p>
           <p>{{ ad.description }}</p>
         </article>
-        <FormCreateMessage class="formMessage" :receiver_id="ad.provider_id._id" />
+        <!-- <FormCreateMessage class="formMessage" :receiver_id="ad.provider_id._id" /> -->
       </section>
     </div>
   </main>
@@ -63,15 +63,15 @@
 
 <script>
 import axios from "axios";
-import FormCreateMessage from "@/components/messages/FormCreateMessage";
+// import FormCreateMessage from "@/components/messages/FormCreateMessage";
 export default {
-    components: {
-      FormCreateMessage
-    },
+    // components: {
+    //   FormCreateMessage
+    // },
   data() {
     return {
       ad: {
-        provider_id: {
+        provider: {
           adress: {},
           children: {}
         }
@@ -99,25 +99,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .link-message {
-//   background: rgb(217, 74, 100);
-//   border: 3px solid white;
-//   color: whitesmoke;
-//   font-size: 16px;
-//   font-weight: bold;
-//   letter-spacing: 1px;
-//   padding: 15px;
-//   outline: 1px solid black;
-//   width: auto;
-//   text-align: center;
-//   text-decoration: none;
-// }
+.link-message {
+  background: rgb(217, 74, 100);
+  border: 3px solid white;
+  color: whitesmoke;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 15px;
+  outline: 1px solid black;
+  width: auto;
+  text-align: center;
+  text-decoration: none;
+}
 
-// .link-message:hover {
-//   background: black;
-//   color: whitesmoke;
-//   transition: 2s;
-// }
+.link-message:hover {
+  background: black;
+  color: whitesmoke;
+  transition: 2s;
+}
 .all {
   background: white;
 }

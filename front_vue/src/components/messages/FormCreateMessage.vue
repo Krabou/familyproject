@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      
       this.$store.dispatch("message/send", {
           text: this.text,
           sender_id: this.currentUserId,

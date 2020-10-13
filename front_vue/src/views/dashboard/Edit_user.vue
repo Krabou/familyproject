@@ -3,14 +3,8 @@
     <form class="form" @submit.prevent="editUser(userId)">
       <h1>
         Editer le rôle de {{ user.last_name }} {{ user.first_name }} :
-        {{ user.role }}
+        {{ role }}
       </h1>
-      <!-- <label class="label" for="role">Choisissez un rôle</label>
-      <select v-model="role" id="role" class="label">
-        <option disabled value>Choisissez un role</option>
-        <option>User</option>
-        <option>Admin</option>
-      </select> -->
       <div class="input-radio-list">
         <div>
           <input
@@ -59,17 +53,26 @@ export default {
     },
     // On édite l'utilisateur
     async editUser(id) {
-      const { role } = this.$data;
-      try {
-        const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
-          {
-            role
-          }
-        );
-        console.log(apiRes);
-      } catch (Err) {
-        console.error(Err);
+      if (!this.role) {
+        this.flashMessage.error({
+          title: "Warning",
+          message: "Attention, un rôle est requis !",
+          time: 5000
+        });
+      } else {
+        const { role } = this.$data;
+        try {
+          const apiRes = await axios.patch(
+            process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
+            {
+              role
+            }
+          );
+          this.$router.push("/manage_user");
+          console.log(apiRes);
+        } catch (Err) {
+          console.error(Err);
+        }
       }
     }
   },
@@ -116,11 +119,11 @@ export default {
 
 .input-radio-list {
   left: 0;
-   width: 100%;
+  width: 100%;
 }
 
 .btn {
-  background: rgb(217,74,100);
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -140,22 +143,23 @@ export default {
 .hidden {
   display: none;
 }
+
 @media screen and (min-width: 769px) {
   .form {
     box-shadow: 0px 14px 28px black;
-    width: 60vw;
     padding: 50px;
+    width: 60vw;
   }
 
   .main-form {
-    margin: 100px 0 0;
-    padding: 50px;
     background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,
       rgb(217, 74, 100) 100%
     );
+    margin: 100px 0 0;
+    padding: 50px;
   }
 }
 @media screen and (max-width: 768px) {

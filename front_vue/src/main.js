@@ -24,6 +24,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUserTimes } from "@fortawesome/free-solid-svg-icons";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faFacebookSquare);
 library.add(faLinkedin);
@@ -40,6 +41,7 @@ library.add(faEdit);
 library.add(faSignOutAlt);
 library.add(faEnvelope);
 library.add(faUserTimes);
+library.add(faFlag);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

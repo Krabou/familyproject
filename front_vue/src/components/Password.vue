@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 data(){
     return {
@@ -17,9 +19,26 @@ data(){
         password:""
     };
 },
+  computed: {
+    currentUser() {
+      return (
+        this.$store.getters["user/current"] 
+      )
+    },
+  },
 methods:{
-    editPassword(){
-
+        //On édite l'annonce
+    async editPassword() {
+        const { oldPassword, password } = this.$data;
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/users/form_edit_parameters/password/" + this.$store.getters["user/current"]._id,
+          { oldPassword, password }
+        );
+        console.log(apiRes);
+      } catch (Err) {
+        console.error(Err);
+      }
     }
 }
 }

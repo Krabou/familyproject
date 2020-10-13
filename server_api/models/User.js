@@ -28,14 +28,23 @@ const userSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: "User"
   }],
-  demande_ami_envoyee: [{
+  // demande_ami_envoyee: [{
+  //   type: [Schema.Types.ObjectId],
+  //   ref: "User"
+  // }],
+  friend_requests_sent: [{
     type: [Schema.Types.ObjectId],
     ref: "User"
   }],
-  demande_ami_recues: [{
-    type: [Schema.Types.ObjectId],
-    ref: "User"
-  }],
+  // demande_ami_recues: [{
+  //   type: [Schema.Types.ObjectId],
+  //   ref: "User"
+  // }],
+  
+friend_requests_received: [{
+  type: [Schema.Types.ObjectId],
+  ref: "User"
+}],
   adress: {
     number: Number,
     street: String,
@@ -46,7 +55,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "editor", "user"],
+    enum: ["admin", "user"],
     default: "user",
   },
   gender: {
@@ -57,7 +66,8 @@ const userSchema = new Schema({
   lang_spoken_id: {
     type: [Schema.Types.ObjectId],
     ref: "Lang"
-  }
+  },
+  description: String
 });
 
 const UserModel = mongoose.model("User", userSchema);

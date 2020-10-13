@@ -1,7 +1,8 @@
 const router = new require("express").Router();
 const UserModel = require("./../models/User");
 const uploader = require("./../config/cloudinary");
-
+// bcrypt est une librairie de cryptographie utilisée ici pour encrypter les mots de passe
+const bcrypt = require("bcrypt");
 
 
 router.get("/", async (req, res, next) => {
@@ -9,8 +10,8 @@ router.get("/", async (req, res, next) => {
     const users = await UserModel.find()
       .populate("lang_spoken_id")
       .populate("friends")
-      .populate("demande_ami_envoyee")
-      .populate("demande_ami_recues");
+      .populate("friend_requests_sent")
+      .populate("friend_requests_received");
     res.json(users);
   } catch (err) {
     next(err);
@@ -24,8 +25,8 @@ router.get("/:id", async (req, res, next) => {
     const user = await UserModel.findById(req.params.id)
       .populate("lang_spoken_id")
       .populate("friends")
-      .populate("demande_ami_envoyee")
-      .populate("demande_ami_recues");
+      .populate("friend_requests_sent")
+      .populate("friend_requests_received");
     res.json(user);
   } catch (err) {
     next(err);
@@ -68,6 +69,49 @@ router.patch("/edit_user/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.patch("/form_edit_parameters/password/:id", (req, res, next) => {
+  const updatedUser = req.body; // on stocke les infos postées dans cette constante
+  if (
+    // on vérifie la présence de tous les champs requis
+    !updatedUser.oldPassword ||
+    !updatedUser.password
+  ) {
+    console.log("remplit tout les champs")
+    return res.status(422).json({
+      msg: "Merci de remplir tous les champs.",
+      level: "warning",
+    });
+  }
+  UserModel // on cherche l'user par son id
+    .findById(req.params.id) // pour pouvoir comparer l'ancien pot de passe
+    .then((user) => {
+      // si la promesse est tenue, on vérifie que oldPassword est correct
+      const oldPasswordchecked = bcrypt.compareSync(
+        updatedUser.oldPassword, // password provenant du form "texte plein"
+        user.password // password stocké en bdd (encrypté)
+      ); // compareSync retourne true || false
+
+      if (oldPasswordchecked  === false) {
+        console.log("ton mot de passe est incorrect")
+        return res.status(422).json({
+          msg: "Mot de passe incorrect.",
+          level: "warning",
+        });
+      } else {
+        // si oldPassword renseigné est correct
+        const salt = bcrypt.genSaltSync(10); // on génère un sel pour renforcer le hashage
+        const hashed = bcrypt.hashSync(updatedUser.password, salt); // encrypte nouveau password
+
+        user.password = hashed; // on remplace le mot de passe "en clair" par le hash
+        user.save(); // et enfin on update le document user récupéré de la bdd avec les nouvelles infos
+        // res.json(user);
+        console.log("youpi mot de passe changé")
+      }
+    })
+    .catch(next);
+});
+
 
 //Demande d'ami
 router.patch("/:id", async (req, res, next) => {

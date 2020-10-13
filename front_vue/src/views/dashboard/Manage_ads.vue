@@ -34,11 +34,6 @@
     <!-- TABLE TABLET & MOBILE -->
     <div class="tableList">
       <table v-for="(ad, i) in ads" :key="i" class="table Mobile">
-        <tr>
-          <td class="cell" @click.prevent="deleteAd(ad._id)">
-            <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
-          </td>
-        </tr>
         <th class="cell">Crée le</th>
         <td class="cell">{{ ad.release_date | moment("DD/MM/YYYY") }}</td>
         <th class="cell">Date</th>
@@ -49,12 +44,22 @@
         <td class="cell">{{ ad.ends_at }}</td>
         <th class="cell">Titre</th>
         <td class="cell">{{ ad.title }}</td>
-        <td class="cell">
-          <router-link :to="'/form_edit_ad/' + ad._id">
-            EDITER
-            <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
-          </router-link>
-        </td>
+        <tr class="last-row">
+          <td>
+            <router-link :to="'/form_edit_ad/' + ad._id" class="btn">
+              Editer
+              <font-awesome-icon :icon="['fas', 'edit']" size="1x" />
+            </router-link>
+          </td>
+          <td @click.prevent="deleteAd(ad._id)">
+            Supprimer
+            <font-awesome-icon
+              :icon="['fas', 'trash-alt']"
+              size="1x"
+              class="btn"
+            />
+          </td>
+        </tr>
       </table>
     </div>
   </main>
@@ -100,6 +105,10 @@ export default {
   width: 60px;
 }
 
+td {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+}
+
 .table {
   border-collapse: collapse;
   margin: auto;
@@ -108,7 +117,7 @@ export default {
 
 .row,
 .cell {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   height: 50px;
   text-align: center;
 }
@@ -145,6 +154,13 @@ export default {
     flex-direction: column;
     width: 320px;
     margin: 35px;
+  }
+
+  .last-row > td {
+    width: 160px;
+    border: 1px solid black;
+    height: 50px;
+    text-align: center;
   }
 }
 </style>

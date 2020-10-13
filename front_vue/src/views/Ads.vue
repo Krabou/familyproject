@@ -13,9 +13,9 @@
           <font-awesome-icon icon="search" size="1x" />
         </button>
       </form>
-    <div class="create-ad-link">
-      <router-link :to="'/form_create_ad/'">DEPOSER UNE ANNONCE</router-link>
-
+    <div class="create-ad-link" @click="btnAds">
+      <!-- <router-link :to="'/form_create_ad/'">DEPOSER UNE ANNONCE</router-link> -->
+<button class="btn">DEPOSER UNE ANNONCE</button>
     </div>
      
      <p class="no-result" v-if="filteredAds.length == 0">
@@ -24,17 +24,17 @@
     <ul class="ads">
       <li class="ad" v-for="(ad, i) in filteredAds" :key="i">
         <figure>
-          <img :src="ad.provider_id.avatar" alt="user picture" />
+          <img :src="ad.provider.avatar" alt="user picture" />
         </figure>
         
         <h2>{{ad.title}}</h2>
-        <h3>{{ad.provider_id.username}}, annonce postée le {{ad.release_date | moment("DD/MM/YYYY") }}</h3>
-        <p>{{ad.provider_id.children.length}} enfant<span v-if="ad.provider_id.children.length > 1">s</span></p>
+        <h3>{{ad.provider.username}}, annonce postée le {{ad.release_date | moment("DD/MM/YYYY") }}</h3>
+        <p>{{ad.provider.children.length}} enfant<span v-if="ad.provider.children.length > 1">s</span></p>
         <p class="location">
           <span class="icon">
             <font-awesome-icon id="location" icon="map-marker-alt" size="1x" />
           </span>
-          {{ad.provider_id.adress.city}}
+          {{ad.provider.adress.city}}
         </p>
         <p>Besoin d'un babysitting le {{ad.date | moment("DD/MM/YYYY")}} de {{ad.starts_at}} à {{ad.ends_at}}</p>
         <router-link :to="'/ads/' + ad._id">EN SAVOIR PLUS</router-link>
@@ -58,6 +58,17 @@ export default {
       const apiRes = await axios.get(process.env.VUE_APP_BACKEND_URL + "/ads/");
       this.ads = apiRes.data;
       console.log(apiRes);
+    },
+     btnAds(){
+     if(this.currentUser.children.length == 0){
+        this.flashMessage.error({
+          title: "Warning",
+          message: "Merci de bien vouloir ajouter un enfant à votre profil avant de poster une annonce !",
+          time: 5000
+        });
+     }else{
+       this.$router.push('/form_create_ad/');
+     }
     }
   },
    computed: {
@@ -70,11 +81,11 @@ export default {
     },
     filteredAds() {
   return this.ads.filter(ad => {
-    if(ad.provider_id._id != this.currentUser._id){
+    if(ad.provider._id != this.currentUser._id){
         return (
           //Replace remplace les caracteres speciaux
 
-          ad.provider_id.adress.city
+          ad.provider.adress.city
             .toLowerCase()
             .replace("à", "a")
             .replace("â", "a")
@@ -108,7 +119,7 @@ export default {
                 .replace("ü", "u")
                 .replace("-", "")
             ) ||
-          ad.provider_id.adress.street
+          ad.provider.adress.street
             .toLowerCase()
             .replace("à", "a")
             .replace("â", "a")
@@ -193,7 +204,7 @@ export default {
 .create-ad-link {
   text-align: center;
 }
-a {
+a,.btn {
   background: rgb(217,74,100);
   border: 3px solid white;
   color: whitesmoke;

@@ -2,15 +2,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
-    author_id: {
+    author: {
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    ad_id: {
+    // ad_id: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Ad",
+    // },
+    user: {
         type: Schema.Types.ObjectId,
-        ref: "Ad",
+        ref: "User",
     },
-    date: Date,
+    date: {
+        type: Date,
+        default: Date.now()
+    },
     reason: String
 });
 

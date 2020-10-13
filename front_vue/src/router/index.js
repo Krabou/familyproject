@@ -312,6 +312,21 @@ const routes = [
       )
   },
   {
+    path: "/form_edit_parameters/:id",
+    name: "Form_edit_parameters",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "form edit profil" */
+        "../views/dashboard/Form_edit_parameters.vue"
+      )
+  },
+  {
     path: "/mentions_legales",
     name: "Mentions_légales",
     component: () =>

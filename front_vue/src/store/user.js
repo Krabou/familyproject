@@ -6,10 +6,12 @@ const handler = apiHandler();
 
 export default {
   namespaced: true,
+  // les données du store
   state: {
     users: [],
     currentUser: null,
   },
+  // les getters permettent d'acceder aux données
   getters: {
     all(state) {
       return state.users;
@@ -20,8 +22,10 @@ export default {
   },
   // https://vuex.vuejs.org/fr/api/#mutations
   // RAPPEL : les mutations (synchrones) sont commit
+  // les mutations permettent de faire un changement synchrone 
+  //exemple pour incrementer un compteur 
   mutations: {
-    // les prennent toujours le state en 1er argument, et la valeur d'update en 2nd argument
+    // les mutations prennent toujours le state en 1er argument, et la valeur d'update en 2nd argument
     setCurrent(state, infos) {
       console.log("infos ?", infos);
       state.currentUser = infos; // on créé un nouvel objet tout neuf, contenant les infos de l'user qui vient de se signin
@@ -36,6 +40,7 @@ export default {
   },
   //https://vuex.vuejs.org/fr/api/#actions
   // RAPPEL : les actions (asynchrones) sont dispatch
+  // c'est pour les actions asynchrone
   actions: {
     signin(context, userInfos) {
       return new Promise((resolve, reject) => {
@@ -43,9 +48,11 @@ export default {
           .post("/auth/signin", userInfos)
           .then((res) => {
             auth.setLocalAuthToken(res.data.token);
+            // si cest bon on ecrit le token dans le local storage
             // context.commit permet de modifier le state du store
             // de façon synchrone
             console.log(res.data.user);
+            // On ecrit dans la reponse axios le currentUser res.data.user l'utilisateur qui a été retourné depuis le back end
             context.commit("setCurrent", res.data.user);
             resolve(res);
           })
@@ -58,7 +65,7 @@ export default {
     },
     async signup(context, userInfos) {
       console.log("fooo");
-      // ci)dessus: context représente tout le store, il est obligatoire...
+      // ci-dessus: context représente tout le store, il est obligatoire...
       try {
         await handler.post("/auth/signup", userInfos);
       } catch (err) {
@@ -87,7 +94,7 @@ export default {
     getAll(context) {
       return new Promise((resolve, reject) => {
         axios
-          .get("users/")
+          .get("/users/")
           .then((res) => {
             context.commit("setUsers", res.data); // on modifie le store user avec la liste de tous les users retournés par backend
             resolve(res); // promesse tenue !

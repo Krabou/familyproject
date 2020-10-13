@@ -30,6 +30,7 @@ body {
 header {
   align-items: center;
   background: white;
+  // box-shadow: 0px 0px 15px 0px grey;
   display: flex;
   flex-direction: row;
   height: 90px;
@@ -67,4 +68,5 @@ header > a {
   margin-right: 30px;
   width: 60px;
 }
+
 </style>

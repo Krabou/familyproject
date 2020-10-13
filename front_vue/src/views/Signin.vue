@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       email: "Karima.krachai@gmail.com",
-      password: "lestat"
+      password: "12345"
     };
   },
   methods: {

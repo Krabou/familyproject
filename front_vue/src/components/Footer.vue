@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div>
-      <h3 role="heading">Information</h3>
+      <h3 role="heading">Informations</h3>
       <ul role="list" class="fat">
         <!-- <li role="listitem">
                         <a role="link" class="fft" to="/tutoriel">Tutoriel</a>

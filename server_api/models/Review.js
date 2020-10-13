@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    offer_id: {
+    offer: {
         type: Schema.Types.ObjectId,
         ref: "Ad",
     },
-    user_id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: "User",
     },

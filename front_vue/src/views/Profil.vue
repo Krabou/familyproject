@@ -1,12 +1,12 @@
 <template>
   <main id="main-profil">
       <div class="all">
-      <section class="header">
+ 
         <section class="header-ad">
           <figure class="avatar-ad">
                  <img :src="user.avatar" alt="photo de profil" />
           </figure>
-          <article>
+          <article class="header-info">
             <h2>{{ user.username }}</h2>
             <p>
               <span class="icon">
@@ -19,17 +19,19 @@
               {{user.adress.city }}
             </p>
           </article>
-        </section>
+    
         <!-- <section class="message">
           <span>
-            <router-link class="link-message" :to="'/message/' + ad._id">
-              <font-awesome-icon id="add" icon="envelope" size="1x"  />
-              MESSAGE
-            </router-link>
+         
           </span>
           <FormCreateMessage :receiver_id="ad.provider_id._id" />
         </section> -->
       </section>
+      <section><nav><ul><li>   <router-link class="link-message" :to="'/message/' + user._id">
+              <font-awesome-icon  icon="envelope" size="1x"  />
+              Message
+            </router-link></li>
+            <li><font-awesome-icon  icon="flag" size="1x"  /></li></ul></nav></section>
       <section class="information">
         <!-- <h1>{{ ad.title }}</h1>
         <p>Annonce crée le {{ ad.release_date | moment("DD/MM/YYYY") }}</p>
@@ -126,9 +128,8 @@ export default {
 #main-profil {
   margin: 100px 0 0;
 }
-.header {
+.header-ad {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   background: rgb(0, 173, 191);
@@ -170,7 +171,7 @@ p {
   align-items: center;
 
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 769px) {
   .all {
     box-shadow: 0px 14px 28px black;
     width: 60vw;
@@ -186,18 +187,18 @@ p {
      rgba(0, 173, 191, 1)  100%
     );
   }
-  .header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 50px 0;
-  }
   .header-ad {
-    width: 60%;
-    height: auto;
-    display: flex;
     flex-direction: row;
-    align-items: center;
+    padding: 50px 0;
+    
   }
+  // .header-ad {
+  //   width: 60%;
+  //   height: auto;
+  //   display: flex;
+  //   flex-direction: row;
+  //   align-items: center;
+  // }
   .avatar-ad {
     width: 150px;
     height: 150px;
@@ -206,6 +207,9 @@ p {
     border-radius: 50%;
     overflow: hidden;
   }
+  // .header-info{
+  //   width: 100%;
+  // }
   // .message {
   //   width: 40%;
   // }
@@ -213,14 +217,14 @@ p {
     padding: 50px;
   }
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 768px) {
   .all {
     width: 100%;
   }
   #main-profil {
     margin: 100px 0 0;
   }
-  .header {
+  .header-ad {
     flex-direction: column;
     padding: 30px 0;
   }

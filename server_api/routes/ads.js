@@ -9,7 +9,7 @@ router.get("/", async (req, res, next) => {
     const ads = await AdModel.find().sort({
         _id: -1
       }).limit(100)
-      .populate("provider_id");
+      .populate("provider");
     res.json(ads);
   } catch (err) {
     next(err);
@@ -20,11 +20,11 @@ router.get("/", async (req, res, next) => {
 router.get("/user_ads/:id", async (req, res, next) => {
   try {
     const ads = await AdModel.find({
-        "provider_id": req.params.id
+        "provider": req.params.id
       }).sort({
         _id: -1
       }).limit(100)
-      .populate("provider_id");
+      .populate("provider");
     res.json(ads);
   } catch (err) {
     next(err);
@@ -35,7 +35,7 @@ router.get("/user_ads/:id", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const ad = await AdModel.findById(req.params.id)
-      .populate("provider_id");
+      .populate("provider");
     res.json(ad);
   } catch (err) {
     next(err);

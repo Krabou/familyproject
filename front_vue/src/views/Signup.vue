@@ -1,6 +1,7 @@
 <template>
   <main class="main-form" id="inscription">
     <section>
+      <!-- @submit.prevent: c'est un raccourci de vue qui permet d'empecher le rafraichissement de la page -->
       <form class="form" @submit.prevent="signup">
         <h1>
           <!-- <span>
@@ -138,7 +139,7 @@ export default {
         last_name: "Bou",
         first_name: "Fati",
         email: "ti@bou.com",
-        password: "testa",
+        password: "12345",
         birthdate: "07/11/1986",
         adress: {
           number: "171",
@@ -154,7 +155,7 @@ export default {
   methods: {
     signup() {
       // const fd = new FormData(); // form data nécessaire pour envoyer des fichiers images (files)
-      // fd.append("username", this.user.username);
+      // fd.append("username", this.user.username);On associe des clés valeur à l'objet fd formdata
       // fd.append("first_name", this.user.first_name);
       // fd.append("last_name", this.user.last_name);
       // fd.append("email", this.user.email);
@@ -173,12 +174,13 @@ export default {
           time: 5000
         });
       } else {
+// on utilise la fonction dispatch pour faire reference à une action du store
         this.$store.dispatch(
           "user/signup",
           // fd
 
           { ...this.user }
-        ); // on utilise
+        ); 
         this.$router.push("/signin");
       }
     }
@@ -269,14 +271,15 @@ a {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
-    //       background: rgb(217,74,100);
-    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
+          background: rgb(217,74,100);
+    background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
     background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,
       rgb(217, 74, 100) 100%
     );
+    // background: url("./../assets/sakura.jpg");
   }
 }
 @media screen and (max-width: 768px) {

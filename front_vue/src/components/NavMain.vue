@@ -58,6 +58,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 10;
+  
 
   a {
     color: #050505;

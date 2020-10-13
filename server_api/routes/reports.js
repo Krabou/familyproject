@@ -7,8 +7,8 @@ router.get("/", async (req, res, next) => {
         const reports = await ReportModel.find().sort({
                 date: -1
             })
-            .populate("author_id")
-            .populate("ad_id");
+            .populate("author")
+            .populate("user");
         res.json(reports);
     } catch (err) {
         next(err);
@@ -19,8 +19,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
     try {
         const report = await ReportModel.findById(req.params.id)
-            .populate("author_id")
-            .populate("ad_id");
+            .populate("author")
+            .populate("user");
         res.json(report);
     } catch (err) {
         next(err);

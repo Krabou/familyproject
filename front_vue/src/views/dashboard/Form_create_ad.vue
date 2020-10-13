@@ -28,7 +28,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      provider_id: null,
+      provider: null,
       title: "titre",
       date: null,
       starts_at: null,
@@ -45,7 +45,7 @@ export default {
   methods: {
     async postAd() {
       const {
-        provider_id,
+        provider,
         title,
         date,
         starts_at,
@@ -55,7 +55,7 @@ export default {
       try {
         const apiRes = await axios.post(
           process.env.VUE_APP_BACKEND_URL + "/ads",
-          { provider_id, title, date, starts_at, ends_at, description }
+          { provider, title, date, starts_at, ends_at, description }
         );
         alert("Votre annonce à bien été crée");
         console.log(apiRes);
@@ -66,7 +66,7 @@ export default {
   },
   created() {
     try {
-      this.provider_id = this.$store.getters["user/current"]._id;
+      this.provider = this.$store.getters["user/current"]._id;
     } catch (err) {
       console.error(err);
     }

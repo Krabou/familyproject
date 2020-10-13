@@ -71,7 +71,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      ads: [{ provider_id: "" }],
+      ads: [{ provider: "" }],
       userId: ""
     };
   },

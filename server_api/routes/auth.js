@@ -36,7 +36,7 @@ router.post("/signin", async (req, res, next) => {
     // never trust user input !!!
     // si non : retourner message warning au client
     res.status(401).json({
-      msg: "Identifiants incorrects",
+      msg: "Merci de remplir tous les champs.",
       level: "error",
     });
   }
@@ -79,7 +79,8 @@ router.post("/signin", async (req, res, next) => {
       delete clone.password; // par sécurité, je supprime le mdp du clone (pas besoin de le stocker ailleurs qu'en bdd)
       req.session.currentUser = clone; // j'inscris le clone dans la session (pour maintenir un état de connexion)
 
-      const token = auth.createToken(user, req.ip); // createToken retourne un jeton (token) créé avec JWT
+      const token = auth.createToken(clone, req.ip); // createToken retourne un jeton (token) créé avec JWT
+      //
 
       return res
         .header("x-authenticate", token) // je renvoie le token au client dans l'entête de la réponse pour l'authentification
@@ -140,5 +141,8 @@ router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
     }
   }
 });
+
+
+
 
 module.exports = router;

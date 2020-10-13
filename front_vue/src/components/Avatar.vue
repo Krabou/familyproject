@@ -14,7 +14,7 @@
           id="avatar"
           accept="image/*"
         />
-        <button class="btn">Editer !</button>
+        <button class="btn">MODIFIER</button>
     </form>
 </template>
 
