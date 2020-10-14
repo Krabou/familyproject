@@ -204,6 +204,9 @@ p {
     border-radius: 50%;
     overflow: hidden;
   }
+  .link-message{
+    margin-right: 50px;
+  }
   // .message {
   //   width: 40%;
   // }

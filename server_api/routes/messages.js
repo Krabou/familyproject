@@ -28,27 +28,27 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-// GET les messages d'un user par son id
-router.get("/sender/:id", async (req, res, next) => {
-    try {
-        const result = await MessageModel.find({
-            // receiver_id: req.params.id
-            "sender": req.params.id
-        })
-        .populate("receiver")
-        .populate("sender");
-        res.status(200).json(result);
-    } catch (err) {
-        console.log("ca ne marche pas")
-        next(err);
-    }
-});
+// // GET les messages d'un user par son id
+// router.get("/sender/:id", async (req, res, next) => {
+//     try {
+//         const result = await MessageModel.find({
+//             // receiver_id: req.params.id
+//             "sender": req.params.id
+//         })
+//         .populate("receiver")
+//         .populate("sender");
+//         res.status(200).json(result);
+//     } catch (err) {
+//         console.log("ca ne marche pas")
+//         next(err);
+//     }
+// });
 
 router.get("/receiver/:id", async (req, res, next) => {
     try {
         const result = await MessageModel.find({
-            // receiver_id: req.params.id
-            "sender": req.params.id
+            "receiver": req.params.id
+            // "sender": req.params.id
         })
         .populate("receiver")
             .populate("sender");

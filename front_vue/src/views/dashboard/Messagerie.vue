@@ -1,4 +1,5 @@
 <template>
+<main id="messagerie">
   <!-- <main id="messagerie">
     <h1>Messagerie</h1>
     <h2 class="title">MEssages reçus</h2>
@@ -7,18 +8,29 @@
     <ListMessages messages_type="sent" />
   </main> -->
   <div>
-    <h1 class="title">My messages</h1>
+    <h1 class="title">Mes messages</h1>
+    <!-- <h2>Messages envoyé</h2>
     <ul>
       <li v-for="(msg, i) in messages" :key="i">
-        <!-- <h2 v-if="msg.from" :title="msg.from.email" class="title">{{ msg.from.first_name }} - {{ msg.from.last_name }}</h2> -->
+        <h2 v-if="msg.receiver" class="title">{{ msg.receiver.username }}</h2>
         <p>
           {{ msg.text }}
         </p>
-        <!-- <span>{{ msg.date }}</span> -->
+        <span>{{ msg.date | moment("DD/MM/YYYY") }}</span>
+      </li>
+    </ul> -->
+    <h2>Messages recu</h2>
+ <ul>
+      <li v-for="(msg, i) in messages" :key="i">
+        <h2 v-if="msg.sender" class="title">{{ msg.sender.username }}</h2>
+        <p>
+          {{ msg.text }}
+        </p>
+        <span>{{ msg.date | moment("DD/MM/YYYY") }}</span>
       </li>
     </ul>
   </div>
-
+</main>
 </template>
 
 <script>
@@ -38,17 +50,25 @@ export default {
     };
   },
   methods: {
-    async getUserMessages() {
+    // async getUserMessages() {
+    //   const URL =
+    //     process.env.VUE_APP_BACKEND_URL +
+    //     "/messages/sender/"+ this.$store.getters["user/current"]._id;
+    //   const apiRes = await axios.get(URL);
+
+    //   this.messages = apiRes.data;
+    // },
+    // async checkMessages() {
+    //   setInterval(this.getUserMessages, 20000)
+    // }
+      async getReceivedMessages(id) {
       const URL =
         process.env.VUE_APP_BACKEND_URL +
-        "/messages/sender/5f73b08ae4bbe106781fdf7c"
+        "/messages/receiver/"+ id;
       const apiRes = await axios.get(URL);
 
       this.messages = apiRes.data;
     },
-    // async checkMessages() {
-    //   setInterval(this.getUserMessages, 20000)
-    // }
   },
    computed: {
     // intéret de stocker les données dans computed plutôt que dans data
@@ -61,7 +81,9 @@ export default {
   },
   created() {
     try {
-      this.getUserMessages();
+      const id = this.$store.getters["user/current"]._id
+      // this.getUserMessages()
+      this.getReceivedMessages(id)
       // this.checkMessages()
     } catch (err) {
       console.error(err, axios);
@@ -73,4 +95,8 @@ export default {
 
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+main#messagerie {
+  margin: 100px 0 0;
+}
+</style>

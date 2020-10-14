@@ -271,15 +271,17 @@ a {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
-          background: rgb(217,74,100);
-    background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
-    background: rgba(255, 255, 255, 1);
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 1) 0%,
-      rgb(217, 74, 100) 100%
-    );
-    // background: url("./../assets/sakura.jpg");
+          // background: rgb(217,74,100);
+    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
+    // background: rgba(255, 255, 255, 1);
+    // background: radial-gradient(
+    //   circle,
+    //   rgba(255, 255, 255, 1) 0%,
+    //   rgb(217, 74, 100) 100%
+    // );
+    background: url("./../assets/sakura.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
   }
 }
 @media screen and (max-width: 768px) {

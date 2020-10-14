@@ -128,8 +128,8 @@ export default {
       user: "",
       search: "",
       friends: "",
-      demande_ami_envoyee: "",
-      demande_ami_recues: ""
+      friend_requests_sent: "",
+      friend_requests_received: ""
     };
   },
   methods: {
@@ -149,7 +149,7 @@ export default {
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/" + currentUserId,
-          { $push: { demande_ami_envoyee: userId } }
+          { $push: { friend_requests_sent: userId } }
         );
         console.log(apiRes);
       } catch (Err) {
@@ -160,7 +160,7 @@ export default {
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/" + userId,
-          { $push: { demande_ami_recues: currentUserId } }
+          { $push: { friend_requests_received: currentUserId } }
         );
         console.log(apiRes);
       } catch (Err) {

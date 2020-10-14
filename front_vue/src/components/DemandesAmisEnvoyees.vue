@@ -2,7 +2,7 @@
   <div>
     <h2>Demandes d'Amis Envoyées</h2>
     <ul class="friends-list">
-        <li v-for="(request, i) in currentUser.demande_ami_envoyee" :key="i">
+        <li v-for="(request, i) in currentUser.friend_requests_sent" :key="i">
         <figure><img :src="request.avatar" alt="avatar"></figure>
         <article>
           <h3>{{ request.username }}</h3>
@@ -46,7 +46,7 @@ export default {
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/" + currentUserId,
-          { $pull: { demande_ami_envoyee: userId } }
+          { $pull: { friend_requests_sent: userId } }
         );
         console.log(apiRes);
       } catch (Err) {
@@ -57,7 +57,7 @@ export default {
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/" + userId,
-          { $pull: { demande_ami_recues: currentUserId } }
+          { $pull: { friend_requests_received: currentUserId } }
         );
         console.log(apiRes);
       } catch (Err) {

@@ -27,7 +27,7 @@
           <FormCreateMessage :receiver_id="ad.provider_id._id" />
         </section> -->
       </section>
-      <section><nav><ul><li>   <router-link class="link-message" :to="'/message/' + user._id">
+      <section><nav><ul><li>   <router-link class="link-message" :to="'/message/' + user._id" :receiver="user._id"> 
               <font-awesome-icon  icon="envelope" size="1x"  />
               Message
             </router-link></li>

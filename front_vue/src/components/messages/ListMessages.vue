@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  
   computed: {
     messages() {
       const type =

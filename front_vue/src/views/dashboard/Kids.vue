@@ -5,11 +5,11 @@
         Ajouter un enfant
       </h1>
       <label for="childGender" class="label">Sexe</label>
-      <!-- <select v-model="child_gender" id="gender" class="select">
+      <select v-model="child_gender" id="gender" class="select">
         <option disabled value="">Sélectionner</option>
         <option value="female">fille</option>
         <option value="male">garçon</option>
-      </select> -->
+      </select>
       <label for="childFirstname" class="label">Prénom</label>
       <input
         type="text"
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       userId: "",
-      // child_gender: "",
+      child_gender: "",
       child_firstname: "",
       child_birthdate: ""
     };
@@ -46,13 +46,13 @@ export default {
     // },
     // On édite l'utilisateur
     async addKid(id) {
-      const { child_firstname, child_birthdate } = this.$data;
+      const { child_gender, child_firstname, child_birthdate } = this.$data;
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
           {
             $push: {
-              children: { child_firstname, child_birthdate }
+              children: { child_gender, child_firstname, child_birthdate }
             }
           }
         );

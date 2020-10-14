@@ -10,7 +10,8 @@
 export default {
   data() {
     return {
-      text: ""
+      text: "",
+      title:""
     };
   },
   computed: {
@@ -26,12 +27,13 @@ export default {
       
       this.$store.dispatch("message/send", {
           text: this.text,
-          sender_id: this.currentUserId,
-          receiver_id: this.receiver_id
+          sender: this.currentUserId,
+          receiver: this.receiver,
+          title: this.title
       });
     }
   },
-  props: ["receiver_id"]
+  props: ["receiver"]
 };
 </script>
 
