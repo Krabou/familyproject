@@ -1,8 +1,12 @@
 <template>
   <main id="message">
- <h1>Message</h1>
-
-   <FormCreateMessage class="formMessage" :receiver="ad.provider._id" />
+    <h1>Message</h1>
+    <!-- <FormCreateMessage class="formMessage" :receiver="ad.provider._id" /> -->
+    <FormCreateMessage
+      class="formMessage"
+      :receiver="user._id" :title="ad.title"
+    />
+    
   </main>
 </template>
 
@@ -10,11 +14,12 @@
 import axios from "axios";
 import FormCreateMessage from "@/components/messages/FormCreateMessage";
 export default {
-    components: {
-      FormCreateMessage
-    },
+  components: {
+    FormCreateMessage
+  },
   data() {
     return {
+      user:{},
       ad: {
         provider: {
           adress: {},
@@ -23,28 +28,35 @@ export default {
       }
     };
   },
+
   methods: {
     //Afficher toutes les annonces
-    async getAd(id) {
+    // async getAd(id) {
+    //   const apiRes = await axios.get(
+    //     process.env.VUE_APP_BACKEND_URL + "/ads/" + id
+    //   );
+    //   this.ad = apiRes.data;
+    // },
+        async getUser() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/ads/" + id
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
       );
-      this.ad = apiRes.data;
+      this.user = apiRes.data;
     }
   },
   mounted() {
-    this.adId = this.$route.params.id;
+    // this.adId = this.$route.params.id;
     try {
-      this.getAd(this.adId);
+      this.getUser()
+      // this.getAd(this.adId);
     } catch (err) {
       console.error(err);
     }
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-
 // body {
 //   font: 13px Helvetica, Arial;
 // }

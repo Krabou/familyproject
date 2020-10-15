@@ -217,7 +217,7 @@ a,.btn {
   text-align: center;
   text-decoration: none;
 }
-a:hover {
+.btn:hover,a:hover {
   background: black;
   color: whitesmoke;
   transition: 2s;

@@ -414,12 +414,12 @@ h2 {
   width: 60px;
 }
 
-// .avatar img {
-//   max-height: 100%;
-//   min-height: 100%;
-//   max-width: 100%;
-//   min-width: 100%;
-// }
+.avatar img {
+  max-height: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+}
 
 .location {
   text-transform: uppercase;

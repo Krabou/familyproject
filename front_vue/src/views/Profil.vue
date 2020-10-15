@@ -1,83 +1,45 @@
 <template>
   <main id="main-profil">
-      <div class="all">
- 
-        <section class="header-ad">
-          <figure class="avatar-ad">
-                 <img :src="user.avatar" alt="photo de profil" />
-          </figure>
-          <article class="header-info">
-            <h2>{{ user.username }}</h2>
-            <p>
-              <span class="icon">
-                <font-awesome-icon
-                  id="location"
-                  icon="map-marker-alt"
-                  size="1x"
-                />
-              </span>
-              {{user.adress.city }}
-            </p>
-          </article>
-    
-        <!-- <section class="message">
-          <span>
-         
-          </span>
-          <FormCreateMessage :receiver_id="ad.provider_id._id" />
-        </section> -->
-      </section>
-      <section><nav><ul><li>   <router-link class="link-message" :to="'/message/' + user._id" :receiver="user._id"> 
-              <font-awesome-icon  icon="envelope" size="1x"  />
-              Message
-            </router-link></li>
-            <li><font-awesome-icon  icon="flag" size="1x"  /></li></ul></nav></section>
-      <section class="information">
-        <!-- <h1>{{ ad.title }}</h1>
-        <p>Annonce crée le {{ ad.release_date | moment("DD/MM/YYYY") }}</p>
-        <article>
-          <h2>
-            Enfant<span v-if="ad.provider_id.children.length > 1">s</span>
-          </h2>
+    <div class="all">
+      <section class="header-ad">
+        <figure class="avatar-ad">
+          <img :src="user.avatar" alt="photo de profil" />
+        </figure>
+        <article class="header-info">
+          <h2>{{ user.username }}</h2>
           <p>
-            Nombre: <span>{{ ad.provider_id.children.length }}</span>
-          </p>
-          <p>
-            Age:
-            <span v-for="(child, i) in ad.provider_id.children" :key="i">
-              <span>{{ child.child_birthday }}</span></span
-            >
+            <span class="icon">
+              <font-awesome-icon
+                id="location"
+                icon="map-marker-alt"
+                size="1x"
+              />
+            </span>
+            {{ user.adress.city }}
           </p>
         </article>
-        <article>
-          <h2>Description</h2>
-          <p>
-            Besoin d'un babysitting le {{ ad.date | moment("DD/MM/YYYY") }} de
-            {{ ad.starts_at }} à {{ ad.ends_at }}
-          </p>
-          <p>{{ ad.description }}</p>
-        </article>
-        <FormCreateMessage class="formMessage" :receiver_id="ad.provider_id._id" /> -->
       </section>
-    </div>
-    <!-- <figure class="header">
-      <img src="./../assets/rose.jpg" alt="">
-    </figure>
-    <figure class="avatar">
-      <img :src="user.avatar" alt="photo de profil" />
-    </figure>
-    <h1>{{ user.username }}</h1>
-    <p>{{ user.adress.city }} {{ user.adress.country }}</p>
-    <div class="icon" @submit.prevent="">
-      <font-awesome-icon id="add" icon="user-plus" size="2x" />
-      <p>Ajouter</p>
-    </div>
-    <span>
-      <router-link :to="'/message/' + user._id">
-        <font-awesome-icon id="add" icon="envelope" size="1x" />
-        Message
-      </router-link>
-    </span> -->
+      <section>
+        <nav class="navigation">
+          <ul>
+            <li>
+              <router-link
+                class="link-message"
+                :to="'/message/' + user._id"
+                :receiver="user._id"
+              >
+                <span><font-awesome-icon icon="envelope" size="1x"/></span>
+                Message
+              </router-link>
+            </li>
+            <li>
+              <span><font-awesome-icon icon="flag" size="1x"/></span> Signaler
+            </li>
+          </ul>
+        </nav>
+      </section>
+      <section class="information"></section>
+      </div>
   </main>
 </template>
 
@@ -164,12 +126,18 @@ h2,
 p {
   margin-bottom: 30px;
 }
-.formMessage{
+.formMessage {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+}
+.navigation ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
 }
 @media screen and (min-width: 769px) {
   .all {
@@ -180,17 +148,16 @@ p {
   #main-profil {
     margin: 100px 0 0;
     padding: 50px;
-    background:  rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
-     rgba(255, 255, 255, 1) 0%,
-     rgba(0, 173, 191, 1)  100%
+      rgba(255, 255, 255, 1) 0%,
+      rgba(0, 173, 191, 1) 100%
     );
   }
   .header-ad {
     flex-direction: row;
     padding: 50px 0;
-    
   }
   // .header-ad {
   //   width: 60%;

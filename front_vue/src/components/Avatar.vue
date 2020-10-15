@@ -1,21 +1,21 @@
 <template>
-     <form @submit.prevent="editAvatar(userId)">
-       <h2>Changer d'avatar</h2>
-        <figure class="avatar"><img :src="user.avatar" alt="avatar" /></figure>
-        <label class="label" for="avatar"
-          >avatar
-          <!-- <font-awesome-icon icon="camera" size="2x"
+  <form @submit.prevent="editAvatar(userId)">
+    <h2>Changer d'avatar</h2>
+    <figure class="avatar"><img :src="user.avatar" alt="avatar" /></figure>
+    <label class="label" for="avatar"
+      >avatar
+      <!-- <font-awesome-icon icon="camera" size="2x"
         /> -->
-        </label>
-        <input
-          class="hidden"
-          type="file"
-          @change="handleAvatar"
-          id="avatar"
-          accept="image/*"
-        />
-        <button class="btn">MODIFIER</button>
-    </form>
+    </label>
+    <input
+      class="hidden"
+      type="file"
+      @change="handleAvatar"
+      id="avatar"
+      accept="image/*"
+    />
+    <button class="btn">MODIFIER</button>
+  </form>
 </template>
 
 <script>
@@ -30,7 +30,6 @@ export default {
     };
   },
   methods: {
-  
     // On affiche l'utilisateur
     async getUser(id) {
       const apiRes = await axios.get(
@@ -39,7 +38,7 @@ export default {
       this.user = apiRes.data;
     },
     // on cible l'input
-  handleAvatar(e) {
+    handleAvatar(e) {
       this.selectedAvatar = e.target.files[0];
     },
     // On édite l'utilisateur
@@ -72,6 +71,12 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.avatar {
+  height: 150px;
+  width: 150px;
+}
+.avatar img {
+  width: 100%;
+}
 </style>

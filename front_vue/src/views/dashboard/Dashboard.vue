@@ -56,20 +56,18 @@
         </h2>
         <p>Gérer vos paramètres personnels</p>
       </li>
-      <li>
+      <li  v-if="currentUser && currentUser.role === 'admin'">
         <h2>
           <router-link
-            v-if="currentUser && currentUser.role === 'admin'"
             :to="'/manage_ads/'"
             >Annonces</router-link
           >
         </h2>
         <p>Gérer les annonces de tout les utilisateurs</p>
       </li>
-      <li>
+      <li  v-if="currentUser && currentUser.role === 'admin'">
         <h2>
           <router-link
-            v-if="currentUser "
             :to="'/manage_user'"
             >Utilisateurs</router-link
           >
@@ -121,6 +119,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: 100px 50px;
 }
 
 .dash-link-list li {

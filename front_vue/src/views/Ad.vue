@@ -22,7 +22,7 @@
         </section>
         <section class="message">
           <span>
-            <router-link class="link-message" :to="'/message/' + ad._id">
+            <router-link class="link-message" :to="'/message/' + ad.provider._id" :receiver="ad.provider._id" :title="ad.title">
               <font-awesome-icon id="add" icon="envelope" size="1x"  />
               MESSAGE
             </router-link>

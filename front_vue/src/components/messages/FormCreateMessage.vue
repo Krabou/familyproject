@@ -1,6 +1,7 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit" class="form">
     <h1 class="title">Envoyer un message</h1>
+    <input type="text" v-model="title">
     <textarea class="textarea" v-model="text" id="" cols="30" rows="10"></textarea>
     <button class="btn">ENVOYER</button>
   </form>
@@ -23,21 +24,28 @@ export default {
     }
   },
   methods: {
+    
     handleSubmit() {
-      
-      this.$store.dispatch("message/send", {
+   const type =  this.$props.titre ===  "ad.title"?  "ad.title" : this.title ;
+     return this.$store.dispatch("message/send", {
           text: this.text,
           sender: this.currentUserId,
           receiver: this.receiver,
-          title: this.title
+          title: type
       });
     }
   },
-  props: ["receiver"]
+  props: ["receiver","titre"]
 };
 </script>
 
 <style lang="scss" scoped>
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
 .label {
   color: black;
   font-size: 20px;
