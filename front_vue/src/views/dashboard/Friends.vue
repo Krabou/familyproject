@@ -1,32 +1,37 @@
 <template>
-  <main  id="friends">
-    <section class="friend-left-side">
-    <DemandesAmisEnvoyees v-if="currentUser" />
-    <DemandesAmisRecues v-if="currentUser" />
-    <h2>Amis</h2>
-    <ul class="friends-list" v-if="currentUser">
-      <li v-for="(friend, i) in currentUser.friends" :key="i">
-        <figure><img :src="friend.avatar" alt="avatar"></figure>
-        <article>
-          <h3>{{friend.username}}</h3>
-          <form><span class="btn"><router-link :to="'/profil/' + friend._id">
-                Profil
-              </router-link></span> <button
-          class="btn"
-          @click.prevent="
-            deletefriend(currentUser._id, friend._id),
-              breakFriendship(friend._id, currentUser._id)
-          "
-        >
-          supprimer
-        </button></form>  
-        </article>
-      </li>
-    </ul>
-<!-- <p v-if="friends.length">test friends length {{friends.length}} </p> -->
-est ce que ca marche
-<p>test users length {{all.length}} </p>
-   </section> 
+  <main id="friends">
+    <section>
+      <DemandesAmisEnvoyees v-if="currentUser" />
+      <DemandesAmisRecues v-if="currentUser" />
+
+      <h2>Amis</h2>
+      <ul class="friends-list" v-if="currentUser">
+        <li v-if="currentUser.friends.length === 0">
+          Aucun ami enregistré pour le moment
+        </li>
+        <li v-for="(friend, i) in currentUser.friends" :key="i">
+          <figure><img :src="friend.avatar" alt="avatar" /></figure>
+          <article>
+            <h3>{{ friend.username }}</h3>
+            <form>
+              <div class="btn">
+                <router-link :to="'/profil/' + friend._id">
+                  Profil
+                </router-link> </div>
+              <button
+                class="btn"
+                @click.prevent="
+                  deletefriend(currentUser._id, friend._id),
+                    breakFriendship(friend._id, currentUser._id)
+                "
+              >
+                supprimer
+              </button>
+            </form>
+          </article>
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
@@ -37,18 +42,12 @@ import DemandesAmisRecues from "@/components/DemandesAmisRecues";
 import axios from "axios";
 
 export default {
-  data() {
-    return {};
-  },
-  created() {
-    // this.$store.dispatch("friend/getFriends");
-    this.$store.dispatch("user/getAll");
-  },
   components: {
     DemandesAmisEnvoyees,
     DemandesAmisRecues
   },
   methods: {
+       
     async deletefriend(currentUserId, userId) {
       try {
         const apiRes = await axios.patch(
@@ -79,14 +78,6 @@ export default {
     currentUser() {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
-    },
-    // friends() {
-    //   const userInfos = this.$store.getters["friend/all"]; // récupère l'user connecté depuis le store/user
-    //   return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
-    // },
-      all() {
-      const userInfos = this.$store.getters["user/all"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   }
 };
@@ -94,47 +85,128 @@ export default {
 
 
 <style lang="scss" scoped>
-main#friends {
+.btn {
+  background: rgb(217, 74, 100);
+  border: 3px solid white;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  letter-spacing: 1px;
+  margin: 30px 0 15px;
+  outline: 1px solid black;
+  width: 125px;
+}
+.btn:hover {
+  background: black;
+  transition: 2s;
+}
+div.btn{
   display: flex;
-  flex-direction: row;
+ align-items: center;
+ justify-content: center;
+
 }
-.friend-left-side {
-  width: 30%;
-background: brown;
+a{
+  text-decoration: none;
+   color: white;
+  font-size: 16px;
+  font-weight: bold;
 }
-/* friend List */
-.friends-list{
+main#friends {
+  margin: 100px 0 0;
+}
+section {
+  align-items: center;
+  background: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin: 50px auto;
 }
-.friends-list li{
-  background: blue;
+h2 {
+  margin: 50px auto;
+  font-size: 25px;
+}
+.friends-list {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100%;
 }
-.friends-list li figure{
+
+.friends-list li figure {
   width: 60px;
   height: 60%;
   border-radius: 50%;
   overflow: hidden;
-  border: whitesmoke 5px solid;
+  border: black 5px solid;
   margin: 15px;
 }
-.friends-list li figure img{
+.friends-list li figure img {
   max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
 }
-.friends-list li article{
+
+.friends-list li article form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.btn:first-of-type {
+  margin-right: 15px;
+}
+@media screen and (min-width: 769px) {
+  section {
+    box-shadow: 0px 14px 28px black;
+    width: 60vw;
+    padding: 50px;
+  }
+
+  main#friends {
+    margin: 100px 0 0;
+    padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
+  }
+  .friends-list li {
+    display: flex;
+    flex-direction: row;
+  }
+  .friends-list li article {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
 }
-.friends-list li article form{
+}
+@media screen and (max-width: 768px) {
+  section {
+    padding: 15px;
+    width: 100;
+  }
+
+  main#friends {
+    margin: 100px 0 0;
+  }
+  .friends-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .friends-list li article {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
 }
-.btn:first-of-type{
-  margin-right: 15px;
 }
 </style>
+

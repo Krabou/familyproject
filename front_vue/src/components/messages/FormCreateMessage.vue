@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit" class="form">
     <h1 class="title">Envoyer un message</h1>
-    <input type="text" v-model="title">
     <textarea class="textarea" v-model="text" id="" cols="30" rows="10"></textarea>
     <button class="btn">ENVOYER</button>
   </form>
@@ -12,7 +11,7 @@ export default {
   data() {
     return {
       text: "",
-      title:""
+      title: this.titre
     };
   },
   computed: {
@@ -26,25 +25,29 @@ export default {
   methods: {
     
     handleSubmit() {
-   const type =  this.$props.titre ===  "ad.title"?  "ad.title" : this.title ;
+      console.log(this.titre)
+  //  const type =  this.$props.titre ===  "titre"?  "titre" : this.title ;
      return this.$store.dispatch("message/send", {
+       //On cree un objet que l'on envoie a notre store
           text: this.text,
           sender: this.currentUserId,
           receiver: this.receiver,
-          title: type
+          id_ad: this.id_ad
       });
     }
   },
-  props: ["receiver","titre"]
+  props: ["receiver","id_ad"]
 };
 </script>
 
 <style lang="scss" scoped>
-.form{
+.form {
+  align-items: center;
+  background: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 50px;
+  justify-content: center;
+  margin: 50px auto;
 }
 .label {
   color: black;
@@ -90,5 +93,20 @@ export default {
 .btn:hover {
   background: black;
   transition: 2s;
+}
+@media screen and (min-width: 769px) {
+  .form {
+    box-shadow: 0px 14px 28px black;
+    width: 60vw;
+    padding: 50px;
+  }
+  
+}
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 15px;
+    width: 100;
+  }
+ 
 }
 </style>

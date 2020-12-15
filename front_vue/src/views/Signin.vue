@@ -3,9 +3,6 @@
     <form class="form" v-on:submit.prevent="signin">
       <h1>
         <span class="title"> J'AI UN COMPTE </span>
-        <!-- <span>
-        | <router-link to="/signup">CR&Eacute;ER UN COMPTE</router-link>
-        </span> -->
       </h1>
       <label class="label" for="email">Adresse e-mail</label>
       <input
@@ -28,11 +25,6 @@
         Vous n'avez pas de compte ?
         <router-link to="/signup">Créer un compte</router-link>
       </p>
-      <p>
-        <router-link to="/reinitialisation"
-          >Mot de passe oubli&eacute;?</router-link
-        >
-      </p>
     </form>
   </main>
 </template>
@@ -41,8 +33,8 @@
 export default {
   data() {
     return {
-      email: "Karima.krachai@gmail.com",
-      password: "12345"
+      email: "",
+      password: ""
     };
   },
   methods: {
@@ -133,6 +125,7 @@ a {
   background: rgb(217, 74, 100);
   border: 3px solid white;
   color: white;
+  cursor: pointer;
   font-size: 16px;
   font-weight: bold;
   height: 50px;
@@ -154,9 +147,7 @@ a {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
-    //       background: rgb(217,74,100);
-    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
-  background: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,

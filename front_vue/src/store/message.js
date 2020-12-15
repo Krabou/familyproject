@@ -51,6 +51,8 @@ export default {
         send(context, message) {
             return new Promise((resolve, reject) => {
                 handler
+                //faire 2  route un par rapport a lannonce et un par rapport au message
+
                     .post(`/messages/`, message)
                     .then(res => {
                         context.commit("pushSentMessage", res.data); // on modifie le store user avec la liste de tous les users retournés par backend

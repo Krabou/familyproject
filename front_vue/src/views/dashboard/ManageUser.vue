@@ -15,6 +15,13 @@
           <th class="cell">Supprimer</th>
         </tr>
       </thead>
+      <tbody>
+        <tr class="row" v-if="users.length === 0">
+          <td class="cell" colspan="7">
+            Pas d'utilisateur enregistrée pour le moment...
+          </td>
+        </tr>
+      </tbody>
       <tbody v-for="(user, i) in users" :key="i">
         <tr class="row">
           <td class="cell">
@@ -28,7 +35,7 @@
           <td class="cell">{{ user.first_name }}</td>
           <td class="cell">{{ user.email }}</td>
           <td class="cell">
-            <router-link :to="'/edit_user/' + user._id">
+            <router-link :to="'/editUser/' + user._id">
               <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
             </router-link>
           </td>
@@ -40,54 +47,34 @@
     </table>
     <!-- TABLE TABLET & MOBILE -->
     <div class="tableList">
+      <p v-if="users.length === 0" class="no-result">
+        Pas d'annonce enregistrée pour le moment...
+      </p>
       <table v-for="(user, i) in users" :key="i" class="table Mobile">
-        <tr>
-          <td class="cell">
+          <td >
             <figure class="avatar">
               <img :src="user.avatar" :alt="user.last_name" />
             </figure>
           </td>
-
-          <td class="cell" @click.prevent="deleteUser(user._id)">
-            <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
-          </td>
-        </tr>
-        <tr class="cell">
-          <th>Pseudo</th>
-        </tr>
-        <tr class="cell">
-          <td>{{ user.username }}</td>
-        </tr>
-        <tr class="cell">
-          <th>Role</th>
-        </tr>
-        <tr class="cell">
-          <td>{{ user.role }}</td>
-        </tr>
-        <tr class="cell">
-          <th>Nom</th>
-        </tr>
-        <tr class="cell">
-          <td>{{ user.last_name }}</td>
-        </tr>
-        <tr class="cell">
-          <th>Prénom</th>
-        </tr>
-        <tr class="cell">
-          <td>{{ user.first_name }}</td>
-        </tr>
-        <tr class="cell">
-          <th>Email</th>
-        </tr>
-        <tr class="cell">
-          <td>{{ user.email }}</td>
-        </tr>
-        <tr class="cell">
-          <td>
-            <router-link :to="'/edit_user/' + user._id">
+          <th class="cell">Pseudo</th>
+          <td class="cell">{{ user.username }}</td>
+          <th class="cell">Role</th>
+          <td class="cell">{{ user.role }}</td>
+          <th class="cell">Nom</th>
+          <td class="cell">{{ user.last_name }}</td>
+          <th class="cell">Prénom</th>
+          <td class="cell">{{ user.first_name }}</td>
+          <th class="cell">Email</th>
+          <td class="cell">{{ user.email }}</td>
+        <tr class="last-row">
+          <td class="cell">
+            <router-link :to="'/editUser/' + user._id">
               EDITER
               <font-awesome-icon :icon="['fas', 'user-edit']" size="1x" />
             </router-link>
+          </td>
+          <td class="cell" @click.prevent="deleteUser(user._id)">
+            <font-awesome-icon :icon="['fas', 'trash-alt']" size="1x" />
           </td>
         </tr>
       </table>
@@ -114,9 +101,7 @@ export default {
     },
     //Supprimer un utilisateur
     async deleteUser(id) {
-      await axios.delete(
-        process.env.VUE_APP_BACKEND_URL + "/users/" + id
-      );
+      await axios.delete(process.env.VUE_APP_BACKEND_URL + "/users/" + id);
       this.getUsers();
     }
   },
@@ -134,14 +119,29 @@ export default {
   margin: 100px 20px;
 }
 
+.table.Computer {
+  box-shadow: 0px 14px 28px black;
+  padding: 50px;
+}
+
 .avatar img {
   width: 60px;
 }
-
+td {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+}
 .table {
   border-collapse: collapse;
   margin: auto;
   width: 90%;
+}
+
+.fa-1x {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .row,
@@ -163,7 +163,8 @@ export default {
 }
 
 @media screen and (min-width: 1025px) {
-  .table.Mobile {
+  .table.Mobile,
+  .no-result {
     display: none;
   }
 }
@@ -185,6 +186,25 @@ export default {
     flex-direction: column;
     margin: 35px;
     width: 320px;
+    box-shadow: 0px 14px 28px black;
+    text-align: center;
+  }
+
+  .last-row > td {
+    width: 160px;
+    border: 1px solid black;
+    height: 50px;
+    text-align: center;
+  }
+  .no-result {
+    margin: auto;
+    text-align: center;
+    height: 150px;
+    width: 320px;
+    background: rgb(217, 74, 100);
+    color: whitesmoke;
+    padding: 50px 15px;
+    box-shadow: 0px 14px 28px black;
   }
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
   <main class="main-form" id="editUser">
-      <h1 v-if="currentUser">Mon compte</h1>
+      <h1 v-if="currentUser">Mes informations personnelles</h1>
      <Password />
+     <Infos />
   </main>
 </template>
 
 <script>
 import Password from "@/components/Password";
-// import UserInfos from "@/components/UserInfos";
+import Infos from "@/components/infos";
 
 export default {
   data() {
@@ -15,7 +16,8 @@ export default {
     };
   },
   components: {
-    Password
+    Password,
+    Infos
   },
   computed:   {
     // intéret de stocker les données dans computed plutôt que dans data

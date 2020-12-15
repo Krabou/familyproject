@@ -1,13 +1,12 @@
 const router = new require("express").Router();
-// const {
-//     get
-// } = require("mongoose");
 const MessageModel = require("./../models/Message");
 
 // GET : /messages/ (récuperer les messages de la bdd)
 router.get("/", async (req, res, next) => {
     try {
-        const messages = await MessageModel.find().sort({date: -1})
+        const messages = await MessageModel.find().sort({
+                date: -1
+            })
             .populate("receiver")
             .populate("sender");
         res.json(messages);
@@ -19,7 +18,9 @@ router.get("/", async (req, res, next) => {
 // GET : /messages/id (récuperer un message par son id)
 router.get("/:id", async (req, res, next) => {
     try {
-        const message = await MessageModel.findById({receiver_id:req.params.id})
+        const message = await MessageModel.findById({
+                receiver_id: req.params.id
+            })
             .populate("receiver")
             .populate("sender");
         res.json(message);
@@ -28,29 +29,27 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-// // GET les messages d'un user par son id
-// router.get("/sender/:id", async (req, res, next) => {
-//     try {
-//         const result = await MessageModel.find({
-//             // receiver_id: req.params.id
-//             "sender": req.params.id
-//         })
-//         .populate("receiver")
-//         .populate("sender");
-//         res.status(200).json(result);
-//     } catch (err) {
-//         console.log("ca ne marche pas")
-//         next(err);
-//     }
-// });
+// GET les messages d'un user par son id
+router.get("/sender/:id", async (req, res, next) => {
+    try {
+        const result = await MessageModel.find({
+                "sender": req.params.id
+            })
+            .populate("receiver")
+            .populate("sender");
+        res.status(200).json(result);
+    } catch (err) {
+        console.log("ca ne marche pas")
+        next(err);
+    }
+});
 
 router.get("/receiver/:id", async (req, res, next) => {
     try {
         const result = await MessageModel.find({
-            "receiver": req.params.id
-            // "sender": req.params.id
-        })
-        .populate("receiver")
+                "receiver": req.params.id
+            })
+            .populate("receiver")
             .populate("sender");
         res.status(200).json(result);
     } catch (err) {
@@ -79,21 +78,5 @@ router.delete("/:id", async (req, res, next) => {
     }
 });
 
-//PENSER A VERIFIER NE MARCHE PAS SUR POSTMAN
-// PATCH : /messages/id (mettre à jour un message)
-// router.patch("/:id", async (req, res, next) => {
-//     try {
-//         const updatedMessage = await MessageModel.findByIdAndUpdate(
-//             req.params.id, // req.params.id correspond à l'id passé en URL
-//             req.body, // les données de mise à jour
-//             {
-//                 new: true
-//             } // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
-//         );
-//         res.json(updatedMessage);
-//     } catch (err) {
-//         next(err);
-//     }
-// });
 
 module.exports = router;

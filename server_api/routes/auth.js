@@ -13,7 +13,6 @@ const uploader = require("./../config/cloudinary");
 // https://developer.mozilla.org/fr/docs/Web/HTTP/Status
 
 router.get("/signout", (req, res) => {
-  // todo invalidate token
   const x = req.session.destroy();
   res.json(x);
 });
@@ -22,7 +21,6 @@ router.get("/get-user-by-token", (req, res) => {
   try {
     const user = auth.decodeToken(req.header("x-authenticate"));
     const userId = user.infos._id;
-    console.log("should be user", user);
     res.redirect("/users/" + userId);
   } catch (err) {
     res.status(500).json(err.message);
@@ -102,7 +100,6 @@ router.post("/signin", async (req, res, next) => {
 //INSCRIPTION
 router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
   const user = req.body;
-  console.log("usercreeeeeeeeer", user)
 
   if (req.file) user.avatar = req.file.path; // on associe l'image stockée sur cloudinary à l'user à insérer en base de données
 
@@ -111,12 +108,17 @@ router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
       msg: "Merci de remplir tous les champs requis.",
       level: "warning",
     });
+  } else if (!user.checkbox) {
+    return res.status(422).json({
+      msg: "Merci d'accepter les conditions générales !",
+      level: "warning",
+    });
   } else {
     try {
       const previousUser = await userModel.findOne({
         email: user.email
       });
-      // console.log(previousUser);
+     
       if (previousUser) {
         return res.status(422).json({
           msg: "Désolé, cet email n'est pas disponible.",

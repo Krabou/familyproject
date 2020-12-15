@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="editAvatar(userId)">
-    <h2>Changer d'avatar</h2>
+    <h2>Avatar</h2>
     <figure class="avatar"><img :src="user.avatar" alt="avatar" /></figure>
     <label class="label" for="avatar"
       >avatar
@@ -48,7 +48,7 @@ export default {
       try {
         const apiRes = await axios.patch(
           process.env.VUE_APP_BACKEND_URL +
-            "/users/form_edit_profil/" +
+            "/users/formEditProfil/" +
             id +
             "/avatar",
           fd

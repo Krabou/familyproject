@@ -85,6 +85,7 @@ export default {
   background:  rgb(217,74,100);
   border: 3px solid white;
   color: white;
+  cursor: pointer;
   font-size: 16px;
   font-weight: bold;
   height: 50px;

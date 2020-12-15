@@ -1,22 +1,22 @@
 <template>
   <main class="main-form" id="ad">
-    <form class="form" @submit.prevent="postAd">
-      <h1>Déposer une annonce</h1>
+    <form class="form" @submit.prevent="patchAd(adId)">
+      <h1>Editez votre annonce</h1>
       <label class="label" for="title">Titre de l'annonce</label>
-      <input class="input" type="text" id="title" v-model="title" />
+      <input class="input" type="text" id="title" v-model="ad.title" />
       <label class="label" for="date">Date</label>
-      <input class="input" type="date" id="date" v-model="date" />
+      <input class="input" type="date" id="date" v-model="ad.date" />
       <label class="label" for="start">Début</label>
-      <input class="input" type="time" v-model="starts_at" id="start" />
+      <input class="input" type="time" v-model="ad.starts_at" id="start" />
       <label class="label" for="end">Fin</label>
-      <input class="input" type="time" v-model="ends_at" id="end" />
+      <input class="input" type="time" v-model="ad.ends_at" id="end" />
       <label class="label" for="content">Description de l'annonce</label>
       <textarea
         class="textarea"
         rows="4"
         cols="50"
         id="content"
-        v-model="description"
+        v-model="ad.description"
       ></textarea>
       <button class="btn">POSTER</button>
     </form>
@@ -25,48 +25,41 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
-      provider: null,
-      title: "titre",
-      date: null,
-      starts_at: null,
-      ends_at: null,
-      description: "babybooom"
+      adId: "",
+      ad: ""
     };
   },
-  computed: {
-    currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
-    }
-  },
   methods: {
-    async postAd() {
-      const {
-        provider,
-        title,
-        date,
-        starts_at,
-        ends_at,
-        description
-      } = this.$data;
+    //On affiche l'annonce
+    async getAd(id) {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/ads/" + id
+      );
+      this.ad = apiRes.data;
+    },
+    //On édite l'annonce
+    async patchAd(id) {
       try {
-        const apiRes = await axios.post(
-          process.env.VUE_APP_BACKEND_URL + "/ads",
-          { provider, title, date, starts_at, ends_at, description }
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/ads/formEditAd/" + id,
+          { ...this.ad }
         );
-        alert("Votre annonce à bien été crée");
         console.log(apiRes);
+        this.$router.push("/manageAd/userAds/"+ this.ad.provider._id);
+           
       } catch (Err) {
-        console.log(Err);
+        console.error(Err);
       }
     }
   },
-  created() {
+  mounted() {
+    this.adId = this.$route.params.id;
     try {
-      this.provider = this.$store.getters["user/current"]._id;
+      this.getAd(this.adId);
     } catch (err) {
       console.error(err);
     }
@@ -125,7 +118,7 @@ export default {
 }
 
 .btn {
-  background: rgb(217, 74, 100);
+  background: rgb(217,74,100);
   border: 3px solid white;
   color: white;
   font-size: 16px;
@@ -139,9 +132,9 @@ export default {
 
 .btn:hover {
   background: black;
+  color: whitesmoke;
   transition: 2s;
 }
-
 @media screen and (min-width: 769px) {
   .form {
     box-shadow: 0px 14px 28px black;
@@ -152,7 +145,7 @@ export default {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
-    background: rgba(255, 255, 255, 1);
+     background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,

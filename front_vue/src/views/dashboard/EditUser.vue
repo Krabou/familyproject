@@ -2,31 +2,13 @@
   <main class="main-form" id="editUser">
     <form class="form" @submit.prevent="editUser(userId)">
       <h1>
-        Editer le rôle de {{ user.last_name }} {{ user.first_name }} :
-        {{ role }}
+        Editer le rôle de {{ user.last_name }} {{ user.first_name }}
       </h1>
-      <div class="input-radio-list">
-        <div>
-          <input
-            class="input-radio"
-            type="radio"
-            id="user"
-            v-model="role"
-            value="user"
-          />
-          <label class="label-radio" for="user">User</label>
-        </div>
-        <div>
-          <input
-            class="input-radio"
-            type="radio"
-            id="admin"
-            v-model="role"
-            value="admin"
-          />
-          <label class="label-radio" for="admin">Admin</label>
-        </div>
-      </div>
+        <label for="role" class="label">Statut de l'annonce</label>
+      <select v-model="user.role" id="role" class="input">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
       <button class="btn">EDITER</button>
     </form>
   </main>
@@ -39,8 +21,7 @@ export default {
   data() {
     return {
       userId: "",
-      role: "",
-      user: ""
+      user: {}
     };
   },
   methods: {
@@ -53,27 +34,24 @@ export default {
     },
     // On édite l'utilisateur
     async editUser(id) {
-      if (!this.role) {
-        this.flashMessage.error({
-          title: "Warning",
-          message: "Attention, un rôle est requis !",
-          time: 5000
-        });
-      } else {
-        const { role } = this.$data;
         try {
           const apiRes = await axios.patch(
-            process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
+            process.env.VUE_APP_BACKEND_URL + "/users/editUser/" + id,
             {
-              role
+              ...this.user
             }
           );
-          this.$router.push("/manage_user");
+          this.$router.push("/manageUser");
+            console.log(apiRes);
+            this.flashMessage.success({
+          title: "Success",
+          message: "Le rôle a bien été modifié !",
+          time: 5000
+        })
           console.log(apiRes);
         } catch (Err) {
           console.error(Err);
         }
-      }
     }
   },
   mounted() {
@@ -113,12 +91,15 @@ export default {
   width: 100%;
 }
 
-.input-radio {
-  margin: 15px;
-}
-
-.input-radio-list {
-  left: 0;
+.input {
+  background: rgba($color: #e9d1d1, $alpha: 0.3);
+  border: none;
+  border-bottom: black 1px solid;
+  color: black;
+  font-size: 20px;
+  height: 50px;
+  margin-bottom: 15px;
+  padding-left: 15px;
   width: 100%;
 }
 

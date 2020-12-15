@@ -1,26 +1,37 @@
 <template>
   <main class="main-form" id="editUser">
-      <h1 v-if="currentUser">Editer le profil de {{ currentUser.last_name }} {{ currentUser.first_name }}</h1>
-     <Avatar v-if="currentUser" :avatar="currentUser.avatar" />
-     <Password />
+    <form class="form" @submit.prevent="editUser(currentUser._id)">
+       <h1 v-if="currentUser">Editer votre profil {{ currentUser.username }}</h1>
+          <label class="label" for="username">Pseudo</label>
+          <input
+            class="input"
+            type="test"
+            id="username"
+            v-model="currentUser.username"
+          />
+    <label class="label" for="description">Description</label>
+     <textarea
+        class="textarea"
+        role="textbox"
+        id="message"
+        rows="4"
+        cols="50"
+        v-model="currentUser.description"
+      ></textarea>
+      <button class="btn">EDITER</button>
+    </form>
   </main>
 </template>
 
 <script>
-import Avatar from "@/components/Avatar";
-import Password from "@/components/Password";
-// import UserInfos from "@/components/UserInfos";
+import axios from "axios";
 
 export default {
   data() {
     return {
     };
   },
-  components: {
-    Avatar,
-    Password
-    // UserInfos
-  },
+
   computed:   {
     // intéret de stocker les données dans computed plutôt que dans data
     //  quand elles changent, elle cause un re-render du composant ... ce qui permet de mettre à  jour la vue sans forceUpdate()
@@ -29,61 +40,26 @@ export default {
       const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
+  },
+  methods:{
+      // On édite l'utilisateur
+   async editUser(id) {
+        try {
+          const apiRes = await axios.patch(
+            process.env.VUE_APP_BACKEND_URL + "/users/editUser/" + id,
+            {
+              ...this.currentUser
+            }
+          );
+          this.$router.push("/profil/"+ id);
+          console.log(apiRes);
+        } catch (Err) {
+          console.error(Err);
+        }
+      }
   }
 };
 
-
-// import axios from "axios";
-
-// export default {
-//   data() {
-//     return {
-//       userId: "",
-//       user: "",
-//       selectedAvatar: ""
-//     };
-//   },
-//   methods: {
-  
-//     // On affiche l'utilisateur
-//     async getUser(id) {
-//       const apiRes = await axios.get(
-//         process.env.VUE_APP_BACKEND_URL + "/users/" + id
-//       );
-//       this.user = apiRes.data;
-//     },
-//     // on cible l'input
-//   handleAvatar(e) {
-//       this.selectedAvatar = e.target.files[0];
-//     },
-//     // On édite l'utilisateur
-//     async editAvatar(id) {
-//       const fd = new FormData();
-//       if (this.selectedAvatar) fd.append("avatar", this.selectedAvatar);
-//       try {
-//         const apiRes = await axios.patch(
-//           process.env.VUE_APP_BACKEND_URL +
-//             "/users/form_edit_profil/" +
-//             id +
-//             "/avatar",
-//           fd
-//         );
-//         console.log(apiRes);
-//       } catch (Err) {
-//         console.error(Err);
-//       }
-//     }
-//   },
-//   mounted() {
-//     console.log(">>>>", this.$router); // accessible partout dans ton app
-//     this.userId = this.$route.params.id;
-//     try {
-//       this.getUser(this.userId);
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
-// };
 </script>
 
 

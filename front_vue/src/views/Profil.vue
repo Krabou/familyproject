@@ -22,7 +22,7 @@
       <section>
         <nav class="navigation">
           <ul>
-            <li>
+            <li v-if="currentUser._id !== user._id">
               <router-link
                 class="link-message"
                 :to="'/message/' + user._id"
@@ -32,14 +32,27 @@
                 Message
               </router-link>
             </li>
-            <li>
-              <span><font-awesome-icon icon="flag" size="1x"/></span> Signaler
+            <li v-if="currentUser._id === user._id">
+              <router-link :to="'/formEditProfil/' + currentUser._id"
+                ><span
+                  ><font-awesome-icon :icon="['fas', 'edit']" size="1x"
+                /></span>
+                Modifier le profil</router-link
+              >
+            </li>
+            <li v-if="currentUser._id === user._id">
+              <router-link :to="'/formEditAvatar/' + currentUser._id"
+                ><span><font-awesome-icon icon="camera" size="1x"/></span>
+                Modifier la photo</router-link
+              >
             </li>
           </ul>
         </nav>
       </section>
-      <section class="information"></section>
-      </div>
+      <section class="information">
+        <p>{{ user.description }}</p>
+      </section>
+    </div>
   </main>
 </template>
 
@@ -134,10 +147,25 @@ p {
 }
 .navigation ul {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
   list-style: none;
+  background: rgb(217, 74, 100);
+  min-height: 50px;
+}
+.navigation ul li {
+  color: whitesmoke;
+  margin: 15px;
+  cursor: pointer;
+}
+.navigation ul li:hover,
+a:hover {
+  color: black;
+  transition: 2s;
+}
+a {
+  text-decoration: none;
+  color: black;
+  color: whitesmoke;
 }
 @media screen and (min-width: 769px) {
   .all {
@@ -159,13 +187,7 @@ p {
     flex-direction: row;
     padding: 50px 0;
   }
-  // .header-ad {
-  //   width: 60%;
-  //   height: auto;
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  // }
+
   .avatar-ad {
     width: 150px;
     height: 150px;
@@ -174,14 +196,14 @@ p {
     border-radius: 50%;
     overflow: hidden;
   }
-  // .header-info{
-  //   width: 100%;
-  // }
-  // .message {
-  //   width: 40%;
-  // }
+
   .information {
     padding: 50px;
+  }
+  .navigation ul {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 @media screen and (max-width: 768px) {
@@ -211,11 +233,14 @@ p {
     border-radius: 50%;
     overflow: hidden;
   }
-  // .message {
-  //   width: 100%;
-  // }
+
   .information {
     padding: 30px;
+  }
+  .navigation ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

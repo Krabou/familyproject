@@ -56,7 +56,7 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 // PATCH : /users/id (mettre à jour un utilisateur)
-router.patch("/edit_user/:id", async (req, res, next) => {
+router.patch("/editUser/:id", async (req, res, next) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       req.params.id,
@@ -70,14 +70,13 @@ router.patch("/edit_user/:id", async (req, res, next) => {
   }
 });
 
-router.patch("/form_edit_parameters/password/:id", (req, res, next) => {
+router.patch("/formEditParameters/password/:id", (req, res, next) => {
   const updatedUser = req.body; // on stocke les infos postées dans cette constante
   if (
     // on vérifie la présence de tous les champs requis
     !updatedUser.oldPassword ||
     !updatedUser.password
   ) {
-    console.log("remplit tout les champs")
     return res.status(422).json({
       msg: "Merci de remplir tous les champs.",
       level: "warning",
@@ -92,8 +91,7 @@ router.patch("/form_edit_parameters/password/:id", (req, res, next) => {
         user.password // password stocké en bdd (encrypté)
       ); // compareSync retourne true || false
 
-      if (oldPasswordchecked  === false) {
-        console.log("ton mot de passe est incorrect")
+      if (oldPasswordchecked === false) {
         return res.status(422).json({
           msg: "Mot de passe incorrect.",
           level: "warning",
@@ -106,20 +104,19 @@ router.patch("/form_edit_parameters/password/:id", (req, res, next) => {
         user.password = hashed; // on remplace le mot de passe "en clair" par le hash
         user.save(); // et enfin on update le document user récupéré de la bdd avec les nouvelles infos
         // res.json(user);
-        console.log("youpi mot de passe changé")
       }
     })
     .catch(next);
 });
 
 
-//Demande d'ami
+// //Demande d'ami
 router.patch("/:id", async (req, res, next) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       req.params.id,
       req.body, {
-        new: true
+        new: true // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
       }
     );
     res.json(updatedUser);
@@ -128,9 +125,34 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
+//Demande d'ami
+// router.patch("/:id", async (req, res, next) => {
+//   try {
+//     const userIsFriend = await UserModel.findOne({
+//      friends:[ {_id : req.params.id}]
+//     } );
+//     if( userIsFriend){
+//       return res.status(422).json({
+//         msg: "Désolée, vous êtes deja ami avec cette personne",
+//         level: "warning",
+//       })
+//     }
+
+//     const updatedUser = await UserModel.findByIdAndUpdate(
+//       req.params.id,
+//       req.body, {
+//         new: true
+//       }
+//     );
+//     res.json(updatedUser);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
 //Ajout de l'avatar
 router.patch(
-  "/form_edit_profil/:id/avatar",
+  "/formEditProfil/:id/avatar",
   uploader.single("avatar"),
   async (req, res, next) => {
     if (!req.file)
@@ -145,7 +167,7 @@ router.patch(
         req.params.id, {
           avatar: req.file.path
         }, {
-          new: true
+          new: true // cette option est requise si vous souhaitez récupérer le document mis à jour, sinon, l'ancienne version est retournée par défaut
         }
       );
       res.json(updatedUser);

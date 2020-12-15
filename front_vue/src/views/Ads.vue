@@ -1,45 +1,61 @@
 <template>
   <main id="main-ads">
     <section>
-    <h1>Annonces</h1>
-          <form class="search">
+      <h1>Annonces</h1>
+      <form class="searchbar">
+        <label class="searchlabel" for="searchbar">
+          <font-awesome-icon icon="search" size="1x" />
+        </label>
         <input
+          id="searchbar"
           type="text"
           class="searchTerm"
           v-model="search"
-          placeholder="Rechercher"
+          placeholder="Rechercher par ville , titre..."
         />
-        <button type="submit" class="searchButton">
-          <font-awesome-icon icon="search" size="1x" />
-        </button>
       </form>
-    <div class="create-ad-link" @click="btnAds">
-      <!-- <router-link :to="'/form_create_ad/'">DEPOSER UNE ANNONCE</router-link> -->
-<button class="btn">DEPOSER UNE ANNONCE</button>
-    </div>
-     
-     <p class="no-result" v-if="filteredAds.length == 0">
+      <div class="create-ad-link" @click="btnAds">
+        <button class="btn">DEPOSER UNE ANNONCE</button>
+      </div>
+
+      <p class="no-result" v-if="filteredAds.length == 0">
         Il n'y a pas d'annonce, soyez le premier à en créer une !
       </p>
-    <ul class="ads">
-      <li class="ad" v-for="(ad, i) in filteredAds" :key="i">
-        <figure>
-          <img :src="ad.provider.avatar" alt="user picture" />
-        </figure>
-        
-        <h2>{{ad.title}}</h2>
-        <h3>{{ad.provider.username}}, annonce postée le {{ad.release_date | moment("DD/MM/YYYY") }}</h3>
-        <p>{{ad.provider.children.length}} enfant<span v-if="ad.provider.children.length > 1">s</span></p>
-        <p class="location">
-          <span class="icon">
-            <font-awesome-icon id="location" icon="map-marker-alt" size="1x" />
-          </span>
-          {{ad.provider.adress.city}}
-        </p>
-        <p>Besoin d'un babysitting le {{ad.date | moment("DD/MM/YYYY")}} de {{ad.starts_at}} à {{ad.ends_at}}</p>
-        <router-link :to="'/ads/' + ad._id">EN SAVOIR PLUS</router-link>
-      </li>
-    </ul></section>
+      <ul class="ads">
+        <li class="ad" v-for="(ad, i) in filteredAds" :key="i">
+          <figure>
+            <img :src="ad.provider.avatar" alt="user picture" />
+          </figure>
+
+          <h2>{{ ad.title }}</h2>
+          <h3>
+            {{ ad.provider.username }}, annonce postée le
+            {{ ad.release_date | moment("DD/MM/YYYY") }}
+          </h3>
+          <!-- <p>
+            {{ ad.provider.children.length }} enfant<span
+              v-if="ad.provider.children.length > 1"
+              >s</span
+            >
+          </p> -->
+          <p class="location">
+            <span class="icon">
+              <font-awesome-icon
+                id="location"
+                icon="map-marker-alt"
+                size="1x"
+              />
+            </span>
+            {{ ad.provider.adress.city }}
+          </p>
+          <p>
+            Besoin d'un babysitting le {{ ad.date | moment("DD/MM/YYYY") }} de
+            {{ ad.starts_at }} à {{ ad.ends_at }}
+          </p>
+          <router-link :to="'/ads/' + ad._id">EN SAVOIR PLUS</router-link>
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
@@ -50,7 +66,7 @@ export default {
   data() {
     return {
       ads: [],
-      search: "",
+      search: ""
     };
   },
   methods: {
@@ -59,19 +75,11 @@ export default {
       this.ads = apiRes.data;
       console.log(apiRes);
     },
-     btnAds(){
-     if(this.currentUser.children.length == 0){
-        this.flashMessage.error({
-          title: "Warning",
-          message: "Merci de bien vouloir ajouter un enfant à votre profil avant de poster une annonce !",
-          time: 5000
-        });
-     }else{
-       this.$router.push('/form_create_ad/');
-     }
+    btnAds() {
+        this.$router.push("/formCreateAd/");
     }
   },
-   computed: {
+  computed: {
     // intéret de stocker les données dans computed plutôt que dans data
     //  quand elles changent, elle cause un re-render du composant ... ce qui permet de mettre à  jour la vue sans forceUpdate()
     // https://vuejs.org/v2/guide/computed.html
@@ -80,115 +88,117 @@ export default {
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     },
     filteredAds() {
-  return this.ads.filter(ad => {
-    if(ad.provider._id != this.currentUser._id){
-        return (
-          //Replace remplace les caracteres speciaux
+      return this.ads.filter(ad => {
+        if (ad.provider._id != this.currentUser._id && ad.is_active === true) {
+          return (
+            //Replace remplace les caracteres speciaux
 
-          ad.provider.adress.city
-            .toLowerCase()
-            .replace("à", "a")
-            .replace("â", "a")
-            .replace("ä", "a")
-            .replace("é", "e")
-            .replace("è", "e")
-            .replace("ê", "e")
-            .replace("ë", "e")
-            .replace("î", "i")
-            .replace("ï", "i")
-            .replace("ö", "o")
-            .replace("ô", "o")
-            .replace("û", "u")
-            .replace("ü", "u")
-            .replace("-", "")
-            .includes(
-              this.search
-                .toLowerCase()
-                .replace("à", "a")
-                .replace("â", "a")
-                .replace("ä", "a")
-                .replace("é", "e")
-                .replace("è", "e")
-                .replace("ê", "e")
-                .replace("ë", "e")
-                .replace("î", "i")
-                .replace("ï", "i")
-                .replace("ö", "o")
-                .replace("ô", "o")
-                .replace("û", "u")
-                .replace("ü", "u")
-                .replace("-", "")
-            ) ||
-          ad.provider.adress.street
-            .toLowerCase()
-            .replace("à", "a")
-            .replace("â", "a")
-            .replace("ä", "a")
-            .replace("é", "e")
-            .replace("è", "e")
-            .replace("ê", "e")
-            .replace("ë", "e")
-            .replace("î", "i")
-            .replace("ï", "i")
-            .replace("ö", "o")
-            .replace("ô", "o")
-            .replace("û", "u")
-            .replace("ü", "u")
-            .replace("-", "")
-            .includes(
-              this.search
-                .toLowerCase()
-                .replace("à", "a")
-                .replace("â", "a")
-                .replace("ä", "a")
-                .replace("é", "e")
-                .replace("è", "e")
-                .replace("ê", "e")
-                .replace("ë", "e")
-                .replace("î", "i")
-                .replace("ï", "i")
-                .replace("ö", "o")
-                .replace("ô", "o")
-                .replace("û", "u")
-                .replace("ü", "u")
-                .replace("-", "")
-            ) ||
-          ad.title
-            .toLowerCase()
-            .replace("à", "a")
-            .replace("â", "a")
-            .replace("ä", "a")
-            .replace("é", "e")
-            .replace("è", "e")
-            .replace("ê", "e")
-            .replace("ë", "e")
-            .replace("î", "i")
-            .replace("ï", "i")
-            .replace("ö", "o")
-            .replace("ô", "o")
-            .replace("û", "u")
-            .replace("ü", "u")
-            .replace("-", "")
-            .includes(
-              this.search
-                .toLowerCase()
-                .replace("à", "a")
-                .replace("â", "a")
-                .replace("ä", "a")
-                .replace("é", "e")
-                .replace("è", "e")
-                .replace("ê", "e")
-                .replace("ë", "e")
-                .replace("î", "i")
-                .replace("ï", "i")
-                .replace("ö", "o")
-                .replace("ô", "o")
-                .replace("û", "u")
-                .replace("ü", "u")
-                .replace("-", "")
-            )
-        );}
-      });}
+            ad.provider.adress.city
+              .toLowerCase()
+              .replace("à", "a")
+              .replace("â", "a")
+              .replace("ä", "a")
+              .replace("é", "e")
+              .replace("è", "e")
+              .replace("ê", "e")
+              .replace("ë", "e")
+              .replace("î", "i")
+              .replace("ï", "i")
+              .replace("ö", "o")
+              .replace("ô", "o")
+              .replace("û", "u")
+              .replace("ü", "u")
+              .replace("-", "")
+              .includes(
+                this.search
+                  .toLowerCase()
+                  .replace("à", "a")
+                  .replace("â", "a")
+                  .replace("ä", "a")
+                  .replace("é", "e")
+                  .replace("è", "e")
+                  .replace("ê", "e")
+                  .replace("ë", "e")
+                  .replace("î", "i")
+                  .replace("ï", "i")
+                  .replace("ö", "o")
+                  .replace("ô", "o")
+                  .replace("û", "u")
+                  .replace("ü", "u")
+                  .replace("-", "")
+              ) ||
+            ad.provider.adress.street
+              .toLowerCase()
+              .replace("à", "a")
+              .replace("â", "a")
+              .replace("ä", "a")
+              .replace("é", "e")
+              .replace("è", "e")
+              .replace("ê", "e")
+              .replace("ë", "e")
+              .replace("î", "i")
+              .replace("ï", "i")
+              .replace("ö", "o")
+              .replace("ô", "o")
+              .replace("û", "u")
+              .replace("ü", "u")
+              .replace("-", "")
+              .includes(
+                this.search
+                  .toLowerCase()
+                  .replace("à", "a")
+                  .replace("â", "a")
+                  .replace("ä", "a")
+                  .replace("é", "e")
+                  .replace("è", "e")
+                  .replace("ê", "e")
+                  .replace("ë", "e")
+                  .replace("î", "i")
+                  .replace("ï", "i")
+                  .replace("ö", "o")
+                  .replace("ô", "o")
+                  .replace("û", "u")
+                  .replace("ü", "u")
+                  .replace("-", "")
+              ) ||
+            ad.title
+              .toLowerCase()
+              .replace("à", "a")
+              .replace("â", "a")
+              .replace("ä", "a")
+              .replace("é", "e")
+              .replace("è", "e")
+              .replace("ê", "e")
+              .replace("ë", "e")
+              .replace("î", "i")
+              .replace("ï", "i")
+              .replace("ö", "o")
+              .replace("ô", "o")
+              .replace("û", "u")
+              .replace("ü", "u")
+              .replace("-", "")
+              .includes(
+                this.search
+                  .toLowerCase()
+                  .replace("à", "a")
+                  .replace("â", "a")
+                  .replace("ä", "a")
+                  .replace("é", "e")
+                  .replace("è", "e")
+                  .replace("ê", "e")
+                  .replace("ë", "e")
+                  .replace("î", "i")
+                  .replace("ï", "i")
+                  .replace("ö", "o")
+                  .replace("ô", "o")
+                  .replace("û", "u")
+                  .replace("ü", "u")
+                  .replace("-", "")
+              )
+          );
+        }
+      });
+    }
   },
   created() {
     try {
@@ -201,11 +211,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#main-ads h1 {
+  margin: inherit;
+   background: rgb(0, 173, 191);
+  // background: url("./../assets/hannah-busing-Zyx1bK9mqmA-unsplash.jpg");
+  background-size: 100%;
+  width: 100%;
+  height: 100px;
+  padding-bottom: 150px;
+  padding-top: 150px;
+  color: whitesmoke;
+}
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 90px;
+  background: rgb(217, 74, 100);
+  height: 80px;
+  width: 100%;
+}
+.searchlabel {
+  background: whitesmoke;
+  padding: 13px;
+}
+.searchTerm {
+  border: none;
+  font-size: 16px;
+  height: 44px;
+  outline: none;
+  background: whitesmoke;
+  width: 280px;
+}
+.searchTerm::placeholder {
+  font-size: 16px;
+}
 .create-ad-link {
   text-align: center;
 }
-a,.btn {
-  background: rgb(217,74,100);
+a,
+.btn {
+  background: rgb(217, 74, 100);
   border: 3px solid white;
   color: whitesmoke;
   font-size: 16px;
@@ -217,7 +265,8 @@ a,.btn {
   text-align: center;
   text-decoration: none;
 }
-.btn:hover,a:hover {
+.btn:hover,
+a:hover {
   background: black;
   color: whitesmoke;
   transition: 2s;
@@ -229,12 +278,12 @@ a,.btn {
   align-items: center;
   justify-content: space-around;
 }
-.no-result{
- margin: auto;
- text-align: center;
+.no-result {
+  margin: auto;
+  text-align: center;
   height: 150px;
   width: 320px;
- background: rgb(217,74,100);
+  background: rgb(217, 74, 100);
   color: whitesmoke;
   padding: 50px 15px;
   box-shadow: 0px 14px 28px black;
@@ -245,13 +294,15 @@ a,.btn {
   flex-wrap: wrap;
   height: auto;
   width: 320px;
-  background: rgb(0,173,191);
+  background: rgb(0, 173, 191);
   color: whitesmoke;
   justify-content: space-around;
   align-items: center;
   padding: 15px;
   text-align: center;
   box-shadow: 0px 14px 28px black;
+
+
 }
 .ad > figure {
   border: solid 5px whitesmoke;
@@ -269,6 +320,9 @@ a,.btn {
 .ad > h2 {
   margin: 15px 0;
   text-transform: uppercase;
+text-overflow: ellipsis;
+width: 250px;
+overflow: hidden;
 }
 .ad > p {
   margin: 5px 0;
@@ -291,11 +345,14 @@ a,.btn {
     margin: 50px 0 100px;
   }
   #main-ads {
-    margin: 100px 0 0;
-    padding: 50px;
+    margin: 90px 0 0;
+    padding-bottom: 50px;
   }
   .ad {
     margin: 0 35px 35px;
+  }
+  ul {
+    padding: 0 50px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -304,7 +361,7 @@ a,.btn {
     text-align: center;
   }
   #main-ads {
-    margin: 100px 0 50px;
+    margin: 90px 0 50px;
   }
   .ad {
     margin: 0 0 15px;

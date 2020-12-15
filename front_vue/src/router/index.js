@@ -103,13 +103,13 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "message" */
+        /* webpackChunkName: "Message" */
         "../views/dashboard/Message.vue"
       )
   },
   {
-    path: "/manage_user",
-    name: "Manage_user",
+    path: "/manageUser",
+    name: "ManageUser",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -118,8 +118,8 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "Manage_user" */
-        "../views/dashboard/Manage_user.vue"
+        /* webpackChunkName: "ManageUser" */
+        "../views/dashboard/ManageUser.vue"
       )
   },
   {
@@ -177,8 +177,8 @@ const routes = [
       )
   },
   {
-    path: "/edit_user/:id",
-    name: "Edit_user",
+    path: "/editUser/:id",
+    name: "EditUser",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -187,8 +187,8 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "edit_user" */
-        "../views/dashboard/Edit_user.vue"
+        /* webpackChunkName: "editUser" */
+        "../views/dashboard/EditUser.vue"
       )
   },
   {
@@ -222,8 +222,8 @@ const routes = [
       )
   },
   {
-    path: "/manage_ads",
-    name: "Manage_ads",
+    path: "/manageAds",
+    name: "ManageAds",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -232,13 +232,13 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "manage_ad" */
-        "../views/dashboard/Manage_ads.vue"
+        /* webpackChunkName: "manageAds" */
+        "../views/dashboard/ManageAds.vue"
       )
   },
   {
-    path: "/manage_ad/user_ads/:id",
-    name: "Manage_ad",
+    path: "/manageAd/userAds/:id",
+    name: "ManageAd",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -247,13 +247,13 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "manage_ad" */
-        "../views/dashboard/Manage_ad.vue"
+        /* webpackChunkName: "manageAd" */
+        "../views/dashboard/ManageAd.vue"
       )
   },
   {
-    path: "/form_create_ad",
-    name: "Form_create_ad",
+    path: "/formCreateAd",
+    name: "FormCreateAd",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -262,13 +262,13 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "form_create_ad" */
-        "../views/dashboard/Form_create_ad.vue"
+        /* webpackChunkName: "formCreateAd" */
+        "../views/dashboard/FormCreateAd.vue"
       )
   },
   {
-    path: "/form_edit_ad/:id",
-    name: "Form_edit_ad",
+    path: "/formEditAd/:id",
+    name: "FormEditAd",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -277,8 +277,23 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "form_edit_ad" */
-        "../views/dashboard/Form_edit_ad.vue"
+        /* webpackChunkName: "formEditAd" */
+        "../views/dashboard/FormEditAd.vue"
+      )
+  },
+  {
+    path: "/formEditAdUsers/:id",
+    name: "FormEditAdUsers",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "formEditAdUsers" */
+        "../views/dashboard/FormEditAdUsers.vue"
       )
   },
   {
@@ -297,8 +312,8 @@ const routes = [
       )
   },
   {
-    path: "/form_edit_profil/:id",
-    name: "Form_edit_profil",
+    path: "/formEditProfil/:id",
+    name: "FormEditProfil",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -307,13 +322,13 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "form edit profil" */
-        "../views/dashboard/Form_edit_profil.vue"
+        /* webpackChunkName: "formEditProfil" */
+        "../views/dashboard/FormEditProfil.vue"
       )
   },
   {
-    path: "/form_edit_parameters/:id",
-    name: "Form_edit_parameters",
+    path: "/formEditAvatar/:id",
+    name: "FormEditAvatar",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/signin");
@@ -322,17 +337,41 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "form edit profil" */
-        "../views/dashboard/Form_edit_parameters.vue"
+        /* webpackChunkName: "formEditAvatar" */
+        "../views/dashboard/FormEditAvatar.vue"
       )
   },
   {
-    path: "/mentions_legales",
-    name: "Mentions_légales",
+    path: "/formEditParameters/:id",
+    name: "FormEditParameters",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/signin");
+      // un utilisateur non connecté sera redirigé vers le signin...
+      else next();
+    },
     component: () =>
       import(
-        /* webpackChunkName: "mentions_legales" */
+        /* webpackChunkName: "formEditProfil" */
+        "../views/dashboard/FormEditParameters.vue"
+      )
+  },
+  {
+    path: "/mentionsLegales",
+    name: "MentionsLégales",
+    component: () =>
+      import(
+        /* webpackChunkName: "mentionsLegales" */
         "../views/MentionsLegales.vue"
+      )
+  },
+  {
+    path: "/planDuSite",
+    name: "PlanDuSite",
+    component: () =>
+      import(
+        /* webpackChunkName: "mentionsLegales" */
+        "../views/PlanDuSite.vue"
       )
   },
   {

@@ -1,22 +1,11 @@
 <template>
   <footer>
-    <div>
-      <h3 role="heading">Informations</h3>
-      <ul role="list" class="fat">
-        <!-- <li role="listitem">
-                        <a role="link" class="fft" to="/tutoriel">Tutoriel</a>
-        </li>-->
-        <li>
-          <router-link to="/contact">Contact</router-link>
-        </li>
-      </ul>
-    </div>
-    <div>
+     <div>
       <h3 role="heading">Aide</h3>
       <ul role="list" class="fat">
         <li role="listitem">
-          <router-link to="/mentions_legales"
-            >Mentions l&eacute;gales</router-link
+          <router-link to="/mentionsLegales"
+            >CGU</router-link
           >
         </li>
         <!-- <li role="listitem"><a role="link" class="fft" to="">Donn&eacute;es personnelles</a></li>
@@ -24,6 +13,19 @@
         <li role="listitem"><a role="link" class="fft" to="">CGU</a></li>-->
       </ul>
     </div>
+    <div>
+      <h3 role="heading">Informations</h3>
+      <ul role="list" class="fat">
+        
+        <li>
+          <router-link to="/contact">Contact</router-link>
+        </li>
+        <li role="listitem">
+                <router-link to="/planDuSite">Plan du site</router-link>
+        </li>
+      </ul>
+    </div>
+   
     <div>
       <h3 role="heading">Be Social</h3>
       <div class="rs">

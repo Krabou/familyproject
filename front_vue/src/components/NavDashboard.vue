@@ -2,13 +2,13 @@
     <nav class="nav-dash">
     <ul class="dash-link-list">
       <li><router-link v-if="currentUser" :to="'/profil/' + currentUser._id">Profil</router-link></li>
-      <li><router-link v-if="currentUser" :to="'/manage_ad/user_ads/' + currentUser._id">Mes annonces</router-link></li>
-      <li><router-link v-if="currentUser " :to="'/form_edit_profil/' + currentUser._id">Profil</router-link></li>
+      <li><router-link v-if="currentUser" :to="'/manageAd/userAds/' + currentUser._id">Mes annonces</router-link></li>
+      <li><router-link v-if="currentUser " :to="'/formEditProfil/' + currentUser._id">Profil</router-link></li>
       <li><router-link v-if="currentUser" :to="'/kids'">Mes enfants</router-link></li>
       <li><router-link v-if="currentUser" :to="'/friends/' + currentUser._id">Amis</router-link></li>
-       <li><router-link v-if="currentUser" :to="'/form_edit_profil/' + currentUser._id">Paramètres</router-link></li>
-      <li><router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manage_ads/'">Annonces</router-link></li>
-      <li><router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manage_user'">Utilisateurs</router-link></li>
+       <li><router-link v-if="currentUser" :to="'/formEditProfil/' + currentUser._id">Paramètres</router-link></li>
+      <li><router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manageAds/'">Annonces</router-link></li>
+      <li><router-link v-if="currentUser && currentUser.role === 'admin'" :to="'/manageUser'">Utilisateurs</router-link></li>
     </ul>
    </nav>
 </template>

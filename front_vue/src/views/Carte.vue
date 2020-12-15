@@ -52,8 +52,7 @@
               class="user-plus"
               @click="
                 userRequest(currentUser._id, user._id),
-                  requestReceived(user._id, currentUser._id),
-                  change()
+                  requestReceived(user._id, currentUser._id)
               "
             >
               <font-awesome-icon
@@ -63,14 +62,14 @@
                 size="2x"
               />
             </span>
-            <span @click="change()">
-              <font-awesome-icon
+            <!-- <span @click="change()"> -->
+            <!-- <font-awesome-icon
                 v-if="minusUser"
                 id="add"
                 icon="user-times"
                 size="2x"
               />
-            </span>
+            </span> -->
           </div>
           <div v-for="(friend, i) in currentUser.friends" :key="i">
             <span
@@ -78,8 +77,7 @@
               class="user-plus"
               @click="
                 userRequest(currentUser._id, user._id),
-                  requestReceived(user._id, currentUser._id),
-                  change()
+                  requestReceived(user._id, currentUser._id)
               "
             >
               <font-awesome-icon
@@ -89,14 +87,14 @@
                 size="2x"
               />
             </span>
-            <span @click="change()" v-if="friend._id != user._id">
+            <!-- <span @click="change()" v-if="friend._id != user._id">
               <font-awesome-icon
                 v-if="minusUser"
                 id="add"
                 icon="user-times"
                 size="2x"
               />
-            </span>
+            </span> -->
             <span v-else>
               <router-link :to="'/message/' + user._id">
                 <font-awesome-icon
@@ -133,15 +131,8 @@ export default {
     };
   },
   methods: {
-    change() {
-      (this.addUser = !this.addUser), (this.minusUser = !this.minusUser);
-    },
-    //Afficher tout les utilisateurs
-    // async getUsers() {
-    //   const apiRes = await axios.get(
-    //     process.env.VUE_APP_BACKEND_URL + "/users/"
-    //   );
-    //   this.users = apiRes.data;
+    // change() {
+    //   (this.addUser = !this.addUser), (this.minusUser = !this.minusUser);
     // },
 
     //Demande d'ami
@@ -162,6 +153,11 @@ export default {
           process.env.VUE_APP_BACKEND_URL + "/users/" + userId,
           { $push: { friend_requests_received: currentUserId } }
         );
+        this.flashMessage.success({
+          title: "Success",
+          message: "Votre demande a bien été envoyé !",
+          time: 5000
+        });
         console.log(apiRes);
       } catch (Err) {
         console.error(Err);
@@ -171,11 +167,6 @@ export default {
 
   created() {
     this.$store.dispatch("user/getAll");
-    // try {
-    //   this.getUsers();
-    // } catch (err) {
-    //   console.error(err);
-    // }
   },
   computed: {
     //Barre de recherche
@@ -184,7 +175,7 @@ export default {
         if (user._id != this.currentUser._id) {
           return (
             //Replace remplace les caracteres speciaux
-
+            // mettre code postale
             user.adress.city
               .toLowerCase()
               .replace("à", "a")
@@ -375,6 +366,9 @@ a {
 
 h2 {
   margin-bottom: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 200px;
 }
 
 .no-result {

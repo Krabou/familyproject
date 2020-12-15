@@ -49,7 +49,7 @@ export default {
       const { child_gender, child_firstname, child_birthdate } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/edit_user/" + id,
+          process.env.VUE_APP_BACKEND_URL + "/users/editUser/" + id,
           {
             $push: {
               children: { child_gender, child_firstname, child_birthdate }

@@ -17,7 +17,10 @@ const adSchema = new Schema({
     date: Date,
     starts_at: String,
     ends_at: String,
-    is_active: Boolean,
+    is_active: {
+        type: Boolean,
+        default: true
+    },
     title: String,
     description: String,
     messages: [{

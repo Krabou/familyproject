@@ -34,6 +34,8 @@ app.use(
   })
 );
 
+
+
 app.get("/", (req, res) => res.send("hello :) my api is working"));
 
 app.use("/ads", require("./routes/ads"));

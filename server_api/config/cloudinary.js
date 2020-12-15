@@ -8,7 +8,7 @@ const multer = require('multer');
 const app = express();
 
 cloudinary.config({
-  cloud_name : process.env.CLOUDINARY_NAME,
+  cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
@@ -18,5 +18,7 @@ const storage = new CloudinaryStorage({
   folder: 'familyProjectPicture',
 });
 
-const fileUploader = multer({ storage });
+const fileUploader = multer({
+  storage
+});
 module.exports = fileUploader;

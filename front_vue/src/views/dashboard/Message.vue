@@ -1,16 +1,18 @@
 <template>
-  <main id="message">
-    <h1>Message</h1>
+  <main class="main-form">
+ 
     <!-- <FormCreateMessage class="formMessage" :receiver="ad.provider._id" /> -->
     <FormCreateMessage
       class="formMessage"
-      :receiver="user._id" :title="ad.title"
+      :receiver="user._id" 
+      :id_ad="id_ad"
     />
     
   </main>
 </template>
 
 <script>
+//mettre computed
 import axios from "axios";
 import FormCreateMessage from "@/components/messages/FormCreateMessage";
 export default {
@@ -19,6 +21,7 @@ export default {
   },
   data() {
     return {
+      id_ad:"",
       user:{},
       ad: {
         provider: {
@@ -30,7 +33,7 @@ export default {
   },
 
   methods: {
-    //Afficher toutes les annonces
+    // Afficher toutes les annonces
     // async getAd(id) {
     //   const apiRes = await axios.get(
     //     process.env.VUE_APP_BACKEND_URL + "/ads/" + id
@@ -46,6 +49,8 @@ export default {
   },
   mounted() {
     // this.adId = this.$route.params.id;
+    this.id_ad = this.$route.query.id_ad
+    console.log("ici quest ce quon a",this.id_ad)
     try {
       this.getUser()
       // this.getAd(this.adId);
@@ -57,37 +62,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// body {
-//   font: 13px Helvetica, Arial;
-// }
-// form {
-//   background: #000;
-//   padding: 3px;
-//   position: fixed;
-//   bottom: 0;
-//   width: 100%;
-// }
-// form input {
-//   border: 0;
-//   padding: 10px;
-//   width: 90%;
-//   margin-right: 0.5%;
-// }
-// form button {
-//   width: 9%;
-//   background: rgb(130, 224, 255);
-//   border: none;
-//   padding: 10px;
-// }
-// #messages {
-//   list-style-type: none;
-//   margin: 0;
-//   padding: 0;
-// }
-// #messages li {
-//   padding: 5px 10px;
-// }
-// #messages li:nth-child(odd) {
-//   background: #eee;
-// }
+.main-form {
+  margin: 100px 0 0;
+}
+@media screen and (min-width: 769px) {
+
+  .main-form {
+    margin: 100px 0 0;
+    padding: 50px;
+    background: rgba(255, 255, 255, 1);
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgb(217, 74, 100) 100%
+    );
+  }
+}
+@media screen and (max-width: 768px) {
+
+  .main-form {
+    margin: 100px 0 0;
+  }
+}
 </style>

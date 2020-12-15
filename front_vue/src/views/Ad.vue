@@ -22,7 +22,7 @@
         </section>
         <section class="message">
           <span>
-            <router-link class="link-message" :to="'/message/' + ad.provider._id" :receiver="ad.provider._id" :title="ad.title">
+            <router-link class="link-message" :to="'/message/' + ad.provider._id+`?id_ad=${ad._id}`" :receiver="ad.provider._id" :title="ad.title">
               <font-awesome-icon id="add" icon="envelope" size="1x"  />
               MESSAGE
             </router-link>
@@ -33,7 +33,7 @@
       <section class="information">
         <h1>{{ ad.title }}</h1>
         <p>Annonce crée le {{ ad.release_date | moment("DD/MM/YYYY") }}</p>
-        <article>
+        <!-- <article>
           <h2>
             Enfant<span v-if="ad.provider.children.length > 1">s</span>
           </h2>
@@ -46,7 +46,7 @@
               <span>{{ child.child_birthday }}</span></span
             >
           </p>
-        </article>
+        </article> -->
         <article>
           <h2>Description</h2>
           <p>
@@ -160,6 +160,7 @@ h1 {
 h2,
 p {
   margin-bottom: 30px;
+  
 }
 .formMessage{
   display: flex;
@@ -207,11 +208,11 @@ p {
   .link-message{
     margin-right: 50px;
   }
-  // .message {
-  //   width: 40%;
-  // }
+
   .information {
     padding: 50px;
+    display: flex;
+    flex-direction: column;
   }
 }
 @media screen and (max-width: 1023px) {
@@ -241,9 +242,6 @@ p {
     border-radius: 50%;
     overflow: hidden;
   }
-  // .message {
-  //   width: 100%;
-  // }
   .information {
     padding: 30px;
   }

@@ -11,9 +11,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
-import { faUserEdit} from '@fortawesome/free-solid-svg-icons';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUserTimes } from "@fortawesome/free-solid-svg-icons";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faFacebookSquare);
 library.add(faLinkedin);
@@ -42,12 +43,13 @@ library.add(faSignOutAlt);
 library.add(faEnvelope);
 library.add(faUserTimes);
 library.add(faFlag);
+library.add(faWindowClose);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 //_____________________________________________________
 
- //VUE MOMENT
+//VUE MOMENT
 Vue.use(require('vue-moment'));
 //_______________________________________________
 //GOOGLE MAPS
@@ -60,17 +62,17 @@ Vue.use(VueGoogleMaps, {
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
- 
+
     //// If you want to set the version, you can do so:
     // v: '3.26',
   },
- 
+
   //// If you intend to programmatically custom event listener code
   //// (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
   //// instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
   //// you might need to turn this on.
   // autobindAllEvents: false,
- 
+
   //// If you want to manually install components, e.g.
   //// import {GmapMarker} from 'vue2-google-maps/src/components/marker'
   //// Vue.component('GmapMarker', GmapMarker)
@@ -81,7 +83,7 @@ Vue.use(VueGoogleMaps, {
 //SocketIO
 
 // import VueSocketIO from 'vue-socket.io'
- 
+
 // Vue.use(new VueSocketIO({
 //     debug: true,
 //     connection: 'http://metinseylan.com:1992',
@@ -108,5 +110,5 @@ new Vue({
   template: '<App/>',
   router,
   store,
-       render: h => h(App)
-  }).$mount("#app");
+  render: h => h(App)
+}).$mount("#app");

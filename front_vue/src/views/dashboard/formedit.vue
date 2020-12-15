@@ -45,7 +45,7 @@ export default {
     async patchAd(id) {
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/ads/form_edit_ad/" + id,
+          process.env.VUE_APP_BACKEND_URL + "/ads/formEditAd/" + id,
           { ...this.ad }
         );
         console.log(apiRes);

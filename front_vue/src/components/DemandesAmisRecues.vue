@@ -1,61 +1,39 @@
 <template>
   <div>
     <h2>Demandes Amis Recues</h2>
-      <h2>Demandes d'Amis Envoyées</h2>
     <ul class="friends-list" v-if="currentUser">
-        <li v-for="(request, i) in currentUser.friend_requests_received" :key="i">
-        <figure><img :src="request.avatar" alt="avatar"></figure>
+      <li v-if="currentUser.friend_requests_received == 0">
+        Aucune demande d'ami reçu pour le moment
+      </li>
+      <li v-for="(request, i) in currentUser.friend_requests_received" :key="i">
+        <figure><img :src="request.avatar" alt="avatar" /></figure>
         <article>
           <h3>{{ request.username }}</h3>
-          <form> <button
-          class="btn"
-          @click.prevent="
-            addUserInFriend(currentUser._id, request._id),
-              addCurrentUserInFriend(request._id, currentUser._id),
-              deleteUserRequest(currentUser._id, request._id),
-              deleteRequestReceived(request._id, currentUser._id)
-          "
-        >
-          Accepter
-        </button>
-        <button
-          class="btn"
-          @click.prevent="
-            deleteUserRequest(currentUser._id, request._id),
-              deleteRequestReceived(request._id, currentUser._id)
-          "
-        >
-          Refuser
-        </button></form>  
+          <form>
+            <button
+              class="btn"
+              @click.prevent="
+                addUserInFriend(currentUser._id, request._id),
+                  addCurrentUserInFriend(request._id, currentUser._id),
+                  deleteUserRequest(currentUser._id, request._id),
+                  deleteRequestReceived(request._id, currentUser._id)
+              "
+            >
+              Accepter
+            </button>
+            <button
+              class="btn"
+              @click.prevent="
+                deleteUserRequest(currentUser._id, request._id),
+                  deleteRequestReceived(request._id, currentUser._id)
+              "
+            >
+              Refuser
+            </button>
+          </form>
         </article>
       </li>
     </ul>
-    <!-- <ul v-if="currentUser">
-      <li v-for="(request, i) in currentUser.demande_ami_recues" :key="i">
-        <figure><img :src="request.avatar" alt="avatar" /></figure>
-        <span>{{ request.username }}</span>
-        <button
-          class="btn"
-          @click.prevent="
-            addUserInFriend(currentUser._id, request._id),
-              addCurrentUserInFriend(request._id, currentUser._id),
-              deleteUserRequest(currentUser._id, request._id),
-              deleteRequestReceived(request._id, currentUser._id)
-          "
-        >
-          Accepter
-        </button>
-        <button
-          class="btn"
-          @click.prevent="
-            deleteUserRequest(currentUser._id, request._id),
-              deleteRequestReceived(request._id, currentUser._id)
-          "
-        >
-          Refuser
-        </button>
-      </li>
-    </ul> -->
   </div>
 </template>
 
@@ -127,39 +105,98 @@ export default {
 
 <style lang="scss" scoped>
 
-/* friend List */
-.friends-list{
+.btn {
+  background: rgb(217, 74, 100);
+  border: 3px solid white;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  letter-spacing: 1px;
+  margin: 30px 0 15px;
+  outline: 1px solid black;
+  width: 125px;
+}
+.btn:hover {
+  background: black;
+  transition: 2s;
+}
+
+div {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.friends-list li{
-  background: blue;
+h2 {
+  margin: 50px auto;
+  font-size: 25px;
+}
+
+.friends-list {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100%;
 }
-.friends-list li figure{
+
+.friends-list li figure {
   width: 60px;
   height: 60%;
   border-radius: 50%;
   overflow: hidden;
-  border: whitesmoke 5px solid;
+  border: black 5px solid;
   margin: 15px;
 }
-.friends-list li figure img{
+.friends-list li figure img {
   max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
 }
-.friends-list li article{
+
+
+.btn:first-of-type {
+  margin-right: 15px;
+}
+
+@media screen and (min-width: 769px) {
+ .friends-list li {
+  display: flex;
+  flex-direction: row
+
+  }
+  .friends-list li article {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
 }
-.friends-list li article form{
+.friends-list li article form {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
-.btn:first-of-type{
-  margin-right: 15px;
+}
+@media screen and (max-width: 768px) {
+ .friends-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  .friends-list li article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+.friends-list li article form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
 }
 </style>

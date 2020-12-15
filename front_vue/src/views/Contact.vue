@@ -102,6 +102,9 @@ export default {
 }
 .main-form p {
   margin-bottom: 30px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
 }
 .label {
   color: black;
@@ -163,8 +166,6 @@ export default {
       rgba(255, 255, 255, 1) 0%,
       rgb(217, 74, 100) 100%
     );
-    //              background: rgb(217,74,100);
-    // background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
   }
 }
 @media screen and (max-width: 768px) {

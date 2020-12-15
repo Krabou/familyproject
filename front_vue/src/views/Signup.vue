@@ -4,9 +4,6 @@
       <!-- @submit.prevent: c'est un raccourci de vue qui permet d'empecher le rafraichissement de la page -->
       <form class="form" @submit.prevent="signup">
         <h1>
-          <!-- <span>
-            <router-link to="/signin">J'AI UN COMPTE</router-link> |
-          </span> -->
           CR&Eacute;ER UN COMPTE
         </h1>
         <label class="label" for="gender">Civilité</label>
@@ -84,8 +81,11 @@
           id="password"
           v-model="user.password"
         />
-        <!-- <label class="label" for="avatar"><font-awesome-icon icon="camera" size="2x" /></label>
-        <input class="hidden" type="file" :v-model="user.avatar" id="avatar">-->
+        <div class="cgu">
+        <input checked id="checkbox" type="checkbox" v-model="user.checkbox" ><label for="checkbox">
+          <router-link to="/mentionsLegales">Conditions générales d'utilisations</router-link>
+        </label>
+        </div>
         <button class="btn">S'INSCRIRE</button>
         <p>
           Avez-vous déjà un compte ?
@@ -97,90 +97,51 @@
 </template>
 
 <script>
-// import axios from "axios";
-// export default {
-//   data() {
-//     return {
-//       last_name: null,
-//       first_name: null,
-//       email: null,
-//       password: null
-//     };
-//   },
-//   methods: {
-//     async subscribe() {
-//       const { last_name, first_name, email, password } = this.$data;
-//       // this.$data représente tout l'objet retourné par la fonction data()
-//       try {
-//         const apiRes = await axios.post(
-//           process.env.VUE_APP_BACKEND_URL + "/auth/inscription",
-//           {
-//             last_name,
-//             first_name,
-//             email,
-//             password
-//           }
-//         );
-//         console.log(apiRes);
-//       } catch (Err) {
-//         console.error(Err);
-//       }
-//     }
-//   }
-// };
-// import Avatar from "@/components/Avatar";
+
 export default {
   data() {
     return {
       user: {
         // définition de valeurs de base pour les tests de dev ("mettre à chaîne vide une fois dev ok")
+        checkbox:"",
         gender: "",
-        username: "Fati",
-        last_name: "Bou",
-        first_name: "Fati",
-        email: "ti@bou.com",
-        password: "12345",
-        birthdate: "07/11/1986",
+        username: "",
+        last_name: "",
+        first_name: "",
+        email: "",
+        password: "",
+        birthdate: "",
         adress: {
-          number: "171",
-          street: "rue henri barbusse",
-          zipCode: "93300",
-          city: "Aubervilliers",
-          country: "France"
+          number: "",
+          street: "",
+          zipCode: "",
+          city: "",
+          country: ""
         }
-        // avatar:null
       }
     };
   },
   methods: {
     signup() {
-      // const fd = new FormData(); // form data nécessaire pour envoyer des fichiers images (files)
-      // fd.append("username", this.user.username);On associe des clés valeur à l'objet fd formdata
-      // fd.append("first_name", this.user.first_name);
-      // fd.append("last_name", this.user.last_name);
-      // fd.append("email", this.user.email);
-      // fd.append("password", this.user.password);
-      // fd.append("birthdate", this.user.birthdate);
-      // fd.append("number", this.user.adress.number);
-      // fd.append("street", this.user.adress.street);
-      // fd.append("zipcode", this.user.adress.zipCode);
-      // fd.append("city", this.user.adress.city);
-      // fd.append("country", this.user.adress.country);
-      // if (this.user.avatar) fd.append("avatar", this.user.avatar);
       if (!this.user.email || !this.user.password) {
         this.flashMessage.error({
           title: "Warning",
           message: "Merci de remplir tout les champs requis * !",
           time: 5000
-        });
-      } else {
-// on utilise la fonction dispatch pour faire reference à une action du store
+        })} 
+        else if(!this.user.checkbox){
+           this.flashMessage.error({
+          title: "Warning",
+          message: "Merci d'accepter les conditions générales !",
+          time: 5000
+        })
+      }
+       else {
+        // on utilise la fonction dispatch pour faire reference à une action du store
         this.$store.dispatch(
           "user/signup",
-          // fd
-
           { ...this.user }
-        ); 
+        );
         this.$router.push("/signin");
       }
     }
@@ -249,6 +210,7 @@ a {
 .btn {
   background: rgb(217, 74, 100);
   border: 3px solid white;
+  cursor: pointer;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -262,6 +224,12 @@ a {
   background: black;
   transition: 2s;
 }
+.cgu{
+  width: 100%;
+}
+.cgu input{
+  margin-right: 15px;
+}
 @media screen and (min-width: 769px) {
   .form {
     box-shadow: 0px 14px 28px black;
@@ -271,17 +239,12 @@ a {
   .main-form {
     margin: 100px 0 0;
     padding: 50px;
-          background: rgb(217,74,100);
-    background: linear-gradient(0deg, rgba(217,74,100,1) 0%, rgba(19,17,17,1) 100%);
     background: rgba(255, 255, 255, 1);
     background: radial-gradient(
       circle,
       rgba(255, 255, 255, 1) 0%,
       rgb(217, 74, 100) 100%
     );
-    // background: url("./../assets/sakura.jpg");
-    // background-size: 100%;
-    // background-attachment: fixed;
   }
 }
 @media screen and (max-width: 768px) {
