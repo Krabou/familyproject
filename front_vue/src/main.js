@@ -6,46 +6,40 @@ import store from "./store";
 import "./axios.config";
 //_____________________________________________________________
 //FONT AWESOME  
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  FontAwesomeIcon
+} from '@fortawesome/vue-fontawesome';
+import {
+  library
+} from '@fortawesome/fontawesome-svg-core';
 
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
-import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faUserTimes } from "@fortawesome/free-solid-svg-icons";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookSquare,
+  faLinkedin,
+  faTwitterSquare
+} from '@fortawesome/free-brands-svg-icons';
 
-library.add(faFacebookSquare);
-library.add(faLinkedin);
-library.add(faTrashAlt);
-library.add(faTwitterSquare);
-library.add(faUserEdit);
-library.add(faBars);
-library.add(faSearch);
-library.add(faCamera);
-library.add(faTimes);
-library.add(faUserPlus);
-library.add(faMapMarkerAlt);
-library.add(faEdit);
-library.add(faSignOutAlt);
-library.add(faEnvelope);
-library.add(faUserTimes);
-library.add(faFlag);
-library.add(faWindowClose);
+import {
+  faTrashAlt,
+  faUserEdit,
+  faBars,
+  faSearch,
+  faCamera,
+  faTimes,
+  faUserPlus,
+  faMapMarkerAlt,
+  faEdit,
+  faSignOutAlt,
+  faEnvelope,
+  faUserTimes,
+  faFlag,
+  faWindowClose
+} from '@fortawesome/free-solid-svg-icons';
+
+library.add(faFacebookSquare, faLinkedin, faTrashAlt, faTwitterSquare, faUserEdit, faBars, faSearch, faCamera, faTimes, faUserPlus, faMapMarkerAlt, faEdit, faSignOutAlt, faEnvelope, faUserTimes, faFlag, faWindowClose);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 
 //_____________________________________________________
 
@@ -106,7 +100,9 @@ Vue.prototype.$ebus = new Vue();
 
 new Vue({
   el: '#app',
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>',
   router,
   store,
